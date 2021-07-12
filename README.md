@@ -2003,37 +2003,6 @@ href="#_Folder_Syntax:"
 title="Shader Animatiopns (YAML) will be placed here. If none such folder is marked, shader animations will be skipped.">Shader
 Animation</a> folder.<b><u style='text-underline:thick'> <o:p></o:p></u></b></p>
 
-<p class=MsoNormal>Example Directory:</p>
-
-<p class=MsoNormal><span style='mso-no-proof:yes'><!--[if gte vml 1]><v:shapetype
- id="_x0000_t75" coordsize="21600,21600" o:spt="75" o:preferrelative="t"
- path="m@4@5l@4@11@9@11@9@5xe" filled="f" stroked="f">
- <v:stroke joinstyle="miter"/>
- <v:formulas>
-  <v:f eqn="if lineDrawn pixelLineWidth 0"/>
-  <v:f eqn="sum @0 1 0"/>
-  <v:f eqn="sum 0 0 @1"/>
-  <v:f eqn="prod @2 1 2"/>
-  <v:f eqn="prod @3 21600 pixelWidth"/>
-  <v:f eqn="prod @3 21600 pixelHeight"/>
-  <v:f eqn="sum @0 0 1"/>
-  <v:f eqn="prod @6 1 2"/>
-  <v:f eqn="prod @7 21600 pixelWidth"/>
-  <v:f eqn="sum @8 21600 0"/>
-  <v:f eqn="prod @7 21600 pixelHeight"/>
-  <v:f eqn="sum @10 21600 0"/>
- </v:formulas>
- <v:path o:extrusionok="f" gradientshapeok="t" o:connecttype="rect"/>
- <o:lock v:ext="edit" aspectratio="t"/>
-</v:shapetype><v:shape id="Picture_x0020_1" o:spid="_x0000_i1025" type="#_x0000_t75"
- alt="Text&#10;&#10;Description automatically generated" style='width:360.75pt;
- height:118.5pt;visibility:visible;mso-wrap-style:square'>
- <v:imagedata src="BotW%20Basic%20Mod%20Creator%20Docs_files/image001.png"
-  o:title="Text&#10;&#10;Description automatically generated"/>
-</v:shape><![endif]--><![if !vml]><img border=0 width=481 height=158
-src="BotW%20Basic%20Mod%20Creator%20Docs_files/image001.png"
-alt="Text&#10;&#10;Description automatically generated" v:shapes="Picture_x0020_1"><![endif]></span></p>
-
 <p class=MsoNormal><i>Note: Syntax will be removed when created with the BFT.<o:p></o:p></i></p>
 
 <h1>Credits</h1>
