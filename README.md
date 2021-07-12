@@ -160,7 +160,7 @@ Symbol'><span style='mso-list:Ignore'>-<span style='font:7.0pt "Times New Roman"
 
 <p class=MsoNormal>‘quick-collision’ [-c] Looks for obj files in the active
 directory and extracts a HKRB file from them using <a
-href="https://github.com/krenyy/HKX2">CreateCollisionAndNavmesh</a> by <b>Kreny.<o:p></o:p></b></p>
+href="https://github.com/krenyy/HKX2">HKX2 Tools</a> by <b>Kreny.<o:p></o:p></b></p>
 
 <p class=MsoListParagraph style='margin-left:38.7pt;mso-add-space:auto;
 text-indent:-.25in;mso-list:l9 level1 lfo7'><![if !supportLists]><span
@@ -213,7 +213,7 @@ color:#0D0D0D;mso-themecolor:text1;mso-themetint:242'>Kreny (</span></b><b><span
 style='font-size:12.0pt;line-height:107%;mso-bidi-font-family:"Segoe UI";
 color:#0D0D0D;mso-themecolor:text1;mso-themetint:242'>Martin .K</span></b><b><span
 style='font-size:12.0pt;line-height:107%;color:#0D0D0D;mso-themecolor:text1;
-mso-themetint:242'>) - Creator of CreateCollisionAndNavmesh<o:p></o:p></span></b></p>
+mso-themetint:242'>) - Creator of HKX2 Tools<o:p></o:p></span></b></p>
 
 <p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
 color:#0D0D0D;mso-themecolor:text1;mso-themetint:242'>Arch Leaders (Marcus .S) –
