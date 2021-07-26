@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "BotWFileGatherTool": {
+      "commandName": "Project",
+      "commandLineArgs": "-rp 000"
+    }
+  }
+}

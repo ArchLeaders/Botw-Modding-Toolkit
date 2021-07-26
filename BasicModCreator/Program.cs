@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace BotWFileGatherTool
+namespace BasiModCreator
 {
     class Program
     {
@@ -22,18 +22,18 @@ namespace BotWFileGatherTool
         }
         static async Task Main(string[] args)
         {
-            //string[] args = { @"-c" };
+            //string[] args = { @"-r" };
             //string[] args = { @"C:\Users\HP USER\source\repos\Breath of the Wild File Gathering Tool\BotWFileGatherTool\bin\Debug\net5.0\something.bft" };
             //string[] args = { "-b", "-m", "Glass,Eye,LineLight", "-t", "DgnObj_DLC_BattleRoom_Parts_B.Tex1.sbfres, Animal_Boar_Big.sbactorpack", "-fm", @"C:\Users\HP USER\source\repos\Breath of the Wild File Gathering Tool\BotWFileGatherTool\bin\Debug\net5.0\ToolTest", "-fs", "Actor!, Pack, Map_MainField_J-8, Model" };
 
-            string AppPath = System.Reflection.Assembly.GetEntryAssembly().Location.Replace("BotWFileGatherTool.dll", "");
+            string AppPath = System.Reflection.Assembly.GetEntryAssembly().Location.Replace("BasicModCreator.dll", "");
             foreach (string argument in args)
             {
                 if (argument != null) { isCommand = true; }
 
                 if (argument == "-h" || argument == "help")
                 {
-
+                    
                 }
 
                 if (argument == "-c") { isFullLine = true; }
@@ -42,7 +42,6 @@ namespace BotWFileGatherTool
                 if (argument == "-fm") { optionF_Yes = true; }
                 if (argument == "-fs") { optionS_Yes = true; }
             }
-
             if (args[0] == "bft" || args[0] == "-b")
             {
                 if (isFullLine == true)
@@ -65,11 +64,11 @@ namespace BotWFileGatherTool
                 if (!Directory.Exists(AppPath + "data"))
                 {
                     Directory.CreateDirectory(AppPath + "data");
-                    File.WriteAllText(AppPath + "data\\paths.dat", args[1] + "\n" + args[2] + "\n" + dlcPath + "\n");
+                    File.WriteAllText(AppPath + "data\\paths.txt", args[1] + "\n" + args[2] + "\n" + dlcPath + "\n");
                 }
                 else
                 {
-                    File.WriteAllText(AppPath + "data\\paths.dat", args[1] + "\n" + args[2] + "\n" + dlcPath + "\n");
+                    File.WriteAllText(AppPath + "data\\paths.txt", args[1] + "\n" + args[2] + "\n" + dlcPath + "\n");
                 }
             }
             else if (args[0] == "createdata" || args[0].Contains(".bft"))
@@ -85,55 +84,59 @@ namespace BotWFileGatherTool
                 {
 
                 }
-            }
+            }//???
             else if (args[0] == "-r" || args[0] == "readdata")
             {
+                
                 string contentPath = null;
                 string ActorName = null;
                 Console.WriteLine("Collecting Data...");
                 Directory.CreateDirectory(ActivePath() + "\\~Build\\HyRe");
+                foreach (var item in Directory.GetFiles(AppPath + "\\collision"))
+                {
+                    string[] fileName = item.Split('\\');
+                    File.Copy(item, ActivePath() + "\\" + fileName[fileName.Length - 1]);
+                }
+                int i = 0;
+                foreach (var file in Directory.GetFiles(ActivePath(), ".", SearchOption.AllDirectories))
+                {
+                    i = i + 1;
+                    Process proc = new Process();
+                    proc.StartInfo.FileName = "cmd.exe";
+                    if (file.Contains(".obj"))
+                    {
+                        Console.WriteLine("Writting HKRB...");
+                        string[] filePath = file.Split('\\');
+                        string fileName = filePath[filePath.Length - 1];
+                        proc.StartInfo.Arguments = "/c .\\CreateCollisionAndNavmesh.exe \".\\" + fileName + "\" hkrb";
+
+                        await Task.Run(() => proc.Start());
+                        await proc.WaitForExitAsync();
+                    }
+                }
+                try
+                {
+                    File.Delete(ActivePath() + "\\BakeTool.exe");
+                    File.Delete(ActivePath() + "\\CreateCollisionAndNavmesh.exe");
+                    File.Delete(ActivePath() + "\\libgcc_s_seh-1.dll");
+                    File.Delete(ActivePath() + "\\libgomp-1.dll");
+                    File.Delete(ActivePath() + "\\libstdc++-6.dll");
+                    File.Delete(ActivePath() + "\\libwinpthread-1.dll");
+                }
+                catch
+                {
+
+                }
                 foreach (var folder in Directory.GetDirectories(ActivePath(), ".", SearchOption.AllDirectories))
                 {
-                    if (folder.Contains("c~"))
-                    {
-                        int i = 0;
-                        foreach (var file in Directory.GetFiles(folder))
-                        {
-                            i = i + 1;
-                            Process proc = new Process();
-                            proc.StartInfo.FileName = "cmd.exe";
-                            if (file.Contains("shksc"))
-                            {
-                                Console.WriteLine("Writting HKRB...\n");
-                                string[] filePath = file.Split('\\');
-                                string fileName = filePath[filePath.Length - 1];
-                                proc.StartInfo.Arguments = "/c hksc_to_hkrb \"" + file + "\" \"" + ActivePath() + "\\~Build\\" + fileName.Replace(".shksc", ".hkrb");
-                                await Task.Run(() => proc.Start());
-                            }
-                            else if (file.Contains(".hksc"))
-                            {
-                                Console.WriteLine("Writting HKRB...\n");
-                                string[] filePath = file.Split('\\');
-                                string fileName = filePath[filePath.Length - 1];
-                                proc.StartInfo.Arguments = "/c hksc_to_hkrb \"" + file + "\" \"" + ActivePath() + "\\~Build\\" + fileName.Replace(".hksc", ".hkrb");
-                                await Task.Run(() => proc.Start());
-                            }
-                            else if (file.Contains(".hkrb"))
-                            {
-                                Console.WriteLine("Moving HKRB...");
-                                File.Copy(file, ActivePath() + "\\~Build\\" + file.Split('\\')[file.Length - 1]);
-                            }
-                            await proc.WaitForExitAsync();
-                        }
-                    }
-                    else if (folder.Contains("\\content"))
+                    if (folder.Contains("\\content"))
                     {
                         contentPath = folder;
                         if (Directory.Exists(folder + "\\Actor\\Pack"))
                         {
                             Console.WriteLine("Transfering Actorpacks...");
                             Directory.CreateDirectory(ActivePath() + "\\~Build\\HyRe\\content\\Actor\\Pack");
-                            File.Copy(File.ReadAllLines(AppPath + "\\data\\paths.dat")[1] + "\\Actor\\ActorInfo.product.sbyml", ActivePath() + "\\~Build\\HyRe\\content\\Actor\\ActorInfo.product.sbyml");
+                            File.Copy(File.ReadAllLines(AppPath + "\\data\\paths.txt")[1] + "\\Actor\\ActorInfo.product.sbyml", ActivePath() + "\\~Build\\HyRe\\content\\Actor\\ActorInfo.product.sbyml");
                             foreach (var file in Directory.GetFiles(folder + "\\Actor\\Pack"))
                             {
                                 string[] filePath = file.Split('\\');
@@ -144,7 +147,7 @@ namespace BotWFileGatherTool
                         }
                     }
                 }
-                Console.WriteLine("Unbuilding...\n");
+                Console.WriteLine("Unbuilding...");
                 Process HyRe = new Process();
                 HyRe.StartInfo.FileName = "cmd.exe";
                 HyRe.StartInfo.Arguments = "/c hyrule_builder unbuild \"" + ActivePath() + "\\~Build\\HyRe\"";
@@ -160,8 +163,8 @@ namespace BotWFileGatherTool
                     string CurrentActorName = file.Replace(contentPath + "\\", "").Replace(".sbactorpack", "");
 
                     Directory.CreateDirectory(ActivePath() + "\\~Build\\HyRe\\content\\Physics\\RigidBody\\HKRB\\");
-                    File.Move(ActivePath() + "\\~Build\\" + CurrentActorName + ".hkrb", ActivePath() + "\\~Build\\HyRe\\content\\Physics\\RigidBody\\HKRB\\" + CurrentActorName + ".hkrb");
-                    File.Move(ActivePath() + "\\~Build\\" + CurrentActorName + ".yml", ActivePath() + "\\~Build\\HyRe\\content\\Actor\\Physics\\" + CurrentActorName + ".bphysics.yml");
+                    File.Move(ActivePath() + "\\" + CurrentActorName + ".obj.hkrb", ActivePath() + "\\~Build\\HyRe\\content\\Physics\\RigidBody\\HKRB\\" + CurrentActorName + ".hkrb");
+                    File.Copy(AppPath + "\\data\\physics.yml", ActivePath() + "\\~Build\\HyRe\\content\\Actor\\Physics\\" + CurrentActorName + ".bphysics.yml");
 
                     Console.WriteLine("Writting Info For: " + CurrentActorName + "...");
                     editInfo(ActivePath() + "\\~Build\\HyRe\\content\\Actor\\ActorInfo\\" + CurrentActorName + ".info.yml", CurrentActorName);
@@ -173,7 +176,7 @@ namespace BotWFileGatherTool
                     editBPhysics(ActivePath() + "\\~Build\\HyRe\\content\\Actor\\Physics\\" + CurrentActorName + ".bphysics.yml", CurrentActorName);
                 }
 
-                Console.WriteLine("Rebuilding Files...\n");
+                Console.WriteLine("Rebuilding Files...");
                 HyRe.StartInfo.Arguments = "/c hyrule_builder build --be \"" + ActivePath() + "\\~Build\\HyRe\"";
                 await Task.Run(() => HyRe.Start());
 
@@ -189,7 +192,7 @@ namespace BotWFileGatherTool
 
                     File.Move(ActivePath() + "\\~Build\\HyRe\\build\\content\\Actor\\Pack\\" + CurrentActorName + ".sbactorpack", ActivePath() + "\\Build\\content\\Actor\\Pack\\" + CurrentActorName + ".sbactorpack");
 
-                    File.AppendAllText(ActivePath() + " Info.txt", "For: " + CurrentActorName + ".\n\tSBFRES File/Folder Name: " + CurrentActorName.Replace("_01", "") + ".sbfres\n\tModel Unit Name: " +
+                    File.AppendAllText(ActivePath() + "\\" + CurrentActorName + "_Info.txt", "For: " + CurrentActorName + ".\n\tSBFRES File/Folder Name: " + CurrentActorName.Replace("_01", "") + ".sbfres\n\tModel Unit Name: " +
                         CurrentActorName + "\n\tActor Name: " + CurrentActorName + "\n");
                 }
                 File.Move(ActivePath() + "\\~Build\\HyRe\\build\\content\\Actor\\ActorInfo.product.sbyml", ActivePath() + "\\Build\\content\\Actor\\ActorInfo.product.sbyml");
@@ -199,18 +202,270 @@ namespace BotWFileGatherTool
 
                 Console.WriteLine("Process Complete!");
             }
-            else if (args[0] == "-c" || args[0] == "quick-collision")
+            else if (args[0] == "-rp" || args[0] == "rebuild-pack")
             {
-                foreach (var file in Directory.GetFiles(ActivePath()))
+                string[] paths = File.ReadAllLines(AppPath + "\\data\\paths.txt");
+                string packInt = args[1];
+                string packID = "Dungeon" + args[1] + ".pack";
+                //Requirements: Model (SBFRES), Collision (SHKSC), Navmesh (OBJ, shknm2)
+
+                //First, get desired pack and Unbuild
+                Directory.CreateDirectory(ActivePath() + "\\~ShrineBuild\\content\\Pack");
+                try
                 {
+                    File.Copy(paths[0] + "\\Pack\\" + packID, ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID);
+                    File.Copy(paths[1] + "\\Actor\\ActorInfo.product.sbyml", ActivePath() + "\\~ShrineBuild\\content\\Actor\\ActorInfo.product.sbyml");
+                }
+                catch
+                {
+                    Console.WriteLine("Existing build found in this directory. Aborting...");
+                    return;
+                }
+                Process proc = new Process();
+                proc.StartInfo.FileName = "cmd.exe";
+                proc.StartInfo.Arguments = "/c hyrule_builder unbuild \"" + ActivePath() + "\\~ShrineBuild\"";
+
+                await Task.Run(() => proc.Start());
+                await proc.WaitForExitAsync();
+
+                Directory.Move(ActivePath() + "\\~ShrineBuild", ActivePath() + "\\~ShrineBuild_CollectedData");
+                Directory.Move(ActivePath() + "\\~ShrineBuild_unbuilt", ActivePath() + "\\~ShrineBuild");
+                //Create and Replace: Model, Physics, Navmesh;
+                //Model: check for Tex1 and Tex2. If exist, move to pack and rename.
+
+                try
+                {
+                    bool SBFRES = false;
+                    bool Tex1 = false;
+                    bool Tex2 = false;
+                    foreach (var file in Directory.GetFiles(ActivePath(), ".", SearchOption.AllDirectories))
+                    {
+                        //SBFRES
+                        if (file.Contains(".sbfres") && SBFRES == false)
+                        {
+                            Console.WriteLine("Model file found. Moving...");
+                            File.Copy(file, ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID + "\\Model\\DgnMrgPrt_Dungeon" + packInt + ".sbfres", true);
+                            SBFRES = true;
+                        }
+                        //Tex1
+                        if (file.Contains(".Tex1.sbfres") && Tex1 == false)
+                        {
+                            Console.WriteLine("Tex1 found. Moving...");
+                            Directory.CreateDirectory(ActivePath() + "\\~ShrineBuild\\content\\Model");
+                            File.Copy(file, ActivePath() + "\\~ShrineBuild\\content\\Model\\DgnMrgPrt_Dungeon" + packInt + ".Tex1.sbfres", true);
+                            Tex1 = true;
+                        }
+                        //Tex2
+                        if (file.Contains(".Tex2.sbfres") && Tex2 == false)
+                        {
+                            Console.WriteLine("Tex2 found. Moving...");
+                            File.Copy(file, ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID + "\\Model\\DgnMrgPrt_Dungeon" + packInt + ".Tex2.sbfres", true);
+                            Tex2 = true;
+                        }
+                        
+                    }
+                    //Checks
+                    if (SBFRES == false) { Console.WriteLine("Model file not found. Skipping..."); }
+                    if (Tex1 == false) { Console.WriteLine("Tex1 not found. Skipping..."); }
+                    if (Tex2 == false) { Console.WriteLine("Tex2 not found. Skipping..."); }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                //try
+                //{
+                    Process proc2 = new Process();
+                    proc2.StartInfo.FileName = "cmd.exe";
+                    Process proc3 = new Process();
+                    proc3.StartInfo.FileName = "cmd.exe";
+                    bool readyCollision = false;
+                    bool readyNavmesh = false;
+                    string navMeshArgs = null;
+                    string collisionArgs = null;
+                    string fileName = null;
+                    foreach (var item in Directory.GetFiles(AppPath + "\\collision"))
+                    {
+                        string[] fileSlpit = item.Split('\\');
+                        File.Copy(item, ActivePath() + "\\" + fileSlpit[fileSlpit.Length - 1]);
+                    }
+                    foreach (var file in Directory.GetFiles(ActivePath())) //Handle navmesh and collision
+                    {
+                        string[] x = file.Split('\\');
+                        fileName = x[x.Length - 1];
+                        if (file.Contains("NavMesh.obj"))
+                        {
+                            navMeshArgs = "/c .\\CreateCollisionAndNavmesh.exe \".\\NavMesh.obj\" hknm2 && yazit \".\\NavMesh.obj.hknm2\"";
+                        }
+                        else if (file.Contains("Collision.obj"))
+                        {
+                            collisionArgs = "/c .\\CreateCollisionAndNavmesh.exe \".\\Collision.obj\" hksc && yazit \".\\Collision.obj.hksc\"";
+                        }
+                        else if (file.Contains(".shknm2"))
+                        {
+                            File.Move(file, ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID + "\\NavMesh\\CDungeon\\" + packID.Replace(".pack", ".shknm2"), true);
+                        }
+                        else if (file.Contains(".hknm2"))
+                        {
+                            navMeshArgs = "/c yazit \".\\NavMesh.obj.hknm2\"";
+                        }
+                        else if (file.Contains(".shksc"))
+                        {
+                            File.Move(file, ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID + "\\Physics\\StaticCompound\\CDungeon\\" + packID.Replace(".pack", ".shksc"), true);
+                        }
+                        else if (file.Contains(".hksc"))
+                        {
+                            collisionArgs = "/c yazit \".\\Collision.hksc\"";
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                    if (collisionArgs == null) { readyCollision = true; }
+                    if (readyCollision != true)
+                    {
+                        proc2.StartInfo.Arguments = collisionArgs;
+                        await Task.Run(() => proc2.Start());
+                        await proc2.WaitForExitAsync();
+
+                        File.Move(ActivePath() + "\\Collision.obj.shksc", ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID + "\\Physics\\StaticCompound\\CDungeon\\" + packID.Replace(".pack", ".shksc"), true);
+                        File.Delete(ActivePath() + "\\Collision.obj.hksc");
+                    }
+
+                    if (navMeshArgs == null) { readyNavmesh = true; }
+                    if (readyNavmesh != true)
+                    {
+                        proc3.StartInfo.Arguments = navMeshArgs;
+                        await Task.Run(() => proc3.Start());
+                        await proc3.WaitForExitAsync();
+
+                        File.Move(ActivePath() + "\\NavMesh.obj.shknm2", ActivePath() + "\\~ShrineBuild\\content\\Pack\\" + packID + "\\NavMesh\\CDungeon\\" + packID.Replace(".pack", "") + "\\" + packID.Replace(".pack", ".shknm2"), true);
+                        File.Delete(ActivePath() + "\\NavMesh.obj.hknm2");
+                    }
+
+                    try //Cleanup
+                    {
+                        File.Delete(ActivePath() + "\\BakeTool.exe");
+                        File.Delete(ActivePath() + "\\CreateCollisionAndNavmesh.exe");
+                        File.Delete(ActivePath() + "\\libgcc_s_seh-1.dll");
+                        File.Delete(ActivePath() + "\\libgomp-1.dll");
+                        File.Delete(ActivePath() + "\\libstdc++-6.dll");
+                        File.Delete(ActivePath() + "\\libwinpthread-1.dll");
+                    }
+                    catch
+                    {
+
+                    }
+                    
+                //}
+                //catch
+                //{
+                //    Console.WriteLine("Process failed. No navmesh or collision.");
+                //}
+                try //Repacking
+                {
+                    Process proc4 = new Process();
+                    proc4.StartInfo.FileName = "cmd.exe";
+                    proc4.StartInfo.Arguments = "/c hyrule_builder build --be \".\\~ShrineBuild\"";
+
+                    proc4.Start();
+                    proc4.WaitForExit();
+
+                    Directory.Move(ActivePath() + "\\~ShrineBuild\\build", ActivePath() + "\\Built_" + packID.Replace(".pack", ""));
+
+                    Directory.Delete(ActivePath() + "\\~ShrineBuild", true);
+                    Directory.Delete(ActivePath() + "\\~ShrineBuild_CollectedData", true);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }//Experimental
+            else if (args[0] == "-c" || args[0] == "quick-collision" || args[0].Contains(".obj"))
+            {
+                if (args[0].Contains(".obj"))
+                {
+                    string[] targetFile = args[0].Split('\\');
+                    string targetFilePath = args[0].Replace(targetFile[targetFile.Length - 1], "");
+                    string targetFileName = targetFile[targetFile.Length - 1];
+
+                    foreach (var file in Directory.GetFiles(AppPath + "collision"))
+                    {
+                        string[] fileName = file.Split('\\');
+                        File.Copy(file, targetFilePath + "\\" + fileName[fileName.Length - 1]);
+                    }
+
+                    Console.WriteLine("Writting HKRB...");
                     Process proc = new Process();
-                    //proc.StartInfo.CreateNoWindow = true;
                     proc.StartInfo.FileName = "cmd.exe";
-                    proc.StartInfo.Arguments = "/k hksc_to_hkrb \"" + file + "\" \"" + file.Replace("shksc", "hkrb").Replace("hksc", "hkrb") + "\"";
+                    proc.StartInfo.Arguments = "/c .\\CreateCollisionAndNavmesh.exe \".\\" + targetFileName + "\" hkrb";
 
                     proc.Start();
+                    proc.WaitForExit();
+                    Console.WriteLine("Cleaning Files...");
+                    try
+                    {
+                        File.Delete(targetFilePath + "\\BakeTool.exe");
+                        File.Delete(targetFilePath + "\\CreateCollisionAndNavmesh.exe");
+                        File.Delete(targetFilePath + "\\libgcc_s_seh-1.dll");
+                        File.Delete(targetFilePath + "\\libgomp-1.dll");
+                        File.Delete(targetFilePath + "\\libstdc++-6.dll");
+                        File.Delete(targetFilePath + "\\libwinpthread-1.dll");
+                    }
+                    catch
+                    {
+
+                    }
+                    Console.WriteLine("Process Complete!");
+                }
+                else
+                {
+                    foreach (var file in Directory.GetFiles(AppPath + "\\collision"))
+                    {
+                        string[] fileName = file.Split('\\');
+                        File.Copy(file, ActivePath() + "\\" + fileName[fileName.Length - 1]);
+                    }
+                    foreach (var file in Directory.GetFiles(ActivePath()))
+                    {
+                        if (file.Contains(".obj"))
+                        {
+                            Console.WriteLine("Writting HKRB...");
+                            string[] filePath = file.Split('\\');
+                            string fileName = filePath[filePath.Length - 1];
+
+                            Process proc = new Process();
+                            proc.StartInfo.FileName = "cmd.exe";
+                            proc.StartInfo.Arguments = "/c .\\CreateCollisionAndNavmesh.exe \".\\" + fileName + "\" hkrb";
+
+                            proc.Start();
+                            proc.WaitForExit();
+                        }
+                    }
+                    Console.WriteLine("Cleaning Files...");
+                    try
+                    {
+                        File.Delete(ActivePath() + "\\BakeTool.exe");
+                        File.Delete(ActivePath() + "\\CreateCollisionAndNavmesh.exe");
+                        File.Delete(ActivePath() + "\\libgcc_s_seh-1.dll");
+                        File.Delete(ActivePath() + "\\libgomp-1.dll");
+                        File.Delete(ActivePath() + "\\libstdc++-6.dll");
+                        File.Delete(ActivePath() + "\\libwinpthread-1.dll");
+                    }
+                    catch
+                    {
+
+                    }
+                    Console.WriteLine("Process Complete!");
                 }
             }
+
+            //HKRB Handling - Create Actor? Get size for OBJ ref. 
+            //XXX.SHKNM2 Handling - Create shrine pack? Issue: Collision data, Object Data.
+            //HKSC Handling - Yaz0 Compress
+            //HKNM2 handling - Yaz0 Compress
         }
 
         public static async Task createdata(string ApplicationPath, string[] args, bool writeFile = false)
@@ -220,7 +475,6 @@ namespace BotWFileGatherTool
             string modelPath = null;
             string texturePath = null;
             string animPath = null;
-
             string optionM = null;
             string optionT = null;
             string optionF = null;
@@ -232,7 +486,7 @@ namespace BotWFileGatherTool
 
                 try
                 {
-                    if (!File.Exists(ApplicationPath + "\\data\\paths.dat"))
+                    if (!File.Exists(ApplicationPath + "\\data\\paths.txt"))
                     {
                         Console.WriteLine("Error\n\nGame paths not set, set them with \"-p \"path\\to\\game\\content\" \"path\\to\\update\\content\" \"path\\to\\DLC\\0010\" (optianal)\"");
                     }
@@ -243,10 +497,14 @@ namespace BotWFileGatherTool
                         #endregion
 
                         #region Folders + Files
-
+                        string[] GamePaths = File.ReadAllLines(ApplicationPath + "\\data\\paths.txt");
                         foreach (var line in dataFile)
                         {
-                            if (line.Contains("m~"))
+                            if (line.Contains("!"))
+                            {
+                                contentPath = line.Replace("\t!", "");
+                            }
+                            else if (line.Contains("m~"))
                             {
                                 materialPath = line.Replace("\tm~", "");
                             }
@@ -307,9 +565,25 @@ namespace BotWFileGatherTool
                                 }
                             }
                             //Read BotW Files
-                            else if (line == "BotW Files")
+                            else if (line.Contains("\tGame"))
                             {
-                                string[] values = line.Split(',');
+                                string[] splitLine = line.Split('\\');
+                                Directory.CreateDirectory(ActivePath() + "\\" + contentPath + "\\" + line.Replace("\tGame\\", "").Replace(splitLine[splitLine.Length - 1], ""));
+                                File.Copy(GamePaths[0] + "\\" + line.Replace("\tGame\\", ""), ActivePath() + "\\" + contentPath + "\\" + line.Replace("\tGame\\", ""), true);
+
+                            }
+                            else if (line.Contains("\tUpdate"))
+                            {
+                                string[] splitLine = line.Split('\\');
+                                Directory.CreateDirectory(ActivePath() + "\\" + contentPath + "\\" + line.Replace("\tUpdate\\", "").Replace(splitLine[splitLine.Length - 1], ""));
+                                File.Copy(GamePaths[1] + "\\" + line.Replace("\tUpdate\\", ""), ActivePath() + "\\" + contentPath + "\\" + line.Replace("\tUpdate\\", ""), true);
+                            }
+                            else if (line.Contains("\tDLC"))
+                            {
+                                string[] splitLine = line.Split('\\');
+                                Directory.CreateDirectory(ActivePath() + "\\" + contentPath.Replace("content", "aoc") + "\\" + line.Replace("\tDLC\\", "").Replace(splitLine[splitLine.Length - 1], ""));
+                                File.Copy(GamePaths[2] + "\\" + line.Replace("\tDLC\\", ""), ActivePath() + "\\" + contentPath.Replace("content", "aoc") + "\\" + line.Replace("\tDLC\\", ""), true);
+
                             }
                         }
 
@@ -432,73 +706,6 @@ namespace BotWFileGatherTool
                         }
                     }
                     //OptionS - BotW Specific Directories
-                    if (optionS_Yes == true)
-                    {
-                        string[] paths = optionS.Replace(" ", "").Split(',');
-                        string[] accptedValues = { "content", "aoc", "Actor", "Event", "Font", "Layout", "Map", "Model", "Movie", "Pack", "Physics", "Sound", "System", "Terrain", "UI", "Voice" };
-
-                        optionS = null;
-                        foreach (string param in paths)
-                        {
-                            foreach (string item in accptedValues)
-                            {
-                                if (param.Replace("!", "").Replace("_", "").Replace("~", "") == item)
-                                {
-                                    if (param.Contains("!"))
-                                    {
-                                        for (int i = 0; i < 3; i++)
-                                        {
-                                            try
-                                            {
-                                                string[] filePaths = File.ReadAllLines(ApplicationPath + "\\data\\paths.dat");
-                                                string[] pathsInGame = Directory.GetDirectories(filePaths[i] + "\\" + item, ".", SearchOption.AllDirectories);
-
-                                                if (pathsInGame == null)
-                                                {
-                                                    optionS = optionS + "\n\t" + contentPath + "\\" + item;
-                                                }
-                                                foreach (var folder in pathsInGame)
-                                                {
-                                                    optionS = optionS + "\n\t" + contentPath + "\\" + folder.Replace(filePaths[i] + "\\", "");
-                                                }
-
-                                                if (item == "Actor")
-                                                {
-                                                    optionT = optionT.Replace("\n\tActor\\ActorInfo.product.sbyml", "") + "\n\tActor\\ActorInfo.product.sbyml";
-                                                }
-                                            }
-                                            catch
-                                            {
-
-                                            }
-                                        }
-                                    }
-                                    else if (item.Contains("~"))
-                                    {
-
-                                    }
-                                    else if (item == "Map")
-                                    {
-                                        optionS = optionS + "\n\t" + contentPath.Replace("content", "aoc") + "\\" + item;
-                                    }
-                                    else
-                                    {
-                                        if (item == "Actor")
-                                        {
-                                            optionT = optionT.Replace("\n\tActor\\ActorInfo.product.sbyml", "") + "\n\tActor\\ActorInfo.product.sbyml";
-                                        }
-                                        optionS = optionS + "\n\t" + contentPath + "\\" + item;
-                                    }
-                                }
-                                else if (param.Contains("_") && item == "Map")
-                                {
-                                    string[] datavalue = param.Split('_');
-
-                                    optionS = optionS + "\n\t" + contentPath.Replace("content", "aoc\\0010") + "\\" + item + "\\" + datavalue[1] + "\\" + datavalue[2];
-                                }
-                            }
-                        }
-                    }
                     //OptioM - Materials
                     if (optionM_Yes == true)
                     {
@@ -557,7 +764,7 @@ namespace BotWFileGatherTool
                     //OptioT - Type(should this even exist?) ~~Files
                     if (optionT_Yes == true)
                     {
-                        optionT = "\n\t" + optionT.Replace(", ", "\n\t");
+                        optionT = "\n\t" + optionT.Replace(" : ", "\n\t");
                     }
 
                     Console.WriteLine("Done!");
@@ -566,7 +773,7 @@ namespace BotWFileGatherTool
 
                 string[] bftCount = Directory.GetFiles(ActivePath(), "*.bft");
 
-                File.WriteAllText(ActivePath() + "\\DirectoryData_" + (bftCount.Length + 1) + ".bft", "#Folder Data File\n\nKey Folders; \n\tm~" + materialPath + "\n\ts~" + modelPath + "\n\tt~" + texturePath + "\n\ta~" + animPath + "\nFolders; " + optionF + "\nBotW Folders; " + optionS.Replace("!", "") + "\nMaterials; " + optionM + "\nBotW Files; " + optionT);
+                File.WriteAllText(ActivePath() + "\\DirectoryData_" + (bftCount.Length + 1) + ".bft", "#Folder Data File\n\nKey Folders; \n\t!" + contentPath + "\n\tm~" + materialPath + "\n\ts~" + modelPath + "\n\tt~" + texturePath + "\n\ta~" + animPath + "\nFolders; " + optionF + "\nBotW Folders; " + optionS.Replace("!", "") + "\nMaterials; " + optionM + "\nBotW Files; " + optionT);
             }
         }
         public static async Task editInfo(string infoFile, string ActorName)
@@ -673,9 +880,9 @@ namespace BotWFileGatherTool
             {
                 string[] lineSplit = modual.Split(':');
                 string lineArgs = null;
-                if (lineSplit[0] == "                  num")
+                if (lineSplit[0] == "                  setup_file_path")
                 {
-                    lineArgs = "                  num:" + lineSplit[1] + ":" + lineSplit[2].Replace("path_to/the_file.hkrb", "HKRB/" + ActorName + ".hkrb");
+                    lineArgs = "                  setup_file_path: " + lineSplit[1].Replace("path_to/the_file.hkrb", "HKRB/" + ActorName + ".hkrb");
                 }
                 else
                 {
