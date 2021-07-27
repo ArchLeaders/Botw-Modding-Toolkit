@@ -5,9 +5,12 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.IO.Compression;
 
 namespace Basic_Mod_Creator_Setup_Wizard
 {
@@ -19,17 +22,18 @@ namespace Basic_Mod_Creator_Setup_Wizard
         public bool InstallPyAppsYes = true;
         public bool AddBCMToPATHYes = true;
         public bool InstallGUIYes = true;
+        public bool InstallHKX2Blender = true;
         public Control button;
 
         public int SetProgress;
         public ProgressBar progressBar;
-        public static string temp()
-        {
-            return System.Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMCtemp";
-        }
+        static string temp = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMCtemp";
+        static string installPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BasicModCreator";
         public Setup()
         {
             InitializeComponent();
+            Directory.CreateDirectory(temp);
+            txtBoxInstallPath.PlaceholderText = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BasicModCreator";
             panel2.Visible = false;
             panel3.Visible = false;
         }
@@ -241,7 +245,21 @@ namespace Basic_Mod_Creator_Setup_Wizard
                 txtBoxPyInstallPath.Text = browse.SelectedPath;
             }
         }
-
+        private void btnInstallHKX2blender_Click(object sender, EventArgs e)
+        {
+            if (InstallHKX2Blender == true)
+            {
+                InstallHKX2Blender = false;
+                btnInstallHKX2blender.Text = "➕";
+                BasicToolsTip.SetToolTip(btnInstallHKX2blender, "Install HKX2 Blender Addon (false)");
+            }
+            else
+            {
+                InstallHKX2Blender = true;
+                btnInstallHKX2blender.Text = "✔";
+                BasicToolsTip.SetToolTip(btnInstallHKX2blender, "Install HKX2 Blender Addon (true)");
+            }
+        }
         #endregion
 
         #region Next button and Folder Browse Dialog, Progress Timer Tick Events
@@ -255,15 +273,19 @@ namespace Basic_Mod_Creator_Setup_Wizard
                 txtBoxInstallPath.Text = browse.SelectedPath;
             }
         }
-        private void btnNext_Click(object sender, EventArgs e)
+        private async void btnNext_Click(object sender, EventArgs e)
         {
             panel1.Visible = false;
             panel2.Visible = true;
-            System.IO.Directory.CreateDirectory(temp());
+            System.IO.Directory.CreateDirectory(temp);
 
-            progressBar = progressBar1;
-            SetProgress = 20;
-            progressTimer.Start();
+            if (txtBoxInstallPath.Text != "")
+            {
+                installPath = txtBoxInstallPath.Text;
+            }
+
+            await DownloadFiles();
+            //await InstallFiles();
         }
         private void btnCancelPg2_Click(object sender, EventArgs e)
         {
@@ -342,22 +364,129 @@ namespace Basic_Mod_Creator_Setup_Wizard
 
         #region Download files
         //Required files link array
-        public static async Task DownloadFiles()
+        public async Task DownloadFiles()
         {
-            string[] links = System.IO.File.ReadAllLines(temp() + "\\files.ini");
+            progressBar = progressBar1;
+            using (var client = new WebClient())
+            {
+                await Task.Run(() => client.DownloadFile("https://raw.githubusercontent.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/master/Basic%20Mod%20Creator%20Setup%20Wizard/Data/files.ini", temp + "\\files.ini"));
+                SetProgress = 10;
+                progressTimer.Start();
+            }
+            string[] links = File.ReadAllLines(temp + "\\files.ini");
 
             string linksE = null;
             foreach (var link in links)
             {
-                linksE = linksE + link + "\n";
-            }
+                if (link.StartsWith("https://"))
+                {
+                    string[] filenameX = link.Split('/');
+                    string fileName = filenameX[filenameX.Length - 1];
 
-            MessageBox.Show(linksE);
-        }        
+                    using (var client = new WebClient())
+                    {
+                        await Task.Run(() => client.DownloadFile(link, temp + "\\" +
+                            fileName.Replace("CreateCollisionAndNavmesh.exe", "MinGW_DLLs\\CreateCollisionAndNavmesh.exe")));
+                    }
+
+                    if (fileName.EndsWith(".zip"))
+                    {
+                        await Task.Run(() => ZipFile.ExtractToDirectory(temp + "\\" + fileName, temp + "\\" + fileName.Replace(".zip", ""), true));
+                        File.Delete(temp + "\\" + fileName);
+                    }
+                    SetProgress = SetProgress + 12;
+                }
+            }
+            File.Delete(temp + "\\files.ini");
+            SetProgress = SetProgress + 4;
+        }
 
         #endregion
 
         #region Move, Copy, Delete Files
+        public async Task Install()
+        {
+
+        }
+        public async Task CleanupFiles()
+        {
+            progressBar = progressBar3;
+            try
+            {
+                Directory.CreateDirectory(installPath);
+                if (InstallHKX2Blender == true)
+                {
+                    string[] blenderVer = Directory.GetDirectories(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Blender Foundation\\Blender");
+                    Clipboard.SetText(blenderVer[0] + "\\scripts\\addons\\blenderaddon_hkx2tools");
+                    Task mvHKX2 = Task.Run(() => Directory.Move(temp + "\\blenderaddon_hkx2tools\\blenderaddon_hkx2tools", blenderVer[0] + "\\scripts\\addons\\blenderaddon_hkx2tools"));
+                    SetProgress = 2;
+                }
+
+                if (InstallObjLibYes == true)
+                {
+                    Task mvObjData = Task.Run(() => Directory.Move(temp + "\\ObjLib", installPath + "\\data"));
+                    SetProgress = SetProgress + 2;
+                }
+
+                Task mvMinGW = Task.Run(() => Directory.Move(temp + "\\MinGW_DLLs", installPath + "\\collision"));
+                SetProgress = SetProgress + 1;
+
+                if (InstallPyYes == true)
+                {
+                    string ExtendedArgs = null;
+
+                    #region Define extended arguments ExtendedArgs
+                    string pyInstallPath = "C:\\Python-3.7";
+
+                    if (checkBox1.Checked == true)
+                    {
+                        ExtendedArgs = ExtendedArgs + " InstallAllUsers=1";
+                    }
+                    if (checkBox2.Checked == false)
+                    {
+                        ExtendedArgs = ExtendedArgs + " Include_doc=0";
+                    }
+                    if (checkBox3.Checked == false)
+                    {
+                        ExtendedArgs = ExtendedArgs + " Shortcuts=0";
+                    }
+                    if (txtBoxPyInstallPath.Text != "")
+                    {
+                        pyInstallPath = txtBoxPyInstallPath.Text;
+                    }
+                    #endregion
+
+                    Process InstallPy = new Process();
+                    InstallPy.StartInfo.FileName = "cmd.exe";
+                    InstallPy.StartInfo.UseShellExecute = true;
+                    InstallPy.StartInfo.CreateNoWindow = true;
+                    InstallPy.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    InstallPy.StartInfo.Arguments = "/k \"" + temp + "\\python-3.9.6-amd64.exe /quiet TargetDir=\"" + txtBoxPyInstallPath.Text + "\"" + ExtendedArgs + " && EXIT";
+                    if (InstallVisualRedistYes == true) { SetProgress = SetProgress + 95; }
+                    else { SetProgress = SetProgress + 50; }
+                    await Task.Run(() => InstallPy.Start());
+                    await InstallPy.WaitForExitAsync();
+                }
+
+                if (InstallVisualRedistYes == true)
+                {
+                    Process InstallVCR = new Process();
+                    InstallVCR.StartInfo.FileName = "cmd.exe";
+                    InstallVCR.StartInfo.UseShellExecute = true;
+                    InstallVCR.StartInfo.CreateNoWindow = true;
+                    InstallVCR.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                    InstallVCR.StartInfo.Arguments = "/k \"" + temp + "\\vc_redist.x64.exe /install /quiet /norestart && EXIT";
+                    if (InstallPyYes == true) { SetProgress = SetProgress + 95; }
+                    else { SetProgress = SetProgress + 45; }
+                    await Task.Run(() => InstallVCR.Start());
+                    await InstallVCR.WaitForExitAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
         #endregion
 
         #region Game Paths Setup

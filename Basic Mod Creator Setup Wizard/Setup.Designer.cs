@@ -67,6 +67,7 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.btnBrowseInstallPath = new System.Windows.Forms.Button();
             this.txtBoxInstallPath = new System.Windows.Forms.TextBox();
             this.btnPy37 = new System.Windows.Forms.Button();
+            this.btnInstallHKX2blender = new System.Windows.Forms.Button();
             this.BasicToolsTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancelPg2 = new System.Windows.Forms.Button();
@@ -101,21 +102,15 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.PanelMove = new System.Windows.Forms.Timer(this.components);
-            this.button4 = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.checkBoxInstallHKX2Blender = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
-            this.panel1.Controls.Add(this.panel5);
             this.panel1.Controls.Add(this.btnPy37Menu);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.inkCemu);
@@ -145,7 +140,7 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.panel1.Controls.Add(this.btnBrowseInstallPath);
             this.panel1.Controls.Add(this.txtBoxInstallPath);
             this.panel1.Controls.Add(this.btnPy37);
-            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.btnInstallHKX2blender);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.panel1.ForeColor = System.Drawing.Color.White;
@@ -156,8 +151,10 @@ namespace Basic_Mod_Creator_Setup_Wizard
             // 
             // btnPy37Menu
             // 
-            this.btnPy37Menu.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnPy37Menu.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
             this.btnPy37Menu.FlatAppearance.BorderSize = 0;
+            this.btnPy37Menu.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.btnPy37Menu.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
             this.btnPy37Menu.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPy37Menu.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPy37Menu.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
@@ -227,8 +224,6 @@ namespace Basic_Mod_Creator_Setup_Wizard
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBox1.Location = new System.Drawing.Point(3, 61);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(144, 20);
@@ -471,9 +466,9 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(14, 166);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(286, 16);
+            this.label2.Size = new System.Drawing.Size(288, 16);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Install Basic Mod Creator Object Library | 378 KB";
+            this.label2.Text = "Install Basic Mod Creator Object Library | 8.13 MB";
             this.BasicToolsTip.SetToolTip(this.label2, "Downloads various files that Basic Mod Creator will use. This is not required to " +
         "run Basic Mod Creator.");
             // 
@@ -629,6 +624,25 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.btnPy37.UseVisualStyleBackColor = false;
             this.btnPy37.Click += new System.EventHandler(this.btnPy37_Click);
             // 
+            // btnInstallHKX2blender
+            // 
+            this.btnInstallHKX2blender.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.btnInstallHKX2blender.FlatAppearance.BorderSize = 0;
+            this.btnInstallHKX2blender.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.btnInstallHKX2blender.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(38)))), ((int)(((byte)(38)))), ((int)(((byte)(38)))));
+            this.btnInstallHKX2blender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnInstallHKX2blender.Font = new System.Drawing.Font("Bahnschrift Light Condensed", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnInstallHKX2blender.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.btnInstallHKX2blender.Location = new System.Drawing.Point(173, 339);
+            this.btnInstallHKX2blender.Name = "btnInstallHKX2blender";
+            this.btnInstallHKX2blender.Size = new System.Drawing.Size(25, 25);
+            this.btnInstallHKX2blender.TabIndex = 30;
+            this.btnInstallHKX2blender.Text = "✔";
+            this.btnInstallHKX2blender.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BasicToolsTip.SetToolTip(this.btnInstallHKX2blender, "HKX2 Settings");
+            this.btnInstallHKX2blender.UseVisualStyleBackColor = true;
+            this.btnInstallHKX2blender.Click += new System.EventHandler(this.btnInstallHKX2blender_Click);
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnCancelPg2);
@@ -716,7 +730,7 @@ namespace Basic_Mod_Creator_Setup_Wizard
             // 
             // progressTimer
             // 
-            this.progressTimer.Interval = 10;
+            this.progressTimer.Interval = 60;
             this.progressTimer.Tick += new System.EventHandler(this.progressTimer_Tick);
             // 
             // label5
@@ -992,52 +1006,6 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.textBox1.Size = new System.Drawing.Size(375, 22);
             this.textBox1.TabIndex = 27;
             // 
-            // button4
-            // 
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Bahnschrift", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.button4.Location = new System.Drawing.Point(172, 339);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(25, 25);
-            this.button4.TabIndex = 30;
-            this.button4.Text = "➕";
-            this.button4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.BasicToolsTip.SetToolTip(this.button4, "HKX2 Settings");
-            this.button4.UseVisualStyleBackColor = true;
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.checkBoxInstallHKX2Blender);
-            this.panel5.Controls.Add(this.textBox4);
-            this.panel5.Location = new System.Drawing.Point(12, 280);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(326, 55);
-            this.panel5.TabIndex = 31;
-            // 
-            // textBox4
-            // 
-            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox4.Location = new System.Drawing.Point(3, 4);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.PlaceholderText = "%PROGRAMFILES(x86)%\\Blender Foundation\\Blender";
-            this.textBox4.Size = new System.Drawing.Size(320, 23);
-            this.textBox4.TabIndex = 31;
-            // 
-            // checkBoxInstallHKX2Blender
-            // 
-            this.checkBoxInstallHKX2Blender.AutoSize = true;
-            this.checkBoxInstallHKX2Blender.Checked = true;
-            this.checkBoxInstallHKX2Blender.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxInstallHKX2Blender.Location = new System.Drawing.Point(3, 31);
-            this.checkBoxInstallHKX2Blender.Name = "checkBoxInstallHKX2Blender";
-            this.checkBoxInstallHKX2Blender.Size = new System.Drawing.Size(185, 20);
-            this.checkBoxInstallHKX2Blender.TabIndex = 31;
-            this.checkBoxInstallHKX2Blender.Text = "Install HKX2 Blender Addon";
-            this.checkBoxInstallHKX2Blender.UseVisualStyleBackColor = true;
-            // 
             // Setup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1064,8 +1032,6 @@ namespace Basic_Mod_Creator_Setup_Wizard
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1143,10 +1109,7 @@ namespace Basic_Mod_Creator_Setup_Wizard
         private System.Windows.Forms.Timer PanelMove;
         private System.Windows.Forms.Button btnPy37Menu;
         private System.Windows.Forms.Button btnBrowsePythonPath;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.CheckBox checkBoxInstallHKX2Blender;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnInstallHKX2blender;
     }
 }
 
