@@ -3,9 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <RootNamespace>file_gather</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <RootNamespace>BasicModCreator</RootNamespace>
     <ApplicationIcon>server-settings-interface-symbol.ico</ApplicationIcon>
+    <Configurations>Debug;Release;Release-x64</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
+    <Authors>Arch Leaders</Authors>
+    <Company>N/A</Company>
+	<PublishReadyToRun>true</PublishReadyToRun>
   </PropertyGroup>
 
 </Project>
