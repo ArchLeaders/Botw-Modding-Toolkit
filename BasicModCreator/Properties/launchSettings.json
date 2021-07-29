@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "BotWFileGatherTool": {
+    "BasicModCreator": {
       "commandName": "Project",
-      "commandLineArgs": "-e \"C:\\Users\\HP USER\\source\\repos\\Breath-of-the-Wild-Basic-Mod-Creator\\BasicModCreator\\bin\\Debug\\ActorInfo.product.sbyml\" 1 0"
+      "commandLineArgs": "\"C:\\Users\\HP USER\\source\\repos\\Breath-of-the-Wild-Basic-Mod-Creator\\BasicModCreator\\bin\\Debug\\net5.0\\ActorInfo.product.yml\""
     }
   }
 }

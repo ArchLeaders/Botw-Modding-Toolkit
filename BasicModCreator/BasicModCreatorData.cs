@@ -12,6 +12,9 @@ namespace BasicModCreatorData
     {
         static string applicationPath = System.Reflection.Assembly.GetEntryAssembly().Location.Replace("BasicModCreator.dll", "");
         static string workingDir = Environment.CurrentDirectory;
+        static string[] gamePaths = File.ReadAllLines(applicationPath + "\\data\\paths.txt");
+        static string BCMLPath = gamePaths[3];
+        static string type = File.ReadAllLines(applicationPath + "\\data\\paths.txt")[4];
         static int handleKey = 0;
 
         #region Primary Methods
@@ -79,6 +82,10 @@ namespace BasicModCreatorData
             }
             catch { }
         }
+        public static async Task GetActor(string[] args)
+        {
+            await CreateDirectories(new string[] { applicationPath + "temp\\collision.HKRB", "temp\\" + args[0] + "C\\" + GetName(gamePaths[1]) + "\\Actor\\Pack"});
+        }
         public static async Task InstallData(string[] args)
         {
 
@@ -100,12 +107,60 @@ namespace BasicModCreatorData
                 "-c, collision, *.obj: Creates collision from corresponding .obj and .mtl files.\n" +
                 "    usage: -c \"path\\to\\*.obj\" { hkrb | hksc | shksc | hknm2 | shknm2}\n" +
                 "       OBJ file syntax: .obj = hkrb; .sc.obj = hksc; .ssc.obj = shksc; .nm.obj = hknm2; .snm.obj = shknm2;\n\n" +
-                "-e byml-changer: Endians {0 = Little Endian | 1 = Big Endian}, Yaz0 {-1 = Don't Change | 0 = Un-compress | 1 = Compress}" +
+                "-e byml-changer, Endians {0 = Little Endian | 1 = Big Endian}, Yaz0 {-1 = Don't Change | 0 = Un-compress | 1 = Compress}" +
                 "    usage: -e {0|1} {-1|0|1} [path\\to\\input] [path\\to\\output]" +
+                "-a get-actor, Gets collision and attaches it to a specified actor." +
+                "    usage: -a 'ActorName' 'HashID' 'Field' [path\\to\\out folder] [Extension]" +
+                "-y yaz0, Compresses target file." +
+                "    usage: -y \"path\\to\\file\" [compression level (1-9)]" +
                 "-i, install: Installs various Basic Mod Creator components.\n" +
                 "    usage: -i { python | c++ | hyrule-builder | yaz-it | byml | hkx2-blender | obj-lib | all | required }");
         }
         #endregion
+        public static async Task CreateMod(string[] args)
+        {
+            Console.WriteLine("Do you wish to create a new mod named: " + GetName(args[0]) + "[yes/no/rename]");
+            string result = Console.ReadLine();
+            if (result == "yes" || result == "y" || result == "Yes" || result == "Y" || result == "true")
+            {
+                await Create(GetName(args[0]).Replace(GetExtension(args[0]), ""));
+            }
+            else if (result == "rename" || result == "r" || result == "R" || result == "Rename")
+            {
+                Console.WriteLine("Please enter the new name: \n");
+                string name = Console.ReadLine();
+
+                await Create(name);
+            }
+            else if (result == "no" || result == "n" || result == "No" || result == "No")
+            {
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Error, invalid arguments");
+                await CreateMod(args);
+
+                return;
+            }
+
+            static async Task Create(string name, bool openWhenDone = true)
+            {
+                Directory.CreateDirectory(BCMLPath + "\\mods\\" + name + "\\" + GetName(gamePaths[1]));
+                string info = File.ReadAllText(applicationPath + "\\data\\info.json");
+                string infojson = info.Replace("%MODNAME%", name).Replace("%PLATFORM%", type);
+                File.WriteAllText(BCMLPath + "\\mods\\" + name + "\\info.json", infojson);
+
+                if (openWhenDone == true)
+                {
+                    Process proc = new Process();
+                    proc.StartInfo.FileName = "explorer.exe";
+                    proc.StartInfo.Arguments = BCMLPath + "\\mods\\" + name;
+
+                    proc.Start();
+                }
+            }
+        }
 
         #region Edit text documents methods
 
@@ -273,7 +328,32 @@ namespace BasicModCreatorData
                 }
             }
         }
+        public static async Task<Process> AsyncConsoleProcess(Process proc, string args, string fileName, bool dontExit = false, bool UsShellExecute = false, bool CreateNoWindow = true, bool dontStart = false, bool dontWait = false)
+        {
+            if (dontExit == false) { args = args + " && EXIT"; }
+            proc = new Process();
 
+            proc.StartInfo.FileName = fileName;
+            proc.StartInfo.Arguments = args;
+            proc.StartInfo.CreateNoWindow = CreateNoWindow;
+            proc.StartInfo.UseShellExecute = UsShellExecute;
+
+            if (dontStart == false) { await Task.Run(() => proc.Start()); }
+            if (dontStart == false && dontWait == false) { await proc.WaitForExitAsync(); }
+
+            return proc;
+        }
+        public static async Task CreateDirectories(string[] Directories)
+        {
+            List<Task<DirectoryInfo>> tasks = new List<Task<DirectoryInfo>>();
+
+            foreach (string directory in Directories)
+            {
+                tasks.Add(Task.Run(() => Directory.CreateDirectory(directory)));
+            }
+
+            var result = await Task.WhenAll(tasks);
+        }
         public static string GetExtension(string file)
         {
             string[] nm1 = file.Split('.');
@@ -293,6 +373,63 @@ namespace BasicModCreatorData
         {
             string[] nm1 = file.Split('\\');
             return file.Replace(nm1[nm1.Length - 1], "");
+        }
+        public static string GetLastInString(Char split, string targetString, string replaceChar = null, string replaceWith = "")
+        {
+            string[] ls = targetString.Split(split);
+            return ls[ls.Length - 1].Replace(replaceChar, replaceWith);
+        }
+        #endregion
+
+        #region Console Command Methods
+
+        public static async Task Yaz0Compress(string file, bool deCompress = false, int compresionLevel = 7)
+        {
+            if (deCompress == false)
+            {
+                string arguments = "yazit \"" + file + "\"" + compresionLevel.ToString();
+
+                await AsyncConsoleProcess(new Process(), arguments, "cmd.exe");
+            }
+        }
+        public static async Task HKRB_Extract(string actorName, string useArguments = null, string outFile = null, string hashID = null, string fieldname = null, string maptype = null)
+        {
+            string pathTo = null;
+            if (useArguments != "-p")
+            {
+                foreach (var line in File.ReadAllLines(applicationPath + "\\data\\ActorData.yml"))
+                {
+                    string[] paramaters = line.Split(',');
+
+                    hashID = GetLastInString(':', paramaters[4]);
+                    fieldname = GetLastInString(':', paramaters[2], "\"", "");
+                    maptype = GetLastInString(':', paramaters[1], "\"", "");
+
+                    outFile = applicationPath + "\\temp\\collision.HKRB\\" + actorName + "C.hkrb";
+                }
+            }
+            switch(maptype)
+            {
+                case "MainField":
+                    pathTo = gamePaths[1] + "\\Physics\\StaticCompound\\MainField\\";
+                    break;
+                case "AocField":
+                    pathTo = gamePaths[2] + "\\0010\\Physics\\StaticCompound\\AocField\\";
+                    break;
+            }
+
+            List<Task<Process>> tasks = new List<Task<Process>>();
+            for (int i = 0; i < 3; i++)
+            {
+                string arguments = "\"" + pathTo + fieldname + "-" + i.ToString() + ".shksc\" " + hashID + " \"" + outFile + "\"";
+
+                tasks.Add(AsyncConsoleProcess(new Process(), arguments, "cmd.exe"));
+                
+            }
+
+            var results = await Task.WhenAll(tasks);
+
+            Console.WriteLine("You should have collision now...");
         }
         #endregion
     }

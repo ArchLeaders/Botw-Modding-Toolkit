@@ -11,11 +11,19 @@ namespace BasicModCreator
         static async Task Main(string[] args)
         {
             #region Filter Data
-            string storeArgs = args[0];
-            if (args[0].EndsWith(".bft")) { storeArgs = "BFT_File"; }
-            if (args[0].EndsWith(".rtd")) { storeArgs = "RTD_File"; }
-            if (args[0].EndsWith(".obj")) { storeArgs = "OBJ_File"; }
-            if (args[0].EndsWith(".smubin") || args[0].EndsWith(".sbyml") || args[0].EndsWith(".byml") || args[0].EndsWith(".mubin")) { storeArgs = "BYML_File"; }
+            string storeArgs = null;
+            try
+            {
+                storeArgs = args[0];
+                if (args[0].EndsWith(".bft")) { storeArgs = "BFT_File"; }
+                if (args[0].EndsWith(".rtd")) { storeArgs = "RTD_File"; }
+                if (args[0].EndsWith(".obj")) { storeArgs = "OBJ_File"; }
+                if (args[0].EndsWith(".smubin") || args[0].EndsWith(".sbyml") || args[0].EndsWith(".byml") || args[0].EndsWith(".mubin")) { storeArgs = "BYML_File"; }
+            }
+            catch
+            {
+                //launch UI
+            }
             #endregion
 
             #region Handel Data
@@ -53,13 +61,23 @@ namespace BasicModCreator
                 case "BYML_File":
                     await BymlChanger(args);
                     break;
+                //Creates a vanilla actor.
+                case "-a":
+                case "get-actor":
+                    await GetActor(args);
+                    break;
+                //Yaz0 compress
+                case "-y":
+                case "yaz0":
+                    break;
                 //install misc files/data
                 case "-i": 
                 case "install":
                     await InstallData(args);
                     break;
+                //Whilst args = true, but are undefined.
                 default:
-                    //Open GUI;
+                    await CreateMod(args);
                     break;
             }
             #endregion
