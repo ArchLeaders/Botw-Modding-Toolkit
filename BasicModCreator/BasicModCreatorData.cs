@@ -10,12 +10,43 @@ namespace BasicModCreatorData
 {
     class BMC
     {
+        public static void HelpConsole()
+        {
+            Console.WriteLine("\n" +
+                "Basic Mod Creator Commands:\n" +
+                "-h, help: Displays the help. (Console Only)\n" +
+                "    usage: -h\n\n" +
+                "-b, bft: Writes a bft file.\n" +
+                "    usage: -b \"path\\to\\read\\directory\" \"path\\to\\file.bft\" " +
+                    "[-r \"Wood, Metal\"] [-f \"ActorInfo, RSTB, #sound, #map_a-1_main-field, " +
+                    "Update\\Actor\\Pack\\TwnObj_TempleOfTime_A_01\"]\n\n" +
+                "*.bft: Writes data from the target BFT file.\n" +
+                "    usage: \"path\\to\\bft\" (Open .bft file with the console executable)\n\n" +
+                "-r, readdata, *.rdt: Creates a \".sbactorpack\" from data source.\n" +
+                "    usage: -r \"path\\to\\folder\" [\"Actor Name\"]\n\n" +
+                "-c, collision, *.obj: Creates collision from corresponding .obj and .mtl files.\n" +
+                "    usage: -c \"path\\to\\*.obj\" { hkrb | hksc | shksc | hknm2 | shknm2}\n" +
+                "       OBJ file syntax: .obj = hkrb; .sc.obj = hksc; .ssc.obj = shksc; .nm.obj = hknm2; .snm.obj = shknm2;\n\n" +
+                "-e byml-changer, Endians {0 = Little Endian | 1 = Big Endian}, Yaz0 {-1 = Don't Change | 0 = Un-compress | 1 = Compress}" +
+                "    usage: -e {0|1} {-1|0|1} [path\\to\\input] [path\\to\\output]" +
+                "-a get-actor, Gets collision and attaches it to a specified actor." +
+                "    usage: -a 'ActorName' 'HashID' 'Field' [path\\to\\out folder] [Extension]" +
+                "-y yaz0, Compresses target file." +
+                "    usage: -y \"path\\to\\file\" [compression level (1-9)]" +
+                "-i, install: Installs various Basic Mod Creator components.\n" +
+                "    usage: -i { python | c++ | hyrule-builder | yaz-it | byml | hkx2-blender | obj-lib | all | required }");
+        }
+
+        //Methods
+
+        #region string, bools, integers
         static string applicationPath = System.Reflection.Assembly.GetEntryAssembly().Location.Replace("BasicModCreator.dll", "");
         static string workingDir = Environment.CurrentDirectory;
-        static string[] gamePaths = File.ReadAllLines(applicationPath + "\\data\\paths.txt");
-        static string BCMLPath = gamePaths[3];
+        static string[] paths = File.ReadAllLines(applicationPath + "\\data\\paths.txt");
+        static string BCMLPath = paths[3];
         static string type = File.ReadAllLines(applicationPath + "\\data\\paths.txt")[4];
         static int handleKey = 0;
+        #endregion
 
         #region Primary Methods
         public static async Task ReadData(string[] args)
@@ -84,53 +115,50 @@ namespace BasicModCreatorData
         }
         public static async Task GetActor(string[] args)
         {
-            await CreateDirectories(new string[] { applicationPath + "temp\\collision.HKRB", "temp\\" + args[0] + "C\\" + GetName(gamePaths[1]) + "\\Actor\\Pack"});
+            await CreateDirectories(new string[] { applicationPath + "temp\\collision.HKRB", "temp\\" + args[0] + "C\\" + GetName(paths[1]) + "\\Actor\\Pack"});
         }
         public static async Task InstallData(string[] args)
         {
-
+            switch(args[1])
+            {
+                case "python":
+                    
+                    break;
+                case "c++":
+                    break;
+                case "hyrule-builder":
+                    await AsyncConsoleProcess(new Process(), "py -" + paths[6] + " -m pip install " + args[1], "cmd.exe");
+                    break;
+                case "yaz-it":
+                    await AsyncConsoleProcess(new Process(), "py -" + paths[6] + " -m pip install " + args[1], "cmd.exe");
+                    break;
+                case "byml":
+                    await installPIPType(args[1], paths[6]);
+                    break;
+                case "hkx2-blender":
+                    break;
+                case "obj-lib":
+                    break;
+                case "all":
+                    break;
+                case "required":
+                    break;
+            }
         }
-        public static void HelpConsole()
-        {
-            Console.WriteLine("\n" +
-                "Basic Mod Creator Commands:\n" +
-                "-h, help: Displays the help. (Console Only)\n" +
-                "    usage: -h\n\n" +
-                "-b, bft: Writes a bft file.\n" +
-                "    usage: -b \"path\\to\\read\\directory\" \"path\\to\\file.bft\" " +
-                    "[-r \"Wood, Metal\"] [-f \"ActorInfo, RSTB, #sound, #map_a-1_main-field, " +
-                    "Update\\Actor\\Pack\\TwnObj_TempleOfTime_A_01\"]\n\n" +
-                "*.bft: Writes data from the target BFT file.\n" +
-                "    usage: \"path\\to\\bft\" (Open .bft file with the console executable)\n\n" +
-                "-r, readdata, *.rdt: Creates a \".sbactorpack\" from data source.\n" +
-                "    usage: -r \"path\\to\\folder\" [\"Actor Name\"]\n\n" +
-                "-c, collision, *.obj: Creates collision from corresponding .obj and .mtl files.\n" +
-                "    usage: -c \"path\\to\\*.obj\" { hkrb | hksc | shksc | hknm2 | shknm2}\n" +
-                "       OBJ file syntax: .obj = hkrb; .sc.obj = hksc; .ssc.obj = shksc; .nm.obj = hknm2; .snm.obj = shknm2;\n\n" +
-                "-e byml-changer, Endians {0 = Little Endian | 1 = Big Endian}, Yaz0 {-1 = Don't Change | 0 = Un-compress | 1 = Compress}" +
-                "    usage: -e {0|1} {-1|0|1} [path\\to\\input] [path\\to\\output]" +
-                "-a get-actor, Gets collision and attaches it to a specified actor." +
-                "    usage: -a 'ActorName' 'HashID' 'Field' [path\\to\\out folder] [Extension]" +
-                "-y yaz0, Compresses target file." +
-                "    usage: -y \"path\\to\\file\" [compression level (1-9)]" +
-                "-i, install: Installs various Basic Mod Creator components.\n" +
-                "    usage: -i { python | c++ | hyrule-builder | yaz-it | byml | hkx2-blender | obj-lib | all | required }");
-        }
-        #endregion
         public static async Task CreateMod(string[] args)
         {
             Console.WriteLine("Do you wish to create a new mod named: " + GetName(args[0]) + "[yes/no/rename]");
             string result = Console.ReadLine();
             if (result == "yes" || result == "y" || result == "Yes" || result == "Y" || result == "true")
             {
-                await Create(GetName(args[0]).Replace(GetExtension(args[0]), ""));
+                await QuickMod_BCMLDir(GetName(args[0]).Replace(GetExtension(args[0]), ""));
             }
             else if (result == "rename" || result == "r" || result == "R" || result == "Rename")
             {
                 Console.WriteLine("Please enter the new name: \n");
                 string name = Console.ReadLine();
 
-                await Create(name);
+                await QuickMod_BCMLDir(name);
             }
             else if (result == "no" || result == "n" || result == "No" || result == "No")
             {
@@ -143,24 +171,46 @@ namespace BasicModCreatorData
 
                 return;
             }
-
-            static async Task Create(string name, bool openWhenDone = true)
+        }
+        public static async Task NoArguments_Exeption()
+        {
+            Console.WriteLine("[yes/no/create-mod/help]");
+            string readLine = Console.ReadLine();
+            if (readLine == "yes" || readLine == "y" || readLine == "Yes" || readLine == "Y" || readLine == "true")
             {
-                Directory.CreateDirectory(BCMLPath + "\\mods\\" + name + "\\" + GetName(gamePaths[1]));
-                string info = File.ReadAllText(applicationPath + "\\data\\info.json");
-                string infojson = info.Replace("%MODNAME%", name).Replace("%PLATFORM%", type);
-                File.WriteAllText(BCMLPath + "\\mods\\" + name + "\\info.json", infojson);
+                //Open UI
+                Console.WriteLine("Not Implemented\nPress any key to close.");
+                Console.Read();
+            }
+            else if (readLine == "create-mod" || readLine == "c" || readLine == "C" || readLine == "Create-Mod")
+            {
+                Console.WriteLine("Please enter the mod name.");
+                string ModName = Console.ReadLine();
 
-                if (openWhenDone == true)
-                {
-                    Process proc = new Process();
-                    proc.StartInfo.FileName = "explorer.exe";
-                    proc.StartInfo.Arguments = BCMLPath + "\\mods\\" + name;
+                await QuickMod_BCMLDir(ModName);
+            }
+            else if (readLine == "no" || readLine == "n" || readLine == "No" || readLine == "No")
+            {
+                return;
+            }
+            else if (readLine == "help" || readLine == "h" || readLine == "Help" || readLine == "H")
+            {
+                HelpConsole();
+                Console.ReadLine();
 
-                    proc.Start();
-                }
+                await NoArguments_Exeption();
+
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Arguments not satisfied");
+                await NoArguments_Exeption();
+
+                return;
             }
         }
+        #endregion
 
         #region Edit text documents methods
 
@@ -411,10 +461,10 @@ namespace BasicModCreatorData
             switch(maptype)
             {
                 case "MainField":
-                    pathTo = gamePaths[1] + "\\Physics\\StaticCompound\\MainField\\";
+                    pathTo = paths[1] + "\\Physics\\StaticCompound\\MainField\\";
                     break;
                 case "AocField":
-                    pathTo = gamePaths[2] + "\\0010\\Physics\\StaticCompound\\AocField\\";
+                    pathTo = paths[2] + "\\0010\\Physics\\StaticCompound\\AocField\\";
                     break;
             }
 
@@ -430,6 +480,46 @@ namespace BasicModCreatorData
             var results = await Task.WhenAll(tasks);
 
             Console.WriteLine("You should have collision now...");
+        }
+        #endregion
+
+        #region Mod Creation Methods
+        public static async Task QuickMod_BCMLDir(string name, bool openWhenDone = true)
+        {
+            Directory.CreateDirectory(BCMLPath + "\\mods\\" + name + "\\" + GetName(paths[1]));
+            string info = File.ReadAllText(applicationPath + "\\data\\info.json");
+            string infojson = info.Replace("%MODNAME%", name).Replace("%PLATFORM%", type);
+            File.WriteAllText(BCMLPath + "\\mods\\" + name + "\\info.json", infojson);
+
+            if (openWhenDone == true)
+            {
+                Process proc = new Process();
+                proc.StartInfo.FileName = "explorer.exe";
+                proc.StartInfo.Arguments = BCMLPath + "\\mods\\" + name;
+
+                await Task.Run(() => proc.Start());
+            }
+        }
+        #endregion
+
+        #region Installers
+
+        public static async Task installPIPType(string packageName, string pythonVersion)
+        {
+            await AsyncConsoleProcess(new Process(), "py -" + pythonVersion + " -m pip install " + packageName, "cmd.exe");
+        }
+
+        public static async Task InstallAll()
+        {
+
+        }
+        public static async Task InstallPython()
+        {
+
+        }
+        public static async Task InstallCRedist()
+        {
+
         }
         #endregion
     }

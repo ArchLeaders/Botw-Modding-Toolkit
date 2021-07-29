@@ -11,18 +11,26 @@ namespace BasicModCreator
         static async Task Main(string[] args)
         {
             #region Filter Data
-            string storeArgs = null;
-            try
+            if (args.Length == 0) 
+            { args = new string[] { "-1" }; }
+
+            string storeArgs = args[0];
+
+            if (storeArgs == "-1")
             {
-                storeArgs = args[0];
+                Console.WriteLine("<Exception> - No arguments passed, open Basic Mod Creator UI?");
+
+                await NoArguments_Exeption();
+
+                return;
+                
+            }
+            else
+            {
                 if (args[0].EndsWith(".bft")) { storeArgs = "BFT_File"; }
                 if (args[0].EndsWith(".rtd")) { storeArgs = "RTD_File"; }
                 if (args[0].EndsWith(".obj")) { storeArgs = "OBJ_File"; }
                 if (args[0].EndsWith(".smubin") || args[0].EndsWith(".sbyml") || args[0].EndsWith(".byml") || args[0].EndsWith(".mubin")) { storeArgs = "BYML_File"; }
-            }
-            catch
-            {
-                //launch UI
             }
             #endregion
 

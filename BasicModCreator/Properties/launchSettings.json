@@ -1,8 +1,7 @@
 {
   "profiles": {
     "BasicModCreator": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\HP USER\\source\\repos\\Breath-of-the-Wild-Basic-Mod-Creator\\BasicModCreator\\bin\\Debug\\net5.0\\ActorInfo.product.yml\""
+      "commandName": "Project"
     }
   }
 }
