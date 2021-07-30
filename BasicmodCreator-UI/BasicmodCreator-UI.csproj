@@ -3,8 +3,17 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <RootNamespace>BasicmodCreator_UI</RootNamespace>
+    <RootNamespace>BasicModCreator_UI</RootNamespace>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath></OutputPath>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BMCLibrary\BMCLibrary.csproj" />
+  </ItemGroup>
 
 </Project>

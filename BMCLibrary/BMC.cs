@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Diagnostics;
+using System.IO;
+using System.Threading.Tasks;
 
-namespace BasicModCreatorData
+namespace BMCLibrary
 {
-    class BMC
+    public class BCM
     {
+
         public static void HelpConsole()
         {
             Console.WriteLine("\n" +
@@ -57,7 +56,7 @@ namespace BasicModCreatorData
         {
             //creates a bft with defines information.
         }
-        public static async  Task ReadBFT(string[] args)
+        public static async Task ReadBFT(string[] args)
         {
             //Writes data from a bft file.
         }
@@ -70,7 +69,7 @@ namespace BasicModCreatorData
             //Creates HKRB from target .obj file. Creates HKSC from target sc.obj file. Creates HKNM2 from target nm.obj file.
             //Creates SHKSC from target ssc.obj file. Creates SHKNM2 from target snm.obj file.
 
-                 if (args[0] == "-c") { handleKey = 1; }
+            if (args[0] == "-c") { handleKey = 1; }
             else if (args[0] == "collision") { handleKey = 2; }
             //File Formats
             else if (args[0].EndsWith(".obj")) { handleKey = 3; }
@@ -78,7 +77,7 @@ namespace BasicModCreatorData
             else if (args[0].EndsWith(".ssc.obj")) { handleKey = 5; }
             else if (args[0].EndsWith(".nm.obj")) { handleKey = 6; }
             else if (args[0].EndsWith(".snm.obj")) { handleKey = 7; }
-            else 
+            else
             {
                 try
                 {
@@ -115,14 +114,14 @@ namespace BasicModCreatorData
         }
         public static async Task GetActor(string[] args)
         {
-            await CreateDirectories(new string[] { applicationPath + "temp\\collision.HKRB", "temp\\" + args[0] + "C\\" + GetName(paths[1]) + "\\Actor\\Pack"});
+            await CreateDirectories(new string[] { applicationPath + "temp\\collision.HKRB", "temp\\" + args[0] + "C\\" + GetName(paths[1]) + "\\Actor\\Pack" });
         }
         public static async Task InstallData(string[] args)
         {
-            switch(args[1])
+            switch (args[1])
             {
                 case "python":
-                    
+
                     break;
                 case "c++":
                     break;
@@ -178,9 +177,9 @@ namespace BasicModCreatorData
             string readLine = Console.ReadLine();
             if (readLine == "yes" || readLine == "y" || readLine == "Yes" || readLine == "Y" || readLine == "true")
             {
-                //Open UI
-                Console.WriteLine("Not Implemented\nPress any key to close.");
-                Console.Read();
+                await AsyncConsoleProcess(new Process(), null, applicationPath + "\\BasicModCreator-UI.exe", true, false, false, false, true);
+
+                return;
             }
             else if (readLine == "create-mod" || readLine == "c" || readLine == "C" || readLine == "Create-Mod")
             {
@@ -276,7 +275,7 @@ namespace BasicModCreatorData
             BYML.StartInfo.FileName = "cmd.exe";
             BYML.StartInfo.UseShellExecute = admin;
             BYML.StartInfo.CreateNoWindow = !silent;
-            BYML.StartInfo.Arguments = "/c byml_to_yml \"" + file + "\" \"" + applicationPath + GetName(file).Replace(GetExtension(file), ".yml") + 
+            BYML.StartInfo.Arguments = "/c byml_to_yml \"" + file + "\" \"" + applicationPath + GetName(file).Replace(GetExtension(file), ".yml") +
                 "\" && yml_to_byml " + endian + "\"" + applicationPath + GetNameNoExtension(file) + ".yml\" \"" + file.Replace(GetExtension(file), extension) + "\" && EXIT";
 
             await Task.Run(() => BYML.Start());
@@ -407,7 +406,7 @@ namespace BasicModCreatorData
         public static string GetExtension(string file)
         {
             string[] nm1 = file.Split('.');
-            return "." + nm1[nm1.Length - 1]; 
+            return "." + nm1[nm1.Length - 1];
         }
         public static string GetName(string file)
         {
@@ -458,7 +457,7 @@ namespace BasicModCreatorData
                     outFile = applicationPath + "\\temp\\collision.HKRB\\" + actorName + "C.hkrb";
                 }
             }
-            switch(maptype)
+            switch (maptype)
             {
                 case "MainField":
                     pathTo = paths[1] + "\\Physics\\StaticCompound\\MainField\\";
@@ -474,7 +473,7 @@ namespace BasicModCreatorData
                 string arguments = "\"" + pathTo + fieldname + "-" + i.ToString() + ".shksc\" " + hashID + " \"" + outFile + "\"";
 
                 tasks.Add(AsyncConsoleProcess(new Process(), arguments, "cmd.exe"));
-                
+
             }
 
             var results = await Task.WhenAll(tasks);

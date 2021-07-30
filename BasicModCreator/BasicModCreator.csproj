@@ -11,6 +11,11 @@
     <Authors>Arch Leaders</Authors>
     <Company>N/A</Company>
 	<PublishReadyToRun>true</PublishReadyToRun>
+	<StartupObject />
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BMCLibrary\BMCLibrary.csproj" />
+  </ItemGroup>
 
 </Project>

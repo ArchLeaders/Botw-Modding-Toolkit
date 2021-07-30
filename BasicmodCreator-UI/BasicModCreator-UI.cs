@@ -1,25 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows.Forms;
+using static BasicModCreator_UI.UI_Controls;
 
-namespace BasicmodCreator_UI
+namespace BasicModCreator_UI
 {
-    public partial class BasicModCreatorUI : Form
+    public partial class btnSortFiles : Form
     {
-        public BasicModCreatorUI()
+        public btnSortFiles()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void BasicModCreatorUI_Load(object sender, System.EventArgs e)
+        {
+            FileList.Enabled = false;
+            await Task.Run(() => getFiles(FileList));
+            FileList.DataSource = botwFiles;
+            FileList.Enabled = true;
+        }
+
+        private void txtBoxSearchFile_TextChanged(object sender, System.EventArgs e)
+        {
+            search(txtBoxSearchFile.Text, FileList);
+        }
+
+        private void txtBoxSearchAllTools_TextChanged(object sender, System.EventArgs e)
         {
 
         }
+
+        #region Button Clicks
+
+
+
+        #endregion
+
+        //Move to Button Clicks...
     }
 }

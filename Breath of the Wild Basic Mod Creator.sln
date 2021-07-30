@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basic Mod Creator Setup Wiz
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicModCreator", "BasicModCreator\BasicModCreator.csproj", "{3634DA4A-54CC-4005-A7C2-DA883F9F44AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicmodCreator-UI", "BasicmodCreator-UI\BasicmodCreator-UI.csproj", "{601DE254-8528-4FE2-BFDF-F3B4E32D6C5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasicModCreator-UI", "BasicmodCreator-UI\BasicModCreator-UI.csproj", "{601DE254-8528-4FE2-BFDF-F3B4E32D6C5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMCLibrary", "BMCLibrary\BMCLibrary.csproj", "{939A2170-9A8A-4250-AEF4-B93A7378298B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +57,18 @@ Global
 		{601DE254-8528-4FE2-BFDF-F3B4E32D6C5F}.Release-x64|Any CPU.Build.0 = Release|Any CPU
 		{601DE254-8528-4FE2-BFDF-F3B4E32D6C5F}.Release-x64|x64.ActiveCfg = Release|Any CPU
 		{601DE254-8528-4FE2-BFDF-F3B4E32D6C5F}.Release-x64|x64.Build.0 = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Debug|x64.Build.0 = Debug|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release|x64.ActiveCfg = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release|x64.Build.0 = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release-x64|Any CPU.ActiveCfg = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release-x64|Any CPU.Build.0 = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release-x64|x64.ActiveCfg = Release|Any CPU
+		{939A2170-9A8A-4250-AEF4-B93A7378298B}.Release-x64|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
