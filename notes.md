@@ -11,13 +11,17 @@ Duplicates a vanilla actor and adds collision to the duplicate actor
 
 Syntax:
 ```
-extract_actor name [outFile/Path] [out name]
+extract_actor name [path\to\out\File or Folder] [out name]
 ```
-_If outFile/Path is a path, a actor folder struture will be created in that folder._
+Extended Syntax:
+```
+extract_actor HashID ActorName Field Map [-s, --switch] [path\to\contentFiles] [path\to\out\File or Folder]
+```
+_If File or Folder is a folder, a actor folder struture will be created in that folder._
 
 From File:
 ```
-actorName.exa
+ActorName.exa
 ```
 _Output: A duplicate sbactorpack file in the same location as the .exa._
 
