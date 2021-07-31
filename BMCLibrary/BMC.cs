@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static BMCLibrary.DataAccesFiles;
+using static BMCLibrary.BotwParsing;
+using BMCLibrary;
 
 namespace BMCLibrary
 {
     public class BCM
     {
-
         public static void HelpConsole()
         {
             Console.WriteLine("\n" +
