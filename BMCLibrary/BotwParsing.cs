@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace BMCLibrary
 {
-    class BotwParsing
+    public class BotwParsing
     {
         #region Actor Files, bxml, bmodellist, info, bphysics, etc...
         /// <summary>
@@ -92,64 +92,43 @@ namespace BMCLibrary
 
         public static async Task SarcUnpacker(string file)
         {
-            Process hyre = new Process();
-
-            hyre.StartInfo.FileName = "unbuild_sarc.exe";
-            hyre.StartInfo.Arguments = "\"" + file + "\"";
-
-            await Task.Run(() => hyre.Start());
-            await hyre.WaitForExitAsync();
+            await QuickProcess("unbuild_sarc.exe", "\"" + file + "\"");
         }
         public static async Task SarcPacker(string folder, string outFile, string endian = null)
         {
-            Process hyre = new Process();
-
-            hyre.StartInfo.FileName = "build_sarc.exe";
-            hyre.StartInfo.Arguments = "\"" + folder + "\"" + endian + "\"" + outFile + "\"";
-
-            await Task.Run(() => hyre.Start());
-            await hyre.WaitForExitAsync();
+            await QuickProcess("build_sarc.exe", "\"" + folder + "\"" + endian + "\"" + outFile + "\"");
         }
         public static async Task BymlDecoder(string file, string outPath = " !!.yml")
         {
-            Process byml = new Process();
-
-            byml.StartInfo.FileName = "byml_to_yml.exe";
-            byml.StartInfo.Arguments = "\"" + file + "\"" + outPath;
-
-            await Task.Run(() => byml.Start());
-            await byml.WaitForExitAsync();
-
-            await Task.Run(() => File.Delete(file));
+            await QuickProcess("byml_to_yml.exe", "\"" + file + "\"" + outPath);
         }
-        public static async Task YamlBymlEncoder(string file, string format, string outPath = null)
+        public static async Task YamlBymlEncoder(string file, string extension, string endian, string outPath = null)
         {
-            if (outPath == null)
+            outPath = " !!" + extension;
+            await QuickProcess("yml_to_byml.exe", endian + " \"" + file + "\"" + outPath);
+        }
+        public static async Task Yaz0Compressor(string file, string level, string output = null)
+        {
+            await QuickProcess("yazit.exe", "\"" + file + "\"" + level + " " + output);
+        }
+
+        #endregion
+
+        #region Basic Process
+
+        public static async Task QuickProcess(string fileName, string args, bool hidden = true, bool dontWait = false)
+        {
+            Process proc = new Process();
+
+            proc.StartInfo.FileName = fileName;
+            proc.StartInfo.CreateNoWindow = !hidden;
+            proc.StartInfo.Arguments = args;
+
+            await Task.Run(() => proc.Start());
+            if (dontWait == true)
             {
-                outPath = " !!." + format;
+                await proc.WaitForExitAsync();
             }
-
-            Process byml = new Process();
-
-            byml.StartInfo.FileName = "yml_to_byml.exe";
-            byml.StartInfo.Arguments = "\"" + file + "\"" + outPath;
-
-            await Task.Run(() => byml.Start());
-            await byml.WaitForExitAsync();
-
-            await Task.Run(() => File.Delete(file));
-        }
-        public static async Task Yaz0Compressor(string file, string level)
-        {
-            Process byml = new Process();
-
-            byml.StartInfo.FileName = "yazit.exe";
-            byml.StartInfo.Arguments = "\"" + file + "\"" + level;
-
-            await Task.Run(() => byml.Start());
-            await byml.WaitForExitAsync();
-
-            await Task.Run(() => File.Delete(file));
         }
 
         #endregion

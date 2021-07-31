@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace BMCLibrary
 {
-    class DataAccesFiles
+    public class DataAccesFiles
     {
         static string appPath = Directory.GetCurrentDirectory();
 
-        #region File Paths, Files: Get > Name, Extension, Path, FolderInPath, Path -X Folders/Paths
+        #region File Paths, Files: Get > Name, Extension, Path, FolderInPath, Path -X Folders/Paths, Endian
 
         public static string GetExtension(string file)
         {
@@ -57,6 +57,21 @@ namespace BMCLibrary
             }
 
             return result; 
+        }
+        public static string GetEndianType(string file)
+        {
+            byte[] bytes = File.ReadAllBytes(file);
+            string endianArgumentsType = null;
+
+            if (bytes[0] == 89 || bytes[17] == 89)
+            {
+                endianArgumentsType = ""; //Little Endian
+            }
+            else if (bytes[0] == 66 || bytes[17] == 66)
+            {
+                endianArgumentsType = "-b"; //Big Endian
+            }
+            return endianArgumentsType;
         }
         #endregion
 

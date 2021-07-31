@@ -3,13 +3,96 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
-using static BMCLibrary.DataAccesFiles;
 using static BMCLibrary.BotwParsing;
-using BMCLibrary;
+using static BMCLibrary.DataAccesFiles;
 
 namespace BMCLibrary
 {
-    public class BCM
+    public class BMCcontrol
+    {
+        public static string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMCtemp\\";
+        public static async Task BymlSwitcher(string[] args)
+        {
+            if (args.Length == 0) { args = new string[] { "-1" }; }
+
+            string[] formats = new string[]
+            {
+                ".baischedule",
+                ".baniminfo",
+                ".bgdata",
+                ".bgsvdata",
+                ".bquestpack",
+                ".byml",
+                ".mubin",
+                ".sbaischedule",
+                ".sbaniminfo",
+                ".sbgdata",
+                ".sbgsvdata",
+                ".sbquestpack",
+                ".sbyml",
+                ".smubin"
+            };
+            string format = null;
+
+            foreach (var item in formats)
+            {
+                if (formats.Any(GetExtension(args[0]))
+                {
+                    Console.WriteLine("" +
+                        "  Positional Arguments or Open BYML File With byml_switch.exe\n" +
+                        "      { path\\to\\file | path\\to\\dir }\n" +
+                        "\n" +
+                        "  Optional Arguments\n" +
+                        "      -#               yaz0 compresion, # is compresion level, can be any number from 1-9.\n" +
+                        "      -b, --be         Make Big Endian.\n" +
+                        "      path\\to\\out    Output folder.\n" +
+                        "\n" +
+                        "  BYML Formats\n" +
+                        "      .baischedule |  .sbaischedule\n" +
+                        "      .baniminfo   |  .sbaniminfo\n" +
+                        "      .bgdata      |  .sbgdata\n" +
+                        "      .bgsvdata    |  .sbgsvdata\n" +
+                        "      .bquestpack  |  .sbquestpack\n" +
+                        "      .byml        |  .sbyml\n" +
+                        "      .mubin       |  .smubin" +
+                        "");
+                    Console.WriteLine("\n\nPress any key to continue...");
+                    Console.ReadLine();
+                    return;
+                }
+            }
+
+            string endian = null;
+            int yaz0 = -1;
+            string output = null;
+            string file = args[0];
+
+            foreach (var argument in args)
+            {
+                if (argument == "-b" || argument == "--be") { endian = "-b"; }
+                else if (argument == "-o" || argument == "--output") { output = argument; }
+                else if (int.TryParse(argument, out yaz0)) { }
+                else if (argument.Contains('\\')) { file = argument; }
+                else
+                {
+
+                }
+            }
+
+            await BymlDecoder(file, tempPath + GetName(file));
+
+            await YamlBymlEncoder(tempPath + GetName(file), GetExtension(file), endian);
+
+            string extension = GetExtension(file);
+            if (yaz0 != -1)
+            {
+                await Yaz0Compressor(tempPath + GetName(file), yaz0.ToString());
+            }
+
+            File.Move(tempPath + GetName(file), output + "\\" + GetName(file, true) + extension);
+        }
+    }
+    public class _Control
     {
         public static void HelpConsole()
         {
@@ -110,7 +193,7 @@ namespace BMCLibrary
             catch { }
             try
             {
-                await BYMLHandleUnkownE(args[0]);
+                GetEndianType(args[0]);
             }
             catch { }
         }
@@ -285,37 +368,6 @@ namespace BMCLibrary
 
             if (file != file.Replace(GetExtension(file), extension) && deleteOriginal == true) File.Delete(file);
             File.Delete(file.Replace(GetExtension(file), ".yml"));
-        }
-
-        public static async Task BYMLHandleUnkownE(string file, bool silent = false, bool admin = false)
-        {
-            byte[] bytes = File.ReadAllBytes(file);
-
-            if (bytes[0] == 89) { await isCompressed(bytes, file); }
-            else if (bytes[0] == 66 || bytes[0] == 89) { await isNotCompressed(bytes, file); }
-
-            static async Task isCompressed(byte[] bytes, string file)
-            {
-                if (bytes[17] == 89) //Little Endian
-                {
-                    await BYMLHandler(file, "1", "-1", false, null, null, true);
-                }
-                else if (bytes[17] == 66) //Big Endian
-                {
-                    await BYMLHandler(file, "0", "-1", false, null, null, true);
-                }
-            }
-            static async Task isNotCompressed(byte[] bytes, string file)
-            {
-                if (bytes[0] == 89) //Little Endian
-                {
-                    await BYMLHandler(file, "1", "-1", false);
-                }
-                else if (bytes[0] == 66) //Big Endian
-                {
-                    await BYMLHandler(file, "0", "-1", false);
-                }
-            }
         }
         #endregion
 

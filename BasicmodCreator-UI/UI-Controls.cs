@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static BMCLibrary.BCM;
+using static BMCLibrary._Control;
 
 namespace BasicModCreator_UI
 {
