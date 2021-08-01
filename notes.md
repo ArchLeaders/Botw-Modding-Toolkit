@@ -13,7 +13,7 @@ Syntax:
 ```
 extract_actor name [-s, --switch] [path\to\out\File or Folder]
 ```
-Extended Syntax:
+Silent Princess Syntax:
 ```
 sp_cs --ex HashID ActorName Field Map path\to\contentFiles [-s, --switch] [path\to\out\File or Folder]
 ```
