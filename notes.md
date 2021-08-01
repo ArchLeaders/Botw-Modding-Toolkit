@@ -11,7 +11,7 @@ Duplicates a vanilla actor and adds collision to the duplicate actor
 
 Syntax:
 ```
-extract_actor name [-s, --switch] [path\to\out\File or Folder]
+extract_actor name [path\to\out\File or Folder]
 ```
 _If File or Folder is a folder, a mod folder struture will be created in that folder._
 
