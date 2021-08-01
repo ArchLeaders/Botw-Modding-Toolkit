@@ -16,6 +16,7 @@ namespace BMCLibrary
         public static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC";
         public static string dataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\data";
         public static string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\.temp";
+        public static string appPath = File.ReadAllLines(dataPath + "\\paths.txt")[7];
 
         //Paths
         public static string basePath = File.ReadAllLines(dataPath + "\\paths.txt")[0];
@@ -119,10 +120,8 @@ namespace BMCLibrary
             string dlc = null;
 
             //Output
+            string of1 = null;
             string outFile = null;
-
-            //Type
-            bool isSwitch = false;
 
             #endregion
 
@@ -140,22 +139,19 @@ namespace BMCLibrary
                 dlc = args[6];
 
                 //Output
-                outFile = null;
                 if (Directory.Exists(args[7]))
                 {
-                    outFile = args[7] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                    of1 = args[7] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
                 }
                 else
                 {
-                    outFile = GetPath(args[0]) + "\\" +
+                    of1 = GetPath(args[0]) + "\\" +
                      GetName(args[0], true) + GetExtension(args[7]).Replace(".sbactorpack", "C.sbactorpack");
                 }
 
                 //Type
-                isSwitch = false;
-
-                if (GetName(update) == "romfs") { isSwitch = true; outFile.Replace("content", "01007EF00011E000\\romfs"); }
-                else if (GetName(update) == "content") { isSwitch = false; }
+                if (GetName(update) == "romfs") { outFile = of1.Replace("\\content", "\\01007EF00011E000\\romfs"); }
+                else { outFile = of1; }
             }
             else
             {
@@ -172,31 +168,37 @@ namespace BMCLibrary
                 //Outfile
                 if (args.Length >= 2)
                 {
-                    if (Directory.Exists(args[1]))
+                    if (GetExtension(args[1]) == ".sbactorpack")
                     {
-                        outFile = args[1] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                        of1 = args[1];
                     }
                     else if (args[1] == "bcml_mod" || args[1] == "-b" || args[1] == "--bcml")
                     {
-                        outFile = bcmlPath + "\\mods\\" + BCMLPrior() + "_" + actorName + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                        of1 = bcmlPath + "\\mods\\" + BCMLPrior() + "_" + actorName + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                    }
+                    else if (Directory.Exists(args[1]))
+                    {
+                        of1 = args[1] + "\\" + actorName + "_Actor\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
                     }
                 }
-                else { outFile = Directory.GetCurrentDirectory() + "\\" + actorName + "_Build\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack"; }
+                else { of1 = Directory.GetCurrentDirectory() + "\\" + actorName + "_Build\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack"; }
 
                 //IsSwitch
                 if (edition == "switch")
                 {
-                    isSwitch = true;
-                    outFile.Replace("content", "01007EF00011E000\\romfs");
+                    outFile = of1.Replace("\\content", "\\01007EF00011E000\\romfs");
                 }
-                else if (edition == "wiiu")
-                {
-                    isSwitch = false;
-                }
-
-                Console.WriteLine(BCMLPrior());
+                else { outFile = of1; }
             }
             #endregion
+
+            Console.WriteLine(actorName);
+            Console.WriteLine(hashId);
+            Console.WriteLine(field);
+            Console.WriteLine(map + "\n");
+            Console.WriteLine(outFile + "\n");
+            Console.WriteLine(update);
+            Console.WriteLine(dlc);
         }
     }
 }

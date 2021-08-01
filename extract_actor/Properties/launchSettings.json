@@ -2,7 +2,7 @@
   "profiles": {
     "extract_actor": {
       "commandName": "Project",
-      "commandLineArgs": "YabusameBow"
+      "commandLineArgs": "\"C:\\Users\\HP USER\\Desktop\\BotWBunkerDrawing\\Collected Data\\Assets\\script-folder\\Collision.obj\" hkrb"
     }
   }
 }

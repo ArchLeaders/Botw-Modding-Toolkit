@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{46F7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "byml_switch", "byml_switcher\byml_switch.csproj", "{D14E2684-9B0B-42C5-A844-B1C8CCE7526F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extract_actor", "extract_actor\extract_actor.csproj", "{F86EA326-6D0D-4119-8D0F-E44EEC06528B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "extract_actor", "extract_actor\extract_actor.csproj", "{F86EA326-6D0D-4119-8D0F-E44EEC06528B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SilentPrincessMapEditor.cs", "sp_cs\SilentPrincessMapEditor.cs.csproj", "{762214FC-4A3B-47AF-BE33-86CBCBC6CA13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SilentPrincessMapEditor.cs", "sp_cs\SilentPrincessMapEditor.cs.csproj", "{762214FC-4A3B-47AF-BE33-86CBCBC6CA13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

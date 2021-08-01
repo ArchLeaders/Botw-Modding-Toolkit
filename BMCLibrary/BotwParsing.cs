@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using static BMCLibrary.BMCcontrol;
@@ -117,16 +118,21 @@ namespace BMCLibrary
 
         #region Basic Process
 
-        public static async Task QuickProcess(string fileName, string args, bool hidden = true, bool dontWait = false)
+        public static async Task QuickProcess(string fileName, string args, bool hidden = true, bool dontWait = false, string workingDir = null)
         {
+            if (workingDir == null)
+            {
+                workingDir = AppContext.BaseDirectory;
+            }
             Process proc = new Process();
 
+            proc.StartInfo.WorkingDirectory = workingDir;
             proc.StartInfo.FileName = fileName;
-            proc.StartInfo.CreateNoWindow = !hidden;
+            proc.StartInfo.CreateNoWindow = hidden;
             proc.StartInfo.Arguments = args;
 
-            await Task.Run(() => proc.Start());
-            if (dontWait == true)
+            proc.Start();
+            if (dontWait == false)
             {
                 await proc.WaitForExitAsync();
             }
@@ -142,7 +148,16 @@ namespace BMCLibrary
         /// <returns>A four digit number representing the amount of mods in the users bcml.</returns>
         public static string BCMLPrior()
         {
-            Directory.GetDirectories()
+            string result = "0000";
+            double count = Math.Floor(Math.Log10(Directory.GetDirectories(bcmlPath + "\\mods").Length) + 1);
+            string modCount = Directory.GetDirectories(bcmlPath + "\\mods").Length.ToString();
+            if (count == 1) { result = "000" + modCount; }
+            else if (count == 2) { result = "00" + modCount; }
+            else if (count == 3) { result = "0" + modCount; }
+            else if (count == 4) { result = modCount; }
+            else { Console.WriteLine("Error: BCML mod limit reached."); }
+
+            return result;
         }
 
         #endregion
