@@ -11,7 +11,7 @@ Duplicates a vanilla actor and adds collision to the duplicate actor
 
 Syntax:
 ```
-extract_actor name [path\to\out\File/Folder/bcml_mod]
+extract_actor ActorName [path\to\out\File/Folder/bcml_mod]
 ```
 _If File or Folder is a folder, a mod folder struture will be created in that folder. bcml_mod will create a mod in bcml's mods directory and place the new actor there._
 
