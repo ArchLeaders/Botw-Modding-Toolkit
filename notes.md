@@ -17,7 +17,7 @@ _If File or Folder is a folder, a mod folder struture will be created in that fo
 
 Silent Princess Syntax:
 ```
-sp_cs --ex HashID ActorName Field Map path\to\contentFiles [-s, --switch] [path\to\out\File or Folder]
+sp_cs --ex HashID ActorName Field Map path\to\contentFiles {-s|-w} path\to\out\File or Folder
 ```
 
 ---
