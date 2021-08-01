@@ -3,16 +3,11 @@ using static BMCLibrary.BMCcontrol;
 
 namespace byml_switcher
 {
-    class byml_switcher
+    class byml_switch
     {
         static void Main(string[] args)
         {
-            _ = Call(args);   
-        }
-
-        public static async Task Call(string[] args)
-        {
-            await BymlSwitcher(args);
+            _ = BymlSwitcher(args);
         }
     }
 }

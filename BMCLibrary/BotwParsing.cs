@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using static BMCLibrary.BMCcontrol;
 
 namespace BMCLibrary
 {
@@ -129,6 +130,19 @@ namespace BMCLibrary
             {
                 await proc.WaitForExitAsync();
             }
+        }
+
+        #endregion
+
+        #region BCML data
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>A four digit number representing the amount of mods in the users bcml.</returns>
+        public static string BCMLPrior()
+        {
+            Directory.GetDirectories()
         }
 
         #endregion

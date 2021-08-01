@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "extract_actor": {
+      "commandName": "Project",
+      "commandLineArgs": "YabusameBow"
+    }
+  }
+}
