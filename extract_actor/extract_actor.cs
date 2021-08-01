@@ -8,8 +8,7 @@ namespace extract_actor
     {
         static async Task Main(string[] args)
         {
-            await HKX2(args[0], "hkrb");
-            //_ = ExtractActor(args, false);
+            await ExtractActor(args, false);
         }
     }
 }

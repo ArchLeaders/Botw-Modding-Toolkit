@@ -113,11 +113,9 @@ namespace BMCLibrary
             string hashId = null;
             string actorName = null;
             string field = null;
-            string map = null;
 
             //Botw 
-            string update = null;
-            string dlc = null;
+            string pathToPhys = null;
 
             //Output
             string of1 = null;
@@ -129,41 +127,53 @@ namespace BMCLibrary
             if (staticArgs == true)
             {
                 //Actor Data
-                hashId = args[1];
-                actorName = args[2];
-                field = args[3];
-                map = args[4];
+                hashId = args[0];
+                actorName = args[1];
+                field = args[2];
 
-                //Botw 
-                update = args[5];
-                dlc = args[6];
+                //Botw
+                if (GetName(args[3]) == "0010" || args[3].EndsWith("01007EF00011F001\\romfs"))
+                {
+                    pathToPhys = args[3] + "\\Physics\\StaticCompound\\AocField";
+                }
+                else if (GetName(args[3]) == "content" || args[3].EndsWith("01007EF00011E000\\romfs"))
+                {
+                    pathToPhys = args[3] + "\\Physics\\StaticCompound\\MainField";
+                }
 
                 //Output
-                if (Directory.Exists(args[7]))
+                if (Directory.Exists(args[4]))
                 {
-                    of1 = args[7] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                    of1 = args[4] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
                 }
                 else
                 {
-                    of1 = GetPath(args[0]) + "\\" +
-                     GetName(args[0], true) + GetExtension(args[7]).Replace(".sbactorpack", "C.sbactorpack");
+                    of1 = GetPath(args[4]) +
+                    GetName(args[4], true) + GetExtension(args[4]).Replace(".sbactorpack", "C.sbactorpack");
                 }
 
                 //Type
-                if (GetName(update) == "romfs") { outFile = of1.Replace("\\content", "\\01007EF00011E000\\romfs"); }
+                if (args[3].EndsWith("romfs")) { outFile = of1.Replace("\\content", "\\01007EF00011E000\\romfs"); }
                 else { outFile = of1; }
             }
             else
             {
                 string[] actorData = await HashId(args[0]);
+                if (actorData[0] == "-1") { return; }
 
                 hashId = actorData[0];
                 actorName = actorData[1];
                 field = actorData[2];
-                map = actorData[3];
 
-                update = updatePath;
-                dlc = dlcPath;
+                //Path to Physics
+                if (actorData[3] == "MainField")
+                {
+                    pathToPhys = updatePath + "\\Physics\\StaticCompound\\MainField";
+                }
+                else if (actorData[3] == "AocField")
+                {
+                    pathToPhys = updatePath + "\\Physics\\StaticCompound\\AocField";
+                }
 
                 //Outfile
                 if (args.Length >= 2)
@@ -194,11 +204,9 @@ namespace BMCLibrary
 
             Console.WriteLine(actorName);
             Console.WriteLine(hashId);
-            Console.WriteLine(field);
-            Console.WriteLine(map + "\n");
+            Console.WriteLine(field + "\n");
             Console.WriteLine(outFile + "\n");
-            Console.WriteLine(update);
-            Console.WriteLine(dlc);
+            Console.WriteLine(pathToPhys);
         }
     }
 }

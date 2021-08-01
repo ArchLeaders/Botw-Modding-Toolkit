@@ -2230,7 +2230,16 @@ namespace BMCLibrary
                     break;
                 }
             }
-            Console.WriteLine("HashID " + result[0] + " found.");
+
+            if (result == null)
+            {
+                Console.WriteLine("Actor Not Found or Applicable");
+                result = new string[] { "-1" };
+            }
+            else
+            {
+                Console.WriteLine("HashID " + result[0] + " found.");
+            }
             return result;
         }
     }
