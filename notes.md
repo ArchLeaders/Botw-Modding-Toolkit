@@ -11,7 +11,7 @@ Duplicates a vanilla actor and adds collision to the duplicate actor
 
 Syntax:
 ```
-extract_actor name [path\to\out\File or Folder] [out name]
+extract_actor name [-s, --switch] [path\to\out\File or Folder] [out name]
 ```
 Extended Syntax:
 ```
