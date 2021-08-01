@@ -13,17 +13,12 @@ Syntax:
 ```
 extract_actor name [-s, --switch] [path\to\out\File or Folder]
 ```
+_If File or Folder is a folder, a mod folder struture will be created in that folder._
+
 Silent Princess Syntax:
 ```
 sp_cs --ex HashID ActorName Field Map path\to\contentFiles [-s, --switch] [path\to\out\File or Folder]
 ```
-_If File or Folder is a folder, a mod folder struture will be created in that folder._
-
-From File:
-```
-ActorName.exa
-```
-_Output: A duplicate sbactorpack file in the same location as the .exa. Write `-s` inside the file for a switch actor._
 
 ---
 
@@ -45,7 +40,7 @@ From file:
 ```
 actorName.act
   --> Absolute\Path\To\Collision.obj
-  --> Unit-Name
+  --> Unit-Name //By default the file name with "_##" removed from the end where applicable.
   --> Out-Folder (default .act folder)
   --> /bcml=Mod Name
 ```
