@@ -11,19 +11,19 @@ Duplicates a vanilla actor and adds collision to the duplicate actor
 
 Syntax:
 ```
-extract_actor name [-s, --switch] [path\to\out\File or Folder] [out name]
+extract_actor name [-s, --switch] [path\to\out\File or Folder]
 ```
 Extended Syntax:
 ```
 extract_actor --ex HashID ActorName Field Map path\to\contentFiles [-s, --switch] [path\to\out\File or Folder]
 ```
-_If File or Folder is a folder, a actor folder struture will be created in that folder._
+_If File or Folder is a folder, a mod folder struture will be created in that folder._
 
 From File:
 ```
 ActorName.exa
 ```
-_Output: A duplicate sbactorpack file in the same location as the .exa._
+_Output: A duplicate sbactorpack file in the same location as the .exa. Write `-s` inside the file for a switch actor._
 
 ---
 
