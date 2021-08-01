@@ -15,7 +15,7 @@ extract_actor name [path\to\out\File or Folder] [out name]
 ```
 Extended Syntax:
 ```
-extract_actor --ex HashID ActorName Field Map [-s, --switch] [path\to\contentFiles] [path\to\out\File or Folder]
+extract_actor --ex HashID ActorName Field Map path\to\contentFiles [-s, --switch] [path\to\out\File or Folder]
 ```
 _If File or Folder is a folder, a actor folder struture will be created in that folder._
 
