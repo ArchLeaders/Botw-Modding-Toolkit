@@ -17,8 +17,7 @@ _If File or Folder is a folder, a mod folder struture will be created in that fo
 
 Silent Princess Syntax:
 ```
-sp_cs -e HashID ActorName Field "path\to\update/dlc(0010)\content" "path\to\out\File or Folder" [path\to\update\content] (only if the first path\to\update/dlc is dlc)
-```
+sp_cs -e HashID ActorName Field "path\to\update/dlc(0010)\content" "path\to\out\File or Folder" [path\to\update\content]
 
 ---
 
