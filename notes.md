@@ -2,22 +2,67 @@
 
 _[Basic Mod Creator Installer](//download_link)_
 
-Extract Actor
------------------
+Extract
+-------
 
-Duplicates a vanilla actor and adds collision to the duplicate actor
+> Uses hyrule_builder by NiceneNerd & BotW-havok by Kreny
 
-> Uses Hyrule-Builder by NiceneNerd & HKRB_Extract by Kreny
+**Extract Syntax:**
 
-Syntax:
+---
+
+```cs
+// actor, extracts a single actor.
+extract actor 'ActorName' "[out\File | out\Folder | bcml_mod]"
+// batch, extracts multiple actors.
+extract batch "Array of actor names" "out\folder | bcml_mod=name"
+// all
+extract all "out\folder | bcml_mod=name" 
 ```
-extract_actor ActorName [path\to\out\File/Folder/bcml_mod]
-```
-_If File or Folder is a folder, a mod folder struture will be created in that folder. bcml_mod will create a mod in bcml's mods directory and place the new actor there._
+**Silent Princess Map Editor Syntax:**
 
-Silent Princess Syntax:
+---
+
+```cs
+//Extract a single actor.
+sp_sc -e 'HashID' 'ActorName' 'Field' "path\to\update/dlc(0010)\content" "path\to\out\File or Folder" "path\to\info" '[path\to\update\content]'
+//Extract an array of actors.
+sp_sc -eb "HashIDs" "ActorNames" "Fields" "Maps" "path\to\update\content" "path\to\dlc\content\0010" "path\to\out\Folder" "path\to\info"
+//Extract all actors.
+sp_sc -ea "path\to\update\content" "path\to\dlc\content\0010" "path\to\out\Folder" "path\to\ActorInfo.sbyml"
 ```
-sp_cs HashID ActorName Field "path\to\update/dlc(0010)\content" "path\to\out\File or Folder"
+
+**What does** ***bcml_mod*** **mean?**
+
+---
+
+```cs
+// This adds a mod to bcmls mod data folder. The mod can seen in BCML with a restart or remerge.
+```
+
+**To Be Made:**
+
+---
+
+Classes:
+```cs
+BMC.cs
+Actor.cs
+```
+
+Methods:
+```cs
+BMC.Extract // Defines the type of extract command (actor, batch, all)
+BMC.Extract.Batch // Gets parameters for every actor in the string[], then executes.
+BMC.Extract.All // Gets parameters for every actor, then executes various things. Merged_Grudge actors are skipped.
+Botw_Havok.Batch // Creates a batch for extracting havok compound files.
+```
+
+Strings:
+```cs
+Actor.Info // Returns a actor.info.yml file, uses Parse.Info.
+Actor.BXML // Returns a actor.bxml.yml file, uses Parse.BXML.
+Actor.BPhysics // Edits the YAML file made by HKRB_Extract to point to the HKRB.
 ```
 
 ---
