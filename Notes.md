@@ -1,7 +1,7 @@
 Basic-Mod-Creator
 =================
 
-Actor-Creator
+Actor Class
 -------------
 
 ```yaml
@@ -18,17 +18,12 @@ Actorinfo //To be merged with
 
 > > > --- 
 
-Mod Template Creator
---------------------
+Mod Class
+---------
 
-```yaml
-mod-create : Name
-```
-
-**Options**
-
-```yaml
-Vanilla Files
+```cs
+Mod.Create(string name, string[] files);
+Mod.Delete(string fullName);
 ```
 
 > > > --- 
@@ -46,7 +41,7 @@ Myst Editor
 -----------
 
 ```yaml
-Create easy to read text editing.
+Easy to read text editing.
 ```
 
 --- 
@@ -62,7 +57,7 @@ Unbuilding : Folder
 Rebuilding : Folder
 SARC Unpacking : File (SBACTORPACK)
 SARC Packing : Folder
-rstb_to_json
+rstb_to_json : File
 ```
 
 **Options**
