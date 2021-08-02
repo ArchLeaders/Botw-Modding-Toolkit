@@ -2,22 +2,42 @@
 
 _[Basic Mod Creator Installer](//download_link)_
 
-Extract Actor
------------------
+Extract
+-------
 
-Duplicates a vanilla actor and adds collision to the duplicate actor
+> Uses hyrule_builder by NiceneNerd & BotW-havok by Kreny
 
-> Uses Hyrule-Builder by NiceneNerd & HKRB_Extract by Kreny
+**Extract Actor Syntax:**
 
-Syntax:
+---
+
 ```
-extract_actor ActorName [path\to\out\File/Folder/bcml_mod] [-c, --cache]
+// extract_actor, extracts a single actor.
+extract actor 'ActorName' "[out\File | out\Folder | bcml_mod]"
+// extract_batch, extracts multiple actors.
+extract batch "Array of actor names" "out\folder | bcml_mod=name"
+// extract all
+extract all "out\folder | bcml_mod=name"
 ```
-_If File or Folder is a folder, a mod folder struture will be created in that folder. bcml_mod will create a mod in bcml's mods directory and place the new actor there._
+**Silent Princess Map Editor Syntax:**
 
-Silent Princess Syntax:
+---
+
 ```
-sp_cs -e HashID ActorName Field "path\to\update/dlc(0010)\content" "path\to\out\File or Folder" [path\to\update\content]
+//Extract a single actor.
+sp_sc -e 'HashID' 'ActorName' 'Field' "path\to\update/dlc(0010)\content" "path\to\out\File or Folder" "path\to\info" '[path\to\update\content]'
+//Extract an array of actors.
+sp_sc -eb "HashIDs" "ActorNames" "Fields" "Maps" "path\to\update\content" "path\to\dlc\content\0010" "path\to\out\Folder" "path\to\info"
+//Extract all actors.
+sp_sc -ea "path\to\update\content" "path\to\dlc\content\0010" "path\to\out\Folder" "path\to\ActorInfo.sbyml"
+```
+
+**What does `bcml_mod` mean?**
+
+---
+
+```
+// This adds a mod to bcmls mod data folder. The mod can seen in BCML with a restart or remerge.
 ```
 
 ---
