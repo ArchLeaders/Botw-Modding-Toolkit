@@ -7,17 +7,17 @@ Extract
 
 > Uses hyrule_builder by NiceneNerd & BotW-havok by Kreny
 
-**Extract Actor Syntax:**
+**Extract Syntax:**
 
 ---
 
 ```
-// extract_actor, extracts a single actor.
+// actor, extracts a single actor.
 extract actor 'ActorName' "[out\File | out\Folder | bcml_mod]"
-// extract_batch, extracts multiple actors.
+// batch, extracts multiple actors.
 extract batch "Array of actor names" "out\folder | bcml_mod=name"
-// extract all
-extract all "out\folder | bcml_mod=name"
+// all
+extract all "out\folder | bcml_mod=name" 
 ```
 **Silent Princess Map Editor Syntax:**
 
@@ -32,12 +32,37 @@ sp_sc -eb "HashIDs" "ActorNames" "Fields" "Maps" "path\to\update\content" "path\
 sp_sc -ea "path\to\update\content" "path\to\dlc\content\0010" "path\to\out\Folder" "path\to\ActorInfo.sbyml"
 ```
 
-**What does `bcml_mod` mean?**
+**What does** ***bcml_mod*** **mean?**
 
 ---
 
 ```
 // This adds a mod to bcmls mod data folder. The mod can seen in BCML with a restart or remerge.
+```
+
+**To Be Made:**
+
+---
+
+Classes:
+```
+BMC.cs
+Actor.cs
+```
+
+Methods:
+```
+BMC.Extract // Defines the type of extract command (actor, batch, all)
+BMC.Extract.Batch // Gets parameters for every actor in the string[], then executes.
+BMC.Extract.All // Gets parameters for every actor, then executes various things. Merged_Grudge actors are skipped.
+Botw_Havok.Batch // Creates a batch for extracting havok compound files.
+```
+
+Strings:
+```
+Actor.Info // Returns a actor.info.yml file, uses Parse.Info.
+Actor.BXML // Returns a actor.bxml.yml file, uses Parse.BXML.
+Actor.BPhysics // Edits the YAML file made by HKRB_Extract to point to the HKRB.
 ```
 
 ---
