@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BMCLibrary
 {
-    public class DataAccesFiles
+    public class Files
     {
         static string appPath = Directory.GetCurrentDirectory();
 
@@ -60,7 +60,7 @@ namespace BMCLibrary
         }
         public static string GetEndianType(string file)
         {
-            byte[] bytes = File.ReadAllBytes(file);
+            byte[] bytes = System.IO.File.ReadAllBytes(file);
             string endianArgumentsType = null;
 
             if (bytes[0] == 89 || bytes[17] == 89)
@@ -84,7 +84,7 @@ namespace BMCLibrary
             {
                 string[] data = file.Split('\\');
 
-                tasks.Add(Task.Run(() => File.Copy(file, destDir + "\\" + data[data.Length - 1])));
+                tasks.Add(Task.Run(() => System.IO.File.Copy(file, destDir + "\\" + data[data.Length - 1])));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -97,11 +97,11 @@ namespace BMCLibrary
             {
                 if (move == false)
                 {
-                    tasks.Add(Task.Run(() => File.Copy(file, destDir + "\\" + GetName(file))));
+                    tasks.Add(Task.Run(() => System.IO.File.Copy(file, destDir + "\\" + GetName(file))));
                 }
                 else
                 {
-                    tasks.Add(Task.Run(() => File.Move(file, destDir + "\\" + GetName(file))));
+                    tasks.Add(Task.Run(() => System.IO.File.Move(file, destDir + "\\" + GetName(file))));
                 }
             }
 
@@ -113,7 +113,7 @@ namespace BMCLibrary
 
             foreach (var file in files)
             {
-                tasks.Add(Task.Run(() => File.Delete(file)));
+                tasks.Add(Task.Run(() => System.IO.File.Delete(file)));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -194,7 +194,7 @@ namespace BMCLibrary
         {
             List<string> list = new List<string>();
 
-            foreach (var line in await File.ReadAllLinesAsync(file))
+            foreach (var line in await System.IO.File.ReadAllLinesAsync(file))
             {
                 list.Add(line);
             }
@@ -203,14 +203,14 @@ namespace BMCLibrary
         }
         public static async Task EditFile(string file, int[] line, string[] replaceWith)
         {
-            string[] filedata = await File.ReadAllLinesAsync(file);
+            string[] filedata = await System.IO.File.ReadAllLinesAsync(file);
             int hold = 0;
 
             for (int i = 0; i < filedata.Length; i++)
             {
                 if (i == line[hold] - 1)
                 {
-                    await File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
+                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
 
                     if (line.Length != hold + 1)
                     {
@@ -219,11 +219,11 @@ namespace BMCLibrary
                 }
                 else
                 {
-                    await File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", filedata[i] + "\n");
+                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", filedata[i] + "\n");
                 }
             }
 
-            File.Move(file + ".tmp", file, true);
+            System.IO.File.Move(file + ".tmp", file, true);
         }
         /// <summary>
         /// Replaces the first line that is equal to lineText[x] with replaceWith[x]. 
@@ -231,7 +231,7 @@ namespace BMCLibrary
         /// <returns>The new file with edited lines.</returns>
         public static async Task EditFileStr(string file, string[] lineText, string[] replaceWith)
         {
-            string[] filedata = await File.ReadAllLinesAsync(file);
+            string[] filedata = await System.IO.File.ReadAllLinesAsync(file);
             int hold = 0;
             string done = null;
 
@@ -239,7 +239,7 @@ namespace BMCLibrary
             {
                 if (line != done && line == lineText[hold])
                 {
-                    await File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
+                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
 
                     done = lineText[hold];
 
@@ -250,11 +250,11 @@ namespace BMCLibrary
                 }
                 else
                 {
-                    await File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", line + "\n");
+                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", line + "\n");
                 }
             }
 
-            File.Move(file + ".tmp", file, true);
+            System.IO.File.Move(file + ".tmp", file, true);
         }
         #endregion
 

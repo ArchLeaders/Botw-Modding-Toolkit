@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
-using static BMCLibrary.BMCcontrol;
-using static BMCLibrary.HKX2_Handle;
+using BMCLibrary;
 
 namespace extract_actor
 {
@@ -8,7 +7,7 @@ namespace extract_actor
     {
         static async Task Main(string[] args)
         {
-            await ExtractActor(args, false);
+            await BMC.ExtractActor(args, false);
         }
     }
 }

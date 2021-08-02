@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BMCLibrary
 {
-    public class HashIDs
+    public class Botw
     {
         public static async Task<string[]> HashId(string search)
         {

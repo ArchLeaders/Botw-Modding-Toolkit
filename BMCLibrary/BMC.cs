@@ -1,33 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using static BMCLibrary.BotwParsing;
-using static BMCLibrary.DataAccesFiles;
-using static BMCLibrary.HashIDs;
 
 namespace BMCLibrary
 {
-    public class BMCcontrol
+    public class BMC
     {
         #region General Paths and Strings/Data
         public static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC";
         public static string dataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\data";
         public static string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\.temp";
-        public static string appPath = File.ReadAllLines(dataPath + "\\paths.txt")[7];
+        public static string appPath = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[7];
 
         //Paths
-        public static string basePath = File.ReadAllLines(dataPath + "\\paths.txt")[0];
-        public static string updatePath = File.ReadAllLines(dataPath + "\\paths.txt")[1];
-        public static string dlcPath = File.ReadAllLines(dataPath + "\\paths.txt")[2];
-        public static string bcmlPath = File.ReadAllLines(dataPath + "\\paths.txt")[3];
-        public static string pyPath = File.ReadAllLines(dataPath + "\\paths.txt")[6];
+        public static string basePath = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[0];
+        public static string updatePath = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[1];
+        public static string dlcPath = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[2];
+        public static string bcmlPath = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[3];
+        public static string pyPath = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[6];
 
         //Paths
-        public static string edition = File.ReadAllLines(dataPath + "\\paths.txt")[4];
-        public static string pyVersion = File.ReadAllLines(dataPath + "\\paths.txt")[5];
+        public static string edition = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[4];
+        public static string pyVersion = System.IO.File.ReadAllLines(dataPath + "\\paths.txt")[5];
 
         #endregion
 
@@ -94,20 +89,27 @@ namespace BMCLibrary
                 }
             }
 
-            await BymlDecoder(file, dataPath + GetName(file));
+            await BYML.Byml_to_Yml(file, dataPath + Files.GetName(file));
 
-            await YamlBymlEncoder(dataPath + GetName(file), GetExtension(file), endian);
+            await BYML.Yml_to_Byml(dataPath + Files.GetName(file), Files.GetExtension(file), endian);
 
-            string extension = GetExtension(file);
+            string extension = Files.GetExtension(file);
             if (yaz0 != -1)
             {
-                await Yaz0Compressor(dataPath + GetName(file), yaz0.ToString());
+                await Simple.Process("yaz.exe", "\"" + file + "\" " + yaz0, true, false, tempPath);
             }
 
-            File.Move(dataPath + GetName(file), output + "\\" + GetName(file, true) + extension);
+            System.IO.File.Move(tempPath + "\\" +  Files.GetName(file), output + "\\" + Files.GetName(file, true) + extension);
         }
         public static async Task ExtractActor(string[] args, bool staticArgs)
         {
+            if (args[0] == "--c")
+            {
+                foreach (var line in File.ReadAllLines(dataPath + "\\info.cache"))
+                {
+                    Console.WriteLine(line);
+                }
+            }
             #region Strings & Bools
             //Actor Data
             string hashId = null;
@@ -116,10 +118,17 @@ namespace BMCLibrary
 
             //Botw 
             string pathToPhys = null;
+            string pathToActors = null;
 
             //Output
             string of1 = null;
             string outFile = null;
+
+            //Static Only
+            string Info = null;
+
+            //Dynamic Only
+            bool cache = true;
 
             #endregion
 
@@ -127,38 +136,41 @@ namespace BMCLibrary
             if (staticArgs == true)
             {
                 //Actor Data
-                hashId = args[0];
-                actorName = args[1];
-                field = args[2];
+                hashId = args[1];
+                actorName = args[2];
+                field = args[3];
 
                 //Botw
-                if (GetName(args[3]) == "0010" || args[3].EndsWith("01007EF00011F001\\romfs"))
+                if (Files.GetName(args[4]) == "0010" || args[4].EndsWith("01007EF00011F001\\romfs"))
                 {
-                    pathToPhys = args[3] + "\\Physics\\StaticCompound\\AocField";
+                    pathToPhys = args[4] + "\\Physics\\StaticCompound\\AocField";
                 }
-                else if (GetName(args[3]) == "content" || args[3].EndsWith("01007EF00011E000\\romfs"))
+                else if (Files.GetName(args[4]) == "content" || args[4].EndsWith("01007EF00011E000\\romfs"))
                 {
-                    pathToPhys = args[3] + "\\Physics\\StaticCompound\\MainField";
+                    pathToPhys = args[4] + "\\Physics\\StaticCompound\\MainField";
+                    pathToActors = args[4] + "\\Actor";
                 }
 
                 //Output
-                if (Directory.Exists(args[4]))
+                if (Directory.Exists(args[5]))
                 {
-                    of1 = args[4] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                    of1 = args[5] + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
                 }
                 else
                 {
-                    of1 = GetPath(args[4]) +
-                    GetName(args[4], true) + GetExtension(args[4]).Replace(".sbactorpack", "C.sbactorpack");
+                    of1 = Files.GetPath(args[5]) +
+                    Files.GetName(args[5], true) + Files.GetExtension(args[5]).Replace(".sbactorpack", "C.sbactorpack");
                 }
 
                 //Type
-                if (args[3].EndsWith("romfs")) { outFile = of1.Replace("\\content", "\\01007EF00011E000\\romfs"); }
+                if (args[4].EndsWith("romfs")) { outFile = of1.Replace("\\content", "\\01007EF00011E000\\romfs"); }
                 else { outFile = of1; }
+
+                Info = path + "\\.info\\0001\\content\\Actor\\Info\\"; //Possibly static path, otherwise the last argument.
             }
             else
             {
-                string[] actorData = await HashId(args[0]);
+                string[] actorData = await Botw.HashId(args[0]);
                 if (actorData[0] == "-1") { return; }
 
                 hashId = actorData[0];
@@ -169,22 +181,23 @@ namespace BMCLibrary
                 if (actorData[3] == "MainField")
                 {
                     pathToPhys = updatePath + "\\Physics\\StaticCompound\\MainField";
+                    pathToActors = args[4] + "\\Actor";
                 }
                 else if (actorData[3] == "AocField")
                 {
-                    pathToPhys = updatePath + "\\Physics\\StaticCompound\\AocField";
+                    pathToPhys = dlcPath + "0010\\Physics\\StaticCompound\\AocField";
                 }
 
                 //Outfile
                 if (args.Length >= 2)
                 {
-                    if (GetExtension(args[1]) == ".sbactorpack")
+                    if (Files.GetExtension(args[1]) == ".sbactorpack")
                     {
                         of1 = args[1];
                     }
                     else if (args[1] == "bcml_mod" || args[1] == "-b" || args[1] == "--bcml")
                     {
-                        of1 = bcmlPath + "\\mods\\" + BCMLPrior() + "_" + actorName + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
+                        of1 = bcmlPath + "\\mods\\" + BCML.ModCount() + "_" + actorName + "\\content\\Actor\\Pack\\" + actorName + "C.sbactorpack";
                     }
                     else if (Directory.Exists(args[1]))
                     {
@@ -202,11 +215,19 @@ namespace BMCLibrary
             }
             #endregion
 
-            Console.WriteLine(actorName);
-            Console.WriteLine(hashId);
-            Console.WriteLine(field + "\n");
-            Console.WriteLine(outFile + "\n");
-            Console.WriteLine(pathToPhys);
+            //Availible data: HashID, ActorName, Field, PathToPhysics (update or dlc), output path. Needed, temp path.
+
+            #region Preparation...
+
+            Console.WriteLine("Getting files...");
+            Directory.CreateDirectory(Files.GetPath(outFile));
+            Directory.CreateDirectory(tempPath + "\\" + actorName + "content\\Actor\\Pack");
+
+            System.IO.File.Copy(pathToActors + "\\Pack\\" + actorName + ".sbactorpack",
+                tempPath + "\\" + actorName + "_SARC\\" + actorName + "C.sbactorpack");
+
+            #endregion
+
         }
     }
 }

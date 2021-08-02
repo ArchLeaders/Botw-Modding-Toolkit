@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
-using static BMCLibrary.DataAccesFiles;
-using static BMCLibrary.BotwParsing;
+using static BMCLibrary.Files;
+using static BMCLibrary.Parse;
 
 namespace BMCLibrary
 {
@@ -42,9 +42,9 @@ namespace BMCLibrary
         #region string, bools, integers
         static string applicationPath = System.Reflection.Assembly.GetEntryAssembly().Location.Replace("BasicModCreator.dll", "");
         static string workingDir = Environment.CurrentDirectory;
-        static string[] paths = File.ReadAllLines(applicationPath + "\\data\\paths.txt");
+        static string[] paths = System.IO.File.ReadAllLines(applicationPath + "\\data\\paths.txt");
         static string BCMLPath = paths[3];
-        static string type = File.ReadAllLines(applicationPath + "\\data\\paths.txt")[4];
+        static string type = System.IO.File.ReadAllLines(applicationPath + "\\data\\paths.txt")[4];
         static int handleKey = 0;
         #endregion
 
@@ -282,8 +282,8 @@ namespace BMCLibrary
             await Task.Run(() => BYML.Start());
             await BYML.WaitForExitAsync();
 
-            if (file != file.Replace(GetExtension(file), extension) && deleteOriginal == true) File.Delete(file);
-            File.Delete(file.Replace(GetExtension(file), ".yml"));
+            if (file != file.Replace(GetExtension(file), extension) && deleteOriginal == true) System.IO.File.Delete(file);
+            System.IO.File.Delete(file.Replace(GetExtension(file), ".yml"));
         }
         #endregion
 
@@ -304,7 +304,7 @@ namespace BMCLibrary
             await HKX2.WaitForExitAsync();
 
             DeleteFiles(null, workingDir, ".dll");
-            File.Delete(applicationPath + "\\CreateCollisionAndNavmesh.exe");
+            System.IO.File.Delete(applicationPath + "\\CreateCollisionAndNavmesh.exe");
         }
 
         #endregion
@@ -318,7 +318,7 @@ namespace BMCLibrary
             {
                 string[] data = file.Split('\\');
 
-                tasks.Add(Task.Run(() => File.Copy(file, destDir + "\\" + data[data.Length - 1])));
+                tasks.Add(Task.Run(() => System.IO.File.Copy(file, destDir + "\\" + data[data.Length - 1])));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -332,7 +332,7 @@ namespace BMCLibrary
                 {
                     if (file.EndsWith(filter))
                     {
-                        File.Delete(file);
+                        System.IO.File.Delete(file);
                     }
                 }
             }
@@ -342,7 +342,7 @@ namespace BMCLibrary
                 {
                     if (file.EndsWith(filter))
                     {
-                        File.Delete(file);
+                        System.IO.File.Delete(file);
                     }
                 }
             }
@@ -416,7 +416,7 @@ namespace BMCLibrary
             string pathTo = null;
             if (useArguments != "-p")
             {
-                foreach (var line in File.ReadAllLines(applicationPath + "\\data\\ActorData.yml"))
+                foreach (var line in System.IO.File.ReadAllLines(applicationPath + "\\data\\ActorData.yml"))
                 {
                     string[] paramaters = line.Split(',');
 
@@ -456,9 +456,9 @@ namespace BMCLibrary
         public static async Task QuickMod_BCMLDir(string name, bool openWhenDone = true)
         {
             Directory.CreateDirectory(BCMLPath + "\\mods\\" + name + "\\" + GetName(paths[1]));
-            string info = File.ReadAllText(applicationPath + "\\data\\info.json");
+            string info = System.IO.File.ReadAllText(applicationPath + "\\data\\info.json");
             string infojson = info.Replace("%MODNAME%", name).Replace("%PLATFORM%", type);
-            File.WriteAllText(BCMLPath + "\\mods\\" + name + "\\info.json", infojson);
+            System.IO.File.WriteAllText(BCMLPath + "\\mods\\" + name + "\\info.json", infojson);
 
             if (openWhenDone == true)
             {

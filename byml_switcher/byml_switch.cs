@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using static BMCLibrary.BMCcontrol;
+using static BMCLibrary.BMC;
 
 namespace byml_switcher
 {
