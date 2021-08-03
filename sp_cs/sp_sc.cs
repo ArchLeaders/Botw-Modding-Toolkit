@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using BMCLibrary;
+using Botw_Tools;
 
 namespace SilentPrincessMapEditor
 {

@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using static BMCLibrary._Control;
+using static Botw_Tools._Control;
 
 namespace BasicModCreator
 {

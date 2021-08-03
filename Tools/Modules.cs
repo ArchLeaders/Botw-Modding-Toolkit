@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -20,7 +19,7 @@ namespace Botw_Tools
         {
             string indent = "      ";
 
-            string[] filedata = await System.IO.File.ReadAllLinesAsync(file);
+            string[] filedata = await File.ReadAllLinesAsync(file);
             string[] fields = new string[] {
                 "ActorNameJpn",
                 "Priority",
@@ -62,7 +61,7 @@ namespace Botw_Tools
 
                 if (line.Split(':')[0].Replace(" ", "") == type)
                 {
-                    await System.IO.File.AppendAllTextAsync(file + ".tmp", indent + type + ": " + value + "\n");
+                    await File.AppendAllTextAsync(file + ".tmp", indent + type + ": " + value + "\n");
 
                     if (newValues.Length != hold + 1)
                     {
@@ -71,7 +70,7 @@ namespace Botw_Tools
                 }
                 else
                 {
-                    await System.IO.File.AppendAllTextAsync(file + ".tmp", line + "\n");
+                    await File.AppendAllTextAsync(file + ".tmp", line + "\n");
                 }
             }
         }
@@ -90,8 +89,6 @@ namespace Botw_Tools
     }
     public class BCML
     {
-        #region BCML data
-
         /// <summary>
         /// 
         /// </summary>
@@ -99,8 +96,8 @@ namespace Botw_Tools
         public static string ModCount()
         {
             string result = "0000";
-            double count = Math.Floor(Math.Log10(Directory.GetDirectories(BMC.bcmlPath + "\\mods").Length) + 1);
-            string modCount = Directory.GetDirectories(BMC.bcmlPath + "\\mods").Length.ToString();
+            double count = Math.Floor(Math.Log10(Directory.GetDirectories(Data.bcmlPath + "\\mods").Length) + 1);
+            string modCount = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length.ToString();
             if (count == 1) { result = "000" + modCount; }
             else if (count == 2) { result = "00" + modCount; }
             else if (count == 3) { result = "0" + modCount; }
@@ -109,64 +106,54 @@ namespace Botw_Tools
 
             return result;
         }
-        public static async Task ModTemplate(string name, string type, string[] files, bool openWhenDone = true)
+        public static int ModPriority = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length + 100 - 2;
+        public static string Info(string name, string platform, string priority)
         {
-
-        }
-
-        #endregion
-    }
-    public class Simple
-    {
-        public static async Task Process(string fileName, string args, bool hidden = true, bool dontWait = false, string workingDir = null)
-        {
-            if (workingDir == null)
-            {
-                workingDir = AppContext.BaseDirectory;
-            }
-            Process proc = new Process();
-
-            proc.StartInfo.WorkingDirectory = workingDir;
-            proc.StartInfo.FileName = fileName;
-            proc.StartInfo.CreateNoWindow = hidden;
-            proc.StartInfo.Arguments = args;
-
-            proc.Start();
-            if (dontWait == false)
-            {
-                await proc.WaitForExitAsync();
-            }
+            return "{" +
+            "\n    \"name\": \"" + name + "\"," +
+            "\n    \"image\": \"\"," +
+            "\n    \"url\": \"\"," +
+            "\n    \"desc\": \"\"," +
+            "\n    \"version\": \"1.0.0\"," +
+            "\n    \"options\": {}," +
+            "\n    \"depends\": []," +
+            "\n    \"showCompare\": false," +
+            "\n    \"showConvert\": false," +
+            "\n    \"platform\": \"" + platform + "\"," +
+            "\n    \"priority\": \"" + priority + "\"," +
+            "\n    \"id\": \"\"" +
+            "\n}";
         }
     }
     public class Hyrule_Builder
     {
         public static async Task UnpackSarc(string file)
         {
-            await Simple.Process("unbuild_sarc.exe", "\"" + file + "\"");
+            await Data.Process("unbuild_sarc.exe", "\"" + file + "\"");
         }
         public static async Task PackSarc(string folder, string outFile, string endian = null)
         {
-            await Simple.Process("build_sarc.exe", "\"" + folder + "\"" + endian + "\"" + outFile + "\"");
+            await Data.Process("build_sarc.exe", "\"" + folder + "\"" + endian + "\"" + outFile + "\"");
         }
         public static async Task Build(string folder, string out_folder = null, string endian = null)
         {
-            await Simple.Process("hyrule_builder.exe", "build " + endian + " \"" + folder + "\" \"" + out_folder + "\"");
+            await Data.Process("hyrule_builder.exe", "build " + endian + " \"" + folder + "\" \"" + out_folder + "\"");
         }
         public static async Task UnBuild(string folder, string out_folder = null, string endian = null)
         {
-            await Simple.Process("hyrule_builder.exe", "unbuild \"" + folder + "\" \"" + out_folder + "\"");
+            await Data.Process("hyrule_builder.exe", "unbuild \"" + folder + "\" \"" + out_folder + "\"");
         }
     }
     public class BYML
     {
         public static async Task Byml_to_Yml(string file, string outPath = " !!.yml")
         {
-            await Simple.Process("byml_to_yml.exe", "\"" + file + "\"" + outPath);
+            await Data.Process("byml_to_yml.exe", "\"" + file + "\"" + outPath);
         }
         public static async Task Yml_to_Byml(string file, string extension, string endian, string outPath = null)
         {
             outPath = " !!" + extension;
-            await Simple.Process("yml_to_byml.exe", endian + " \"" + file + "\"" + outPath);
+            await Data.Process("yml_to_byml.exe", endian + " \"" + file + "\"" + outPath);
         }
     }
     public class Botw_Havok
@@ -184,49 +171,59 @@ namespace Botw_Tools
 
             foreach (var path in paths)
             {
-                tasks.Add(_ = Simple.Process("hkrb_extract.exe", path));
+                tasks.Add(_ = Data.Process("hkrb_extract.exe", path));
             }
 
             await Task.WhenAll(tasks);
         }
-        public static async Task UnBuild(string folder, string outFile, string endian = null)
+        public static async Task hk_to_json()
         {
-            await Simple.Process("build_sarc.exe", "\"" + folder + "\"" + endian + "\"" + outFile + "\"");
+            await Data.Process("hk_to_json.exe", "");
+        }
+        public static async Task json_to_hk()
+        {
+            await Data.Process("json_to_hk.exe", "");
+        }
+        public static async Task hk_compare()
+        {
+            await Data.Process("hk_compare.exe", "");
+        }
+        public static async Task hksc_to_hkrb()
+        {
+            await Data.Process("hksc_to_hkrb.exe", "");
         }
     }
     public class HKX2
     {
-        public static async Task Create(string obj, string type)
+        static string mtlFile = null;
+        public static async Task Create(string obj, string type, string outFile = null)
         {
-            string mtlFile = null;
+            if (outFile is null) { outFile = Data.GetPath(obj) + Data.GetName(obj, true) + Data.GetExtension(obj).Replace(".obj", ".hkrb"); }
 
-            await GetObj(obj, mtlFile);
+            await Task.Run(() => File.Copy(obj, Data.path + "\\.HKX2\\" + Data.GetName(obj)));
 
-            await Simple.Process(BMC.path + "\\.HKX2\\CCaNM.exe", "\"" + BMC.path + "\\.HKX2\\" + Files.GetName(obj) +
-                "\" " + type, false, false, BMC.path + "\\.HKX2");
+            foreach (var item in File.ReadAllLines(obj))
+            {
+                if (item.StartsWith("mtllib"))
+                {
+                    mtlFile = Data.GetPath(obj) + item.Replace("mtllib ", "");
+                    break;
+                }
+            }
+
+            await Task.Run(() => File.Copy(mtlFile, Data.path + "\\.HKX2\\" + Data.GetName(mtlFile)));
+
+            await Data.Process(Data.path + "\\.HKX2\\CCaNM.exe", "\"" + Data.path + "\\.HKX2\\" + Data.GetName(obj) +
+                "\" " + type, false, false, Data.path + "\\.HKX2");
 
             await returnFile(obj, mtlFile);
 
-            static async Task GetObj(string obj, string mtlFile)
+            async Task returnFile(string obj, string mtlFile)
             {
-                await Task.Run(() => System.IO.File.Copy(obj, BMC.path + "\\.HKX2\\" + Files.GetName(obj)));
-
-                foreach (var item in System.IO.File.ReadAllLines(obj))
-                {
-                    if (item.StartsWith("mtllib"))
-                    {
-                        mtlFile = Files.GetPath(obj) + item.Replace("mtllib ", "");
-                        break;
-                    }
-                }
-
-                await Task.Run(() => System.IO.File.Copy(mtlFile, BMC.path + "\\.HKX2\\" + Files.GetName(mtlFile)));
-            }
-            static async Task returnFile(string obj, string mtlFile)
-            {
-                await Task.Run(() => System.IO.File.Move(BMC.path + "\\.HKX2\\" + Files.GetName(obj) + ".hkrb", Files.GetPath(obj) + Files.GetName(obj, true) + Files.GetExtension(obj).Replace(".obj", ".hkrb")));
-                await Task.Run(() => System.IO.File.Delete(BMC.path + "\\.HKX2\\" + Files.GetName(obj)));
-                await Task.Run(() => System.IO.File.Delete(BMC.path + "\\.HKX2\\" + Files.GetName(mtlFile)));
+                await Task.Run(() => File.Move(Data.path + "\\.HKX2\\" + Data.GetName(obj) + ".hkrb",
+                    outFile));
+                await Task.Run(() => File.Delete(Data.path + "\\.HKX2\\" + Data.GetName(obj)));
+                await Task.Run(() => File.Delete(Data.path + "\\.HKX2\\" + Data.GetName(mtlFile)));
             }
         }
     }

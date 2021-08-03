@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
-using static BMCLibrary.Files;
-using static BMCLibrary.Parse;
+using static Botw_Tools.Files;
+using static Botw_Tools.Parse;
 
-namespace BMCLibrary
+namespace Botw_Tools
 {
     public class _Control
     {

@@ -1,13 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace Botw_Tools
 {
-    public class Files
+    public class Data
     {
-        static string appPath = Directory.GetCurrentDirectory();
+        #region General Paths and Strings/Data
+        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC";
+        public static string dataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\data";
+        public static string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\.temp";
+        public static string appPath = File.ReadAllLines(dataPath + "\\paths.txt")[7];
+
+        //Paths
+        public static string basePath = File.ReadAllLines(dataPath + "\\paths.txt")[0];
+        public static string updatePath = File.ReadAllLines(dataPath + "\\paths.txt")[1];
+        public static string dlcPath = File.ReadAllLines(dataPath + "\\paths.txt")[2];
+        public static string bcmlPath = File.ReadAllLines(dataPath + "\\paths.txt")[3];
+        public static string pyPath = File.ReadAllLines(dataPath + "\\paths.txt")[6];
+
+        //Paths
+        public static string edition = File.ReadAllLines(dataPath + "\\paths.txt")[4];
+        public static string pyVersion = File.ReadAllLines(dataPath + "\\paths.txt")[5];
+
+        #endregion
 
         #region File Paths, Files: Get > Name, Extension, Path, FolderInPath, Path -X Folders/Paths, Endian
 
@@ -50,17 +68,17 @@ namespace Botw_Tools
                     nmL1.Add(fd1 + "\\");
                 }
             }
-            string  result = nmL1.ToString();
+            string result = nmL1.ToString();
             if (KeepFileInPath == true)
             {
                 result = result + "\\" + GetName(file);
             }
 
-            return result; 
+            return result;
         }
         public static string GetEndianType(string file)
         {
-            byte[] bytes = System.IO.File.ReadAllBytes(file);
+            byte[] bytes = File.ReadAllBytes(file);
             string endianArgumentsType = null;
 
             if (bytes[0] == 89 || bytes[17] == 89)
@@ -84,7 +102,7 @@ namespace Botw_Tools
             {
                 string[] data = file.Split('\\');
 
-                tasks.Add(Task.Run(() => System.IO.File.Copy(file, destDir + "\\" + data[data.Length - 1])));
+                tasks.Add(Task.Run(() => File.Copy(file, destDir + "\\" + data[data.Length - 1])));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -97,11 +115,11 @@ namespace Botw_Tools
             {
                 if (move == false)
                 {
-                    tasks.Add(Task.Run(() => System.IO.File.Copy(file, destDir + "\\" + GetName(file))));
+                    tasks.Add(Task.Run(() => File.Copy(file, destDir + "\\" + GetName(file))));
                 }
                 else
                 {
-                    tasks.Add(Task.Run(() => System.IO.File.Move(file, destDir + "\\" + GetName(file))));
+                    tasks.Add(Task.Run(() => File.Move(file, destDir + "\\" + GetName(file))));
                 }
             }
 
@@ -113,7 +131,7 @@ namespace Botw_Tools
 
             foreach (var file in files)
             {
-                tasks.Add(Task.Run(() => System.IO.File.Delete(file)));
+                tasks.Add(Task.Run(() => File.Delete(file)));
             }
 
             Task.WaitAll(tasks.ToArray());
@@ -194,7 +212,7 @@ namespace Botw_Tools
         {
             List<string> list = new List<string>();
 
-            foreach (var line in await System.IO.File.ReadAllLinesAsync(file))
+            foreach (var line in await File.ReadAllLinesAsync(file))
             {
                 list.Add(line);
             }
@@ -203,14 +221,14 @@ namespace Botw_Tools
         }
         public static async Task EditFile(string file, int[] line, string[] replaceWith)
         {
-            string[] filedata = await System.IO.File.ReadAllLinesAsync(file);
+            string[] filedata = await File.ReadAllLinesAsync(file);
             int hold = 0;
 
             for (int i = 0; i < filedata.Length; i++)
             {
                 if (i == line[hold] - 1)
                 {
-                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
+                    await File.AppendAllTextAsync(tempPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
 
                     if (line.Length != hold + 1)
                     {
@@ -219,11 +237,11 @@ namespace Botw_Tools
                 }
                 else
                 {
-                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", filedata[i] + "\n");
+                    await File.AppendAllTextAsync(tempPath + "\\" + GetName(file) + ".tmp", filedata[i] + "\n");
                 }
             }
 
-            System.IO.File.Move(file + ".tmp", file, true);
+            File.Move(file + ".tmp", file, true);
         }
         /// <summary>
         /// Replaces the first line that is equal to lineText[x] with replaceWith[x]. 
@@ -231,7 +249,7 @@ namespace Botw_Tools
         /// <returns>The new file with edited lines.</returns>
         public static async Task EditFileStr(string file, string[] lineText, string[] replaceWith)
         {
-            string[] filedata = await System.IO.File.ReadAllLinesAsync(file);
+            string[] filedata = await File.ReadAllLinesAsync(file);
             int hold = 0;
             string done = null;
 
@@ -239,7 +257,7 @@ namespace Botw_Tools
             {
                 if (line != done && line == lineText[hold])
                 {
-                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
+                    await File.AppendAllTextAsync(tempPath + "\\" + GetName(file) + ".tmp", replaceWith[hold] + "\n");
 
                     done = lineText[hold];
 
@@ -250,14 +268,36 @@ namespace Botw_Tools
                 }
                 else
                 {
-                    await System.IO.File.AppendAllTextAsync(appPath + "\\" + GetName(file) + ".tmp", line + "\n");
+                    await File.AppendAllTextAsync(tempPath + "\\" + GetName(file) + ".tmp", line + "\n");
                 }
             }
 
-            System.IO.File.Move(file + ".tmp", file, true);
+            File.Move(file + ".tmp", file, true);
         }
         #endregion
 
+        #region Process
 
+        public static async Task Process(string fileName, string args, bool hidden = true, bool dontWait = false, string workingDir = null)
+        {
+            if (workingDir == null)
+            {
+                workingDir = AppContext.BaseDirectory;
+            }
+            Process proc = new Process();
+
+            proc.StartInfo.WorkingDirectory = workingDir;
+            proc.StartInfo.FileName = fileName;
+            proc.StartInfo.CreateNoWindow = hidden;
+            proc.StartInfo.Arguments = args;
+
+            proc.Start();
+            if (dontWait == false)
+            {
+                await proc.WaitForExitAsync();
+            }
+        }
+
+        #endregion
     }
 }

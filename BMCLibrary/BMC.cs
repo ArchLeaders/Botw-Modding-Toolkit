@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace BMCLibrary
+namespace Botw_Tools
 {
     public class BMC
     {
