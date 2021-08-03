@@ -126,7 +126,7 @@ namespace Botw_Tools
             
             foreach (byte b in crc32.ComputeHash(bytes)) hash += b.ToString("x2").ToLower();
 
-            return Convert.ToInt32(hash, 16).ToString();
+            return Convert.ToUInt32(hash, 16).ToString();
         }
     }
 }

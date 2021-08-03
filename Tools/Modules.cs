@@ -95,11 +95,12 @@ namespace Botw_Tools
         /// <returns>A four digit number representing the amount of mods in the users bcml.</returns>
         public static string ModCount()
         {
-            string result = "0000";
+            string result = "0100";
             double count = Math.Floor(Math.Log10(Directory.GetDirectories(Data.bcmlPath + "\\mods").Length) + 1);
-            string modCount = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length.ToString();
-            if (count == 1) { result = "000" + modCount; }
-            else if (count == 2) { result = "00" + modCount; }
+            int mods = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length - 1;
+            string modCount = mods.ToString();
+            if (count == 1) { result = "010" + modCount; }
+            else if (count == 2) { result = "01" + modCount; }
             else if (count == 3) { result = "0" + modCount; }
             else if (count == 4) { result = modCount; }
             else { Console.WriteLine("Error: BCML mod limit reached."); }
