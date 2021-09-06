@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="Mod Manager" Height="800" Width="1140"
+        Title="Mod Manager" Height="800" Width="1080"
         WindowStyle="None" Background="#2f2f2f"
         StateChanged="Window_StateChanged"
         AllowsTransparency="True"
@@ -37,7 +37,7 @@
         <StackPanel Orientation="Horizontal"
                     Grid.Row="0">
 
-            <Image Source="/Images/MsytIcon.png" Height="20"
+            <Image Source="/Images and Fonts/Icon.png" Height="20"
                    Margin="5, 0, 5, 0"/>
 
         </StackPanel> <!--Logo-->
@@ -329,7 +329,8 @@
                     Style="{StaticResource CloseButtonTheme}"/>
         </StackPanel> <!--Right corner menu bar-->
 
-        <Grid Grid.Row="1" Grid.Column="1" Background="Transparent">
+        <Grid Grid.Row="1" Grid.Column="1" Background="Transparent"
+              Visibility="Visible">
             <Grid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="New Mod"/>
@@ -361,7 +362,8 @@
                     Width="400"
                     Content="New Mod"
                     Style="{StaticResource HomePageButtons}"
-                    FontFamily="Gadugi" Margin="0, -10">
+                    FontFamily="Gadugi" Margin="0, -10"
+                    x:Name="btnHomePage_NewMod" Click="btnHomePage_NewMod_Click">
 
 
                 <Button.Background>
@@ -371,6 +373,64 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
+
+            <Grid Grid.Row="1" Grid.Column="1" x:Name="pnHomePage_NewMod"
+                  Visibility="Visible">
+
+                <Border CornerRadius="15">
+
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#0F0919" Offset="0.0"/>
+                            <GradientStop Color="#3F0919" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Name:"
+                                       FontSize="16" Margin="10, 25, 17.52, 5"/>
+                        <TextBox x:Name="tbHomePage_NewMod_ModName"
+                                 Style="{StaticResource ModernTextbox}"
+                                 FontSize="16" Margin="0, 25, 0, 5"
+                                     Width="304" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Priority:"
+                                       FontSize="16" Margin="10, 25, 10, 5"
+                                       Foreground="White"/>
+                        <TextBox x:Name="tbHomePage_NewMod_Priority"
+                                 Style="{StaticResource ModernTextbox}"
+                                 FontSize="16" Margin="0, 25, 0, 5"
+                                     Width="40"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Image:"
+                                       FontSize="16" Margin="10, 25, 10, 5"
+                                       Foreground="White"/>
+                        <TextBox x:Name="tbHomePage_NewMod_ImagePath"
+                                 Style="{StaticResource ModernTextbox}"
+                                 FontSize="16" Margin="6.8, 25, 0, 5"
+                                     Width="220"/>
+                        <Button x:Name="btnHomePage_NewMod_BrowseImage"
+                                    Content="Browse"
+                                    Style="{StaticResource TextButton}"
+                                    FontSize="16" Margin="0, 25, 0, 5"
+                                    Width="80" Foreground="White"
+                                Click="btnHomePage_NewMod_BrowseImage_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <Button Content="Create" Background="Transparent"
+                        Margin="0, 165, 0, 0" BorderThickness="0"
+                        Style="{StaticResource TextButtonFontSize}"
+                        FontSize="25" HorizontalContentAlignment="Right"
+                        Foreground="White" x:Name="btnHomePage_NewMod_Create"
+                        Click="btnHomePage_NewMod_Create_Click"/>
+            </Grid>
 
             <StackPanel Grid.Row="2" Grid.Column="1">
 
@@ -468,7 +528,7 @@
 
                 </StackPanel>
             </StackPanel>
-            
+
             <ListBox x:Name="lbRecentMods"
                      Background="Transparent" BorderThickness="0"
                      Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
@@ -480,20 +540,7 @@
                 <ListBoxItem Content="ModName_5"/>
                 <ListBoxItem Content="ModName_6"/>
             </ListBox>
-
-            <Grid x:Name="ExpandGBPosts"
-                  Grid.Row="1" Grid.Column="5" Grid.RowSpan="2"
-                  MouseEnter="btnExpandGBPosts_MouseEnter"
-                  MouseLeave="ExpandGBPosts_MouseLeave"
-                  Background="Transparent">
-
-                <Border HorizontalAlignment="Left"
-                        Width="6" VerticalAlignment="Stretch"
-                        Background="#7f7f7f"/>
-            </Grid>
-
-            </Grid>
-        <!--Home Page-->
+        </Grid> <!--Home Page-->
         
         <Grid Grid.Row="1" Grid.Column="1"
               Visibility="Collapsed">

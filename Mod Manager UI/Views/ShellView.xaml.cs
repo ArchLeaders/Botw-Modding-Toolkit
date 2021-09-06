@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mod_Manager_UI.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
@@ -24,9 +25,8 @@ namespace UI.Views
     /// </summary>
     public partial class ShellView : Window
     {
-        public Color background { get; set; } 
+        public Color background { get; set; }
 
-        public static DispatcherTimer timer = new DispatcherTimer();
         public bool back = false;
 
         #region Fix Window Sixe in fullscreen.
@@ -148,9 +148,6 @@ namespace UI.Views
 
         public ShellView()
         {
-            SoundPlayer splayer = new(@"C:\Users\HP USER\Downloads\winxp.wav");
-            splayer.Play();
-
             InitializeComponent();
 
             SourceInitialized += (s, e) =>
@@ -161,7 +158,7 @@ namespace UI.Views
 
             btnMinimize.Click += (s, e) => WindowState = WindowState.Minimized;
             btnFullScreen.Click += (s, e) => WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
-            btnExitApplication.Click += (s, e) => Close();
+            btnExitApplication.Click += (s, e) => Environment.Exit(1);
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
@@ -267,6 +264,8 @@ namespace UI.Views
 
         #endregion
 
+        #region Msyt Editor
+
         private void ShowHidePreview_Click(object sender, RoutedEventArgs e)
         {
             if (Preview.Width == 240)
@@ -281,36 +280,38 @@ namespace UI.Views
             }
         }
 
-        private void btnExpandGBPosts_MouseEnter(object sender, MouseEventArgs e)
-        {
-            timer.Interval = TimeSpan.FromMilliseconds(1);
-            timer.Tick += timer_Tick;
-            back = false;
+        #endregion
 
-            timer.Start();
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void btnHomePage_NewMod_Click(object sender, RoutedEventArgs e)
         {
-            //1140
-            if (back == false && this.Width <= 1400)
-            {
-                this.Width = this.Width + 20;
-            }
-            else if (back == true && this.Width >= 1140)
-            {
-                this.Width = this.Width - 20;
-            }
-            else { timer.Stop(); }
+            //Window_NewMod window_NewMod = new();
+            //window_NewMod.Show();
+
+            btnHomePage_NewMod.Visibility = Visibility.Hidden;
+            pnHomePage_NewMod.Visibility = Visibility.Visible;
         }
 
-        private void ExpandGBPosts_MouseLeave(object sender, MouseEventArgs e)
+        private void btnHomePage_NewMod_Create_Click(object sender, RoutedEventArgs e)
         {
-            timer.Interval = TimeSpan.FromMilliseconds(1);
-            timer.Tick += timer_Tick;
-            back = true;
+            if (tbHomePage_NewMod_ModName.Text != "")
+            {
+                btnHomePage_NewMod.Visibility = Visibility.Visible;
+                pnHomePage_NewMod.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                
+            }
+        }
 
-            timer.Start();
+        private void btnHomePage_NewMod_BrowseImage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

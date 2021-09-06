@@ -10,21 +10,6 @@ namespace UI.ViewModels
 {
     public class ShellViewModel : Screen
     {
-        private Color _background = Color.Black;
-
-        public Color Background
-        {
-            get 
-            { 
-                return _background; 
-            }
-            set 
-            {
-                _background = value;
-                NotifyOfPropertyChange(() => Background);
-            }
-        }
-
 
     }
 }

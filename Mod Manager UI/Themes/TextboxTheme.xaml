@@ -15,7 +15,15 @@
                                      BorderThickness="0"
                                      IsInactiveSelectionHighlightEnabled="False"
                                      Margin="2"
-                                     Foreground="#f3f3f3"/>
+                                     Foreground="#f3f3f3">
+                                <TextBox.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Copy" InputGestureText="CTRL + C"/>
+                                        <MenuItem Header="Cut" InputGestureText="CTRL + X"/>
+                                        <MenuItem Header="Paste" InputGestureText="CTRL + V"/>
+                                    </ContextMenu>
+                                </TextBox.ContextMenu>
+                            </TextBox>
                         </Grid>
                     </Border>
                 </ControlTemplate>

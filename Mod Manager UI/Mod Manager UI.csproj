@@ -5,7 +5,12 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>Mod_Manager_UI</RootNamespace>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>MsytIcon_v2.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images and Fonts\Icon.png" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Models\" />
@@ -13,6 +18,12 @@
 
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images and Fonts\Icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
