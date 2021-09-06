@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "byml_switcher": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\HP USER\\source\\repos\\Breath-of-the-Wild-Basic-Mod-Creator\\byml_switcher\\bin\\Debug\\net5.0\\A-3_Dynamic.smubin\""
-    }
-  }
-}
