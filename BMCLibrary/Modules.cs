@@ -83,7 +83,7 @@ namespace Botw_Tools
         {
 
         }
-        public static async Task Myst(string file)
+        public static async Task Msyt(string file)
         {
 
         }
