@@ -1,4 +1,4 @@
-# Botw_Tools.Modules.HKX2.Create
+# Botw.Modules.HKX2.Create
 
 Creates a HKX2 file from a .obj and .mtl file.
 
