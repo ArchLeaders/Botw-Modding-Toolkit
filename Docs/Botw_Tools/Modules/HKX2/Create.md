@@ -10,7 +10,7 @@ Creates a HKX2 file from a .obj and .mtl file.
 /// <para>
 /// <see cref="Create(string, string, string)"/>
 /// </para>
-/// <see href="https://github.com">GitHub Documentation</see>
+/// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/edit/master/Docs/Botw_Tools/Modules/HKX2/Create.md">GitHub Documentation</see>
 /// <list type="bullet">
 /// <item><description><para>obj: Full path to .obj file</para></description></item>
 /// <item><description><para>type: HKX2 Type. E.g. HKRB, HKSC, SHKSC, HKNM2, SHKNM2</para></description></item>
