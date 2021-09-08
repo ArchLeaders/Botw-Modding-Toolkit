@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31402.337
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Botw_Tools", "Tools\Botw_Tools.csproj", "{AC34C237-00DA-4296-8D95-3B8DCDC3821B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Botw", "Tools\Botw.csproj", "{AC34C237-00DA-4296-8D95-3B8DCDC3821B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mod Manager UI", "Mod Manager UI", "{55D5CE7F-CADE-48A1-9617-BDA0DD3BB24A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mod Manager UI", "Mod Manager UI\Mod Manager UI.csproj", "{B0D2FB2D-9420-4D45-8ADE-73AF9C98C0D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mod Manager UI", "Mod Manager UI\Mod Manager UI.csproj", "{B0D2FB2D-9420-4D45-8ADE-73AF9C98C0D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

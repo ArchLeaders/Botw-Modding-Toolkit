@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Botw_Tools
+namespace Botw
 {
     public class Pip
     {

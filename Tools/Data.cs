@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Botw_Tools
+namespace Botw
 {
     public class Data
     {

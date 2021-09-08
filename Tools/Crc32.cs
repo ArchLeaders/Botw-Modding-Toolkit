@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Botw_Tools
+namespace Botw
 {
     /// <summary>
     /// Implements a 32-bit CRC hash algorithm compatible with Zip etc.

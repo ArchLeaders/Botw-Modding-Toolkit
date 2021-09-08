@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Botw_Tools
+namespace Botw
 {
     public class Actor
     {
