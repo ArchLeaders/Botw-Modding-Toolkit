@@ -6,7 +6,7 @@ Creates a HKX2 file from a .obj and .mtl file.
 
 ```cs
 /// <summary>
-/// <c>HKX2.Create</c> creates a HKX2 type file from target obj file.
+/// <c>Botw.Modules.HKX2.Create</c> creates a HKX2 type file from target obj file.
 /// <para>
 /// <see cref="Create(string, string, string)"/>
 /// </para>
@@ -20,7 +20,7 @@ Creates a HKX2 file from a .obj and .mtl file.
 /// <param name="obj"></param>
 /// <param name="type"> </param>
 /// <param name="outFile"></param>
-/// <returns></returns>
+/// <returns>Task</returns>
 public static async Task Create(string obj, string type, string outFile = null)
 {
     //Set out file when string outFile = null
