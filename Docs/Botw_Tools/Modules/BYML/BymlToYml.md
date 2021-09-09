@@ -2,7 +2,7 @@
 
 Converts a BYML file to YAML using [BYML](https://github.com/zeldamods/byml-v2).
 
-_Requires [BYML](https://github.com/zeldamods/byml-v2) by Leoetlino. Pip: `pip install byml`_
+_Requires [BYML](https://github.com/zeldamods/byml-v2) by Léo Lam. Pip: `pip install byml`_
 
 ---
 
