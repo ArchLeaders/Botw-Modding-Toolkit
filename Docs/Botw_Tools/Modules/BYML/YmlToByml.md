@@ -2,6 +2,8 @@
 
 Encodes a YAML file to the BYML format defined by the `extension` parameter.
 
+_Requires [BYML](https://github.com/zeldamods/byml-v2) by Léo Lam. Pip: `pip install byml`_
+
 ---
 
 ```cs
