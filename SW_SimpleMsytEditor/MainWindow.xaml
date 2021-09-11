@@ -1,0 +1,211 @@
+﻿<Window x:Class="SW_SimpleMsytEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SW_SimpleMsytEditor"
+        mc:Ignorable="d"
+        Title="Msyt Editor [BETA]" Height="860" Width="1400"
+        Background="#25313B" WindowStyle="None">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30"/>
+    </WindowChrome.WindowChrome>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#1f1f1f" Grid.Column="0"
+                Grid.ColumnSpan="2" x:Name="winChromeColor">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        WindowChrome.IsHitTestVisibleInChrome="True">
+
+                <Button Content="!"
+                        x:Name="btnMinimize"
+                        Width="45"
+                        FontSize="15"
+                        Foreground="#f7f7f7"
+                        Style="{StaticResource MinMaxBtnTheme}"
+                        FontFamily="{StaticResource WindowsBasic}"/>
+
+                <Button Content="'"
+                        x:Name="btnFullScreen"
+                        Width="45"
+                        FontSize="15"
+                        Foreground="#f7f7f7"
+                        Style="{StaticResource MinMaxBtnTheme}"
+                        FontFamily="{StaticResource WindowsBasic}"/>
+
+                <Button Content=","
+                        x:Name="btnExitApplication"
+                        Width="45"
+                        FontSize="15"
+                        Foreground="#f7f7f7"
+                        Style="{StaticResource CloseButtonTheme}"
+                        FontFamily="{StaticResource WindowsBasic}"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="0" Grid.Row="1"
+                Background="#5f5f5f" x:Name="LeftToolPanel">
+            <Grid>
+                <StackPanel>
+
+                    <Button x:Name="btnShowEditor"
+                            Content="Show Editor"
+                            FontSize="28"
+                            Click="btnShowEditor_Click"/>
+
+                    <Button x:Name="btnTranslate"
+                            Content="Translate"
+                            FontSize="28"
+                            Click="btnTranslate_Click"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_1"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_2"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_3"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_4"/>
+
+                    </StackPanel>
+
+                    <Button x:Name="btnImport"
+                            Content="Import"
+                            FontSize="28"
+                            Click="btnImport_Click"/>
+                    
+                    <Button x:Name="btnExport"
+                            Content="Export"
+                            FontSize="28"
+                            Click="btnExport_Click"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk2_1"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk2_2"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk2_3"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk2_4"/>
+
+                    </StackPanel>
+                    
+                    <Button x:Name="btnUnBuild"
+                            Content="Unbuild"
+                            FontSize="28"
+                            Click="btnUnBuild_Click"/>
+
+                    <Button x:Name="btnBuild"
+                            Content="Build"
+                            FontSize="28"
+                            Click="btnBuild_Click"/>
+                        
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk3_1"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk3_2"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk3_3"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk3_4"/>
+
+                    </StackPanel>
+
+                    <Button x:Name="btnSettings"
+                            Content="Settings"
+                            FontSize="28"
+                            Click="btnSettings_Click"/>
+                        
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Bottom">
+                    <Image Source="/SW.png" Margin="2, 0, 2, 10"/>
+                </StackPanel>
+            </Grid>
+        </Border> <!--Side panel-->
+
+        <Grid x:Name="panelMsytView" Grid.Column="1" Grid.Row="1">
+
+            <avalonEdit:TextEditor x:Name="rtbMain"
+                                   xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                                   BorderThickness="0" Background="#25313B"
+                                   Foreground="White" FontSize="14" 
+                                   Block.LineHeight="2" VerticalScrollBarVisibility="Auto"
+                                   HorizontalScrollBarVisibility="Disabled"
+                                   SyntaxHighlighting="MSYT"/>
+        </Grid>
+                
+        <Grid x:Name="panelEditorView" Grid.Column="1" Grid.Row="1">
+            
+        </Grid>
+            
+    </Grid>
+
+</Window>

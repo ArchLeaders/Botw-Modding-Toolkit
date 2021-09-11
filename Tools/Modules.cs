@@ -91,7 +91,7 @@ namespace Botw
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>A four digit number representing the amount of mods in the users bcml.</returns>
+        /// <returns>A four digit number representing the amount of mods being loaded. <code>Source from bcml_data/mods</code></returns>
         public static string ModCount()
         {
             string result = "0100";
@@ -106,7 +106,16 @@ namespace Botw
 
             return result;
         }
+
         public static int ModPriority = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length + 100 - 2;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="platform"></param>
+        /// <param name="priority"></param>
+        /// <returns></returns>
         public static string Info(string name, string platform, string priority)
         {
             return "{" +
@@ -123,54 +132,6 @@ namespace Botw
             "\n    \"priority\": \"" + priority + "\"," +
             "\n    \"id\": \"\"" +
             "\n}";
-        }
-    }
-    public class HyruleBuilder
-    {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public static async Task UnpackSarc(string file)
-        {
-            await Data.Process("unbuild_sarc.exe", "\"" + file + "\"");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="folder"></param>
-        /// <param name="outFile"></param>
-        /// <param name="endian"></param>
-        /// <returns></returns>
-        public static async Task PackSarc(string folder, string outFile, string endian = null)
-        {
-            await Data.Process("build_sarc.exe", "\"" + folder + "\"" + endian + "\"" + outFile + "\"");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="folder"></param>
-        /// <param name="out_folder"></param>
-        /// <param name="endian"></param>
-        /// <returns></returns>
-        public static async Task Build(string folder, string out_folder = null, string endian = null)
-        {
-            await Data.Process("hyrule_builder.exe", "build " + endian + " \"" + folder + "\" \"" + out_folder + "\"");
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="folder"></param>
-        /// <param name="out_folder"></param>
-        /// <param name="endian"></param>
-        /// <returns></returns>
-        public static async Task UnBuild(string folder, string out_folder = null, string endian = null)
-        {
-            await Data.Process("hyrule_builder.exe", "unbuild \"" + folder + "\" \"" + out_folder + "\"");
         }
     }
 }
