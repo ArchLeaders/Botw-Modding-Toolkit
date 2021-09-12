@@ -1,7 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using Microsoft.Win32;
 using SW_SimpleMsytEditor.Highlighting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace SW_SimpleMsytEditor
 {
@@ -59,6 +63,10 @@ namespace SW_SimpleMsytEditor
         }
 
         #endregion
+
+        public string InSessionFileName = "MsytTextFile.msyt";
+        public string InSessionFile = "MsytTextFile.msyt";
+        public string ExportFormat = "wiiu";
 
         #region Fix Window Sixe in fullscreen.
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -225,7 +233,13 @@ namespace SW_SimpleMsytEditor
                 SetTheme(file[0], file[1], file[2], file[3], file[4], file[5]);
             }
 
-            ResourceLoader.LoadHighlightingDefinition("MSYT.xshd");
+            using (var stream = File.OpenRead("Highlighting\\MSYT.xshd"))
+            {
+                using (var reader = new XmlTextReader(stream))
+                {
+                    rtbMain.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
         }
 
         private void btnShowEditor_Click(object sender, RoutedEventArgs e)
@@ -238,21 +252,86 @@ namespace SW_SimpleMsytEditor
 
         }
 
-        private void btnImport_Click(object sender, RoutedEventArgs e)
+        private async void btnImport_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openMsyt = new();
-            openMsyt.Filter = "MSYT (*.msyt)|*.msyt|MSBT (*.msbt)|*.msbt";
+            openMsyt.Filter = "BotW Text Files|*.msyt;*.msbt|MSYT|*.msyt|MSBT|*.msbt";
 
             if (openMsyt.ShowDialog() == true)
             {
-                //rtbMain.Document.Blocks.Clear();
-                //rtbMain.Document.Blocks.Add(new Paragraph(new Run(File.ReadAllText(openMsyt.FileName))));
+                string[] str = openMsyt.FileName.Split('.');
+                string extension = str[str.Length - 1];
+
+                if (extension == "msyt")
+                {
+                    rtbMain.Text = File.ReadAllText(openMsyt.FileName);
+                    //rtbMain.Document.Blocks.Add(new Paragraph(new Run(File.ReadAllText(openMsyt.FileName))));
+                }
+                else if (extension == "msbt")
+                {
+                    Process proc = new();
+                    proc.StartInfo.FileName = "x64\\msyt.exe";
+                    proc.StartInfo.Arguments = "export \"" + openMsyt.FileName + "\"";
+                    proc.StartInfo.CreateNoWindow = true;
+
+                    proc.Start();
+                    await proc.WaitForExitAsync();
+                    rtbMain.Text = File.ReadAllText(openMsyt.FileName.Replace(".msbt", ".msyt"));
+                    File.Delete(openMsyt.FileName.Replace(".msbt", ".msyt"));
+                }
+
+                InSessionFileName = openMsyt.SafeFileName;
+                InSessionFile = openMsyt.FileName;
             }
         }
 
-        private void btnExport_Click(object sender, RoutedEventArgs e)
+        private async void btnExport_Click(object sender, RoutedEventArgs e)
         {
+            if (Keyboard.IsKeyDown(Key.LeftShift))
+            {
+                File.Move("out\\" + InSessionFileName.Replace(".msyt", ".msbt"), "out\\" + InSessionFileName.Replace(".msyt", ".msbt.bck"), true);
+                File.WriteAllText("out\\" + InSessionFileName.Replace(".msbt", ".msyt"), rtbMain.Text);
 
+                Process proc = new();
+                proc.StartInfo.FileName = "x64\\msyt.exe";
+                proc.StartInfo.Arguments = "create \"out\\" + InSessionFileName.Replace(".msbt", ".msyt") + "\" --output \"out\\" + InSessionFileName.Replace(".msyt", ".msbt") + "\" --platform " + ExportFormat;
+                proc.StartInfo.CreateNoWindow = true;
+
+                proc.Start();
+                await proc.WaitForExitAsync();
+
+                Directory.Delete("out\\" + InSessionFileName.Replace(".msyt", ".msbt") + ".bak");
+                File.Delete("out\\" + InSessionFileName.Replace(".msbt", ".msyt"));
+            }
+            else
+            {
+                SaveFileDialog export = new();
+                export.Filter = "MSYT|*.msyt|MSBT|*.msbt";
+                export.FileName = InSessionFileName;
+
+                if (export.ShowDialog() == true)
+                {
+                    if (export.FileName.EndsWith(".msyt"))
+                    {
+                        File.WriteAllText(export.FileName, rtbMain.Text);
+                    }
+                    else if (export.FileName.EndsWith(".msbt"))
+                    {
+                        File.WriteAllText(export.FileName.Replace(".msbt", ".msyt"), rtbMain.Text);
+
+                        Process proc = new();
+                        proc.StartInfo.FileName = "x64\\msyt.exe";
+                        proc.StartInfo.Arguments = "create \"" + export.FileName.Replace(".msbt", ".msyt") + "\" --output \"" + export.FileName + "\" --platform " + ExportFormat;
+                        proc.StartInfo.CreateNoWindow = true;
+
+                        proc.Start();
+                        await proc.WaitForExitAsync();
+
+                        Directory.Delete(export.FileName + ".bak");
+                        File.Delete(export.FileName.Replace(".msbt", ".msyt"));
+                    }
+                }
+            }
         }
 
         private void btnUnBuild_Click(object sender, RoutedEventArgs e)
@@ -268,6 +347,33 @@ namespace SW_SimpleMsytEditor
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void rtbMain_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop, true) && e.Data.GetData(DataFormats.FileDrop, true) is string[] fileNames)
+            {
+                string[] str = fileNames[0].Split('.');
+                string extension = str[str.Length - 1];
+
+                if (extension == "msyt")
+                {
+                    rtbMain.Text = File.ReadAllText(fileNames[0]);
+                    //rtbMain.Document.Blocks.Add(new Paragraph(new Run(File.ReadAllText(fileNames[0]))));
+                }
+                else if (extension == "msbt")
+                {
+                    Process proc = new();
+                    proc.StartInfo.FileName = "x64\\msyt.exe";
+                    proc.StartInfo.Arguments = "export \"" + fileNames[0] + "\"";
+                    proc.StartInfo.CreateNoWindow = true;
+
+                    proc.Start();
+                    await proc.WaitForExitAsync();
+                    rtbMain.Text = File.ReadAllText(fileNames[0].Replace(".msbt", ".msyt"));
+                    File.Delete(fileNames[0].Replace(".msbt", ".msyt"));
+                }
+            }
         }
     }
 }

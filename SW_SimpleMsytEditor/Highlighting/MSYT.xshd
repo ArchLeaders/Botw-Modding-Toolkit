@@ -1,7 +1,7 @@
 ﻿<SyntaxDefinition name="MSYT"
         xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-    <Color name="Comment" foreground="Blue" />
-    <Color name="String" foreground="Red" />
+    <Color name="Comment" foreground="#0E2602" />
+    <Color name="String" foreground="#3B2B06" />
 	<Color name="Identifier" foreground="#0A295E" />
     
     <!-- This is the main ruleset. -->
@@ -20,8 +20,8 @@
         </Span>
 
 		<Keywords fontWeight="bold" foreground="#4D0714">
-			<Word>text</Word>
-			<Word>contents</Word>
+			<Word>text:</Word>
+			<Word>contents:</Word>
 			<!-- ... -->
 		</Keywords>
         

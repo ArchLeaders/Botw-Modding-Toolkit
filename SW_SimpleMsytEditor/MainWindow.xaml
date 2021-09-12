@@ -196,10 +196,12 @@
             <avalonEdit:TextEditor x:Name="rtbMain"
                                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                                    BorderThickness="0" Background="#25313B"
-                                   Foreground="White" FontSize="14" 
+                                   FontSize="17" 
                                    Block.LineHeight="2" VerticalScrollBarVisibility="Auto"
                                    HorizontalScrollBarVisibility="Disabled"
-                                   SyntaxHighlighting="MSYT"/>
+                                   SyntaxHighlighting="MSYT"
+                                   AllowDrop="True"
+                                   Drop="rtbMain_Drop"/>
         </Grid>
                 
         <Grid x:Name="panelEditorView" Grid.Column="1" Grid.Row="1">
