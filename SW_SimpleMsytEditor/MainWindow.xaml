@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:SW_SimpleMsytEditor"
         mc:Ignorable="d"
         Title="Msyt Editor [BETA]" Height="860" Width="1400"
@@ -138,45 +139,6 @@
                                 x:Name="mk2_4"/>
 
                     </StackPanel>
-                    
-                    <Button x:Name="btnUnBuild"
-                            Content="Unbuild"
-                            FontSize="28"
-                            Click="btnUnBuild_Click"/>
-
-                    <Button x:Name="btnBuild"
-                            Content="Build"
-                            FontSize="28"
-                            Click="btnBuild_Click"/>
-                        
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-
-                        <Border Background="White"
-                                CornerRadius="5, 1, 5, 1"
-                                Width="30" Margin="5, 2, 5, 2"
-                                Height="5"
-                                x:Name="mk3_1"/>
-
-                        <Border Background="White"
-                                CornerRadius="5, 1, 5, 1"
-                                Width="10" Margin="5, 2, 5, 2"
-                                Height="5"
-                                x:Name="mk3_2"/>
-
-                        <Border Background="White"
-                                CornerRadius="5, 1, 5, 1"
-                                Width="10" Margin="5, 2, 5, 2"
-                                Height="5"
-                                x:Name="mk3_3"/>
-
-                        <Border Background="White"
-                                CornerRadius="5, 1, 5, 1"
-                                Width="30" Margin="5, 2, 5, 2"
-                                Height="5"
-                                x:Name="mk3_4"/>
-
-                    </StackPanel>
 
                     <Button x:Name="btnSettings"
                             Content="Settings"
@@ -207,7 +169,26 @@
         <Grid x:Name="panelEditorView" Grid.Column="1" Grid.Row="1">
             
         </Grid>
+
+        <Grid x:Name="panelSettings" Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             
+            
+        </Grid>
+
     </Grid>
 
 </Window>

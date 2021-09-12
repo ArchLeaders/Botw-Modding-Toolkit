@@ -334,16 +334,6 @@ namespace SW_SimpleMsytEditor
             }
         }
 
-        private void btnUnBuild_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnBuild_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnSettings_Click(object sender, RoutedEventArgs e)
         {
 
