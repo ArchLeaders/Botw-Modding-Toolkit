@@ -203,8 +203,6 @@ namespace SW_SimpleMsytEditor
             buttons.Add(btnTranslate);
             buttons.Add(btnImport);
             buttons.Add(btnExport);
-            buttons.Add(btnUnBuild);
-            buttons.Add(btnBuild);
             buttons.Add(btnSettings);
 
             windowButtons.Add(btnMinimize);
@@ -220,11 +218,6 @@ namespace SW_SimpleMsytEditor
             marks.Add(mk2_2);
             marks.Add(mk2_3);
             marks.Add(mk2_4);
-
-            marks.Add(mk3_1);
-            marks.Add(mk3_2);
-            marks.Add(mk3_3);
-            marks.Add(mk3_4);
 
             if (File.Exists("Theme.ini"))
             {

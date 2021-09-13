@@ -23,7 +23,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#1f1f1f" Grid.Column="0"
+        <Border Background="#636363" Grid.Column="0"
                 Grid.ColumnSpan="2" x:Name="winChromeColor">
 
             <StackPanel Orientation="Horizontal"
@@ -58,7 +58,7 @@
         </Border>
 
         <Border Grid.Column="0" Grid.Row="1"
-                Background="#5f5f5f" x:Name="LeftToolPanel">
+                Background="#3B3B3B" x:Name="LeftToolPanel">
             <Grid>
                 <StackPanel>
 
@@ -157,13 +157,14 @@
 
             <avalonEdit:TextEditor x:Name="rtbMain"
                                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                                   BorderThickness="0" Background="#25313B"
+                                   BorderThickness="0" Background="#1A1A1A"
                                    FontSize="17" 
                                    Block.LineHeight="2" VerticalScrollBarVisibility="Auto"
-                                   HorizontalScrollBarVisibility="Disabled"
+                                   HorizontalScrollBarVisibility="Auto"
                                    SyntaxHighlighting="MSYT"
                                    AllowDrop="True"
-                                   Drop="rtbMain_Drop"/>
+                                   Drop="rtbMain_Drop" Foreground="#f7f7f7">
+            </avalonEdit:TextEditor>
         </Grid>
                 
         <Grid x:Name="panelEditorView" Grid.Column="1" Grid.Row="1">
@@ -179,7 +180,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
