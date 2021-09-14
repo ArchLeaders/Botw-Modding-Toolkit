@@ -1,0 +1,315 @@
+﻿<Window x:Class="SW_SimpleMsytEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:SW_SimpleMsytEditor"
+        mc:Ignorable="d"
+        Title="Msyt Editor [BETA]" Height="860" Width="1400"
+        Background="#4f4f4f" WindowStyle="None"
+        Foreground="White" KeyDown="Window_KeyDown">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30"/>
+    </WindowChrome.WindowChrome>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#636363" Grid.Column="0"
+                Grid.ColumnSpan="2" x:Name="winChromeColor">
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        WindowChrome.IsHitTestVisibleInChrome="True">
+
+                <Button Content="!"
+                        x:Name="btnMinimize"
+                        Width="45"
+                        FontSize="15"
+                        Foreground="#f7f7f7"
+                        Style="{StaticResource MinMaxBtnTheme}"
+                        FontFamily="{StaticResource WindowsBasic}"/>
+
+                <Button Content="'"
+                        x:Name="btnFullScreen"
+                        Width="45"
+                        FontSize="15"
+                        Foreground="#f7f7f7"
+                        Style="{StaticResource MinMaxBtnTheme}"
+                        FontFamily="{StaticResource WindowsBasic}"/>
+
+                <Button Content=","
+                        x:Name="btnExitApplication"
+                        Width="45"
+                        FontSize="15"
+                        Foreground="#f7f7f7"
+                        Style="{StaticResource CloseButtonTheme}"
+                        FontFamily="{StaticResource WindowsBasic}"/>
+
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Column="0" Grid.Row="1"
+                Background="#3B3B3B" x:Name="LeftToolPanel">
+            <Grid>
+                <StackPanel>
+
+                    <Button x:Name="btnShowEditor"
+                            Content="Show Editor"
+                            FontSize="28"
+                            Click="btnShowEditor_Click"
+                            Style="{StaticResource btnPanel}"
+                            Foreground="White"/>
+
+                    <Button x:Name="btnTranslate"
+                            Content="Translate"
+                            FontSize="28"
+                            Click="btnTranslate_Click"
+                            Style="{StaticResource btnPanel}"
+                            Foreground="White"/>
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_1"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_2"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="10" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_3"/>
+
+                        <Border Background="White"
+                                CornerRadius="5, 1, 5, 1"
+                                Width="30" Margin="5, 2, 5, 2"
+                                Height="5"
+                                x:Name="mk1_4"/>
+
+                    </StackPanel>
+
+                    <Button x:Name="btnImport"
+                            Content="Import"
+                            FontSize="28"
+                            Click="btnImport_Click"
+                            Style="{StaticResource btnPanel}"
+                            Foreground="White"/>
+
+                    <Button x:Name="btnExport"
+                            Content="Export"
+                            FontSize="28"
+                            Click="btnExport_Click"
+                            Style="{StaticResource btnPanel}"
+                            Foreground="White"/>
+
+                </StackPanel>
+
+                <StackPanel VerticalAlignment="Bottom">
+                    <Image Source="/SW.png" Margin="2, 0, 2, 10"/>
+                </StackPanel>
+            </Grid>
+        </Border> <!--Side panel-->
+
+        <Grid x:Name="winMsytView" Grid.Column="1" Grid.Row="1" Visibility="Hidden">
+
+            <avalonEdit:TextEditor x:Name="rtbMain"
+                                   xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                                   BorderThickness="0" Background="#1A1A1A"
+                                   FontSize="17" 
+                                   Block.LineHeight="2" VerticalScrollBarVisibility="Auto"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   AllowDrop="True"
+                                   Drop="rtbMain_Drop" Foreground="#f7f7f7"/>
+        </Grid>
+
+        <Grid x:Name="winEditorView" Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <avalonEdit:TextEditor x:Name="rtbDeserializedText"
+                                   xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                                   BorderThickness="0" Background="#1A1A1A"
+                                   FontSize="17" 
+                                   Block.LineHeight="2" VerticalScrollBarVisibility="Auto"
+                                   HorizontalScrollBarVisibility="Auto"
+                                   AllowDrop="True"
+                                   Drop="rtbMain_Drop" Foreground="#C3602C"/>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border x:Name="tbEditor_Speech"
+                            Grid.Row="0" Background="#801f1f1f"
+                            Height="120" Width="610" CornerRadius="65"
+                            VerticalAlignment="Top">
+
+                        <TextBlock x:Name="tbEditor_Speech_Text"
+                                   Margin="0, 0, 0, 0" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   FontSize="22"
+                                   LineHeight="23"
+                                   FontWeight="Bold"
+                                   FontFamily="Calamity">
+                        </TextBlock>
+                    </Border>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel HorizontalAlignment="Right">
+                            <Border Grid.Row="1" Background="#801f1f1f"
+                                    Height="48" Width="240" CornerRadius="24"
+                                    HorizontalAlignment="Center" Margin="0, 10, 0, 5">
+
+                                <TextBlock x:Name="tbEditor_Speech_Option_1"
+                                           Margin="23, 0, 0, 0" VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           FontWeight="Medium"/>
+                            </Border>
+
+                            <Border Grid.Row="1" Background="#801f1f1f"
+                                    Height="48" Width="240" CornerRadius="24"
+                                    HorizontalAlignment="Center" Margin="0, 5">
+
+                                <TextBlock x:Name="tbEditor_Speech_Option_2"
+                                           Margin="23, 0, 0, 0" VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           FontWeight="Medium"/>
+                            </Border>
+
+                            <Border Grid.Row="1" Background="#801f1f1f"
+                                    Height="48" Width="240" CornerRadius="24"
+                                    HorizontalAlignment="Center" Margin="0, 5">
+
+                                <TextBlock x:Name="tbEditor_Speech_Option_3"
+                                           Margin="23, 0, 0, 0" VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           FontWeight="Medium"/>
+                            </Border>
+
+                            <Border Grid.Row="1" Background="#801f1f1f"
+                                    Height="48" Width="240" CornerRadius="24"
+                                    HorizontalAlignment="Center" Margin="0, 5">
+
+                                <TextBlock x:Name="tbEditor_Speech_Option_4"
+                                           Margin="23, 0, 0, 0" VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           FontSize="18"
+                                           FontWeight="Medium"/>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text=".1"
+                                       FontSize="45"
+                                       FontFamily="Consolas"
+                                       Margin="0, 10, 0, 0"/>
+
+                            <TextBlock Text=".2"
+                                       FontSize="45"
+                                       FontFamily="Consolas"
+                                       Margin="0, 5, 0, 0"/>
+
+                            <TextBlock Text=".3"
+                                       FontSize="45"
+                                       FontFamily="Consolas"
+                                       Margin="0, 5, 0, 0"/>
+
+                            <TextBlock Text=".4"
+                                       FontSize="45"
+                                       FontFamily="Consolas"
+                                       Margin="0, 5, 0, 0"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <Border x:Name="tbEditor_MenuItem"
+                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                        Background="#801f1f1f"
+                        Height="170" Width="610"
+                        Margin="20" HorizontalAlignment="Right"
+                        VerticalAlignment="Top" Visibility="Hidden">
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel x:Name="DataStack">
+
+                            <TextBlock x:Name="tbEditor_MenuItem_Name"
+                                   Text="Travel Medallion"
+                                   Margin="20, 15, 0, 0" 
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
+                                   FontSize="27"
+                                   FontWeight="Bold"
+                                   FontFamily="Calamity"/>
+
+                            <Border Margin="22, 7, 0, 0"
+                                Height=".3" Background="#f1f1f1"
+                                Width="350" HorizontalAlignment="Left"/>
+
+                            <TextBlock x:Name="tbEditor_MenuItem_Desc"
+                                   Margin="22, 7, 0, 0" 
+                                   VerticalAlignment="Top"
+                                   HorizontalAlignment="Left"
+                                   FontSize="16"
+                                   FontFamily="Calamity">
+                
+                    <Run Text="This mysterious tool was made using"/>
+                    <LineBreak/>
+                    <Run Text="forgotten ancient technology. Place it"/>
+                    <LineBreak/>
+                    <Run Text="by opening your pouch and registering"/>
+                    <LineBreak/>
+                    <Run Text="your current location as a travel gate."/>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>

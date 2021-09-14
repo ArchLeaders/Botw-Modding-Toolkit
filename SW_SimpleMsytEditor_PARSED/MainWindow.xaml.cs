@@ -28,46 +28,9 @@ namespace SW_SimpleMsytEditor
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region Control Lists / Themes
-
-        List<Button> buttons = new();
-        List<Border> marks = new();
-        List<Button> windowButtons = new();
-
-        public void SetTheme(string _btnForeground, string _mainBackground, string _leftBackground, string _chromeBackground, string _markBackground, string _winForeground)
-        {
-            Brush btnForeground = (SolidColorBrush)new BrushConverter().ConvertFrom(_btnForeground);
-            Brush mainBackground = (SolidColorBrush)new BrushConverter().ConvertFrom(_mainBackground);
-            Brush leftBackground = (SolidColorBrush)new BrushConverter().ConvertFrom(_leftBackground);
-            Brush chromeBackground = (SolidColorBrush)new BrushConverter().ConvertFrom(_chromeBackground);
-            Brush markBackground = (SolidColorBrush)new BrushConverter().ConvertFrom(_markBackground);
-            Brush winForeground = (SolidColorBrush)new BrushConverter().ConvertFrom(_winForeground);
-
-            foreach (Button button in buttons)
-            {
-                button.Foreground = btnForeground;
-            }
-            foreach (Button button in windowButtons)
-            {
-                button.Foreground = winForeground;
-            }
-            foreach (Border border in marks)
-            {
-                border.Background = markBackground;
-            }
-
-            rtbMain.Background = mainBackground;
-            LeftToolPanel.Background = leftBackground;
-            winChromeColor.Background = chromeBackground;
-        }
-
-        #endregion
-
         public string InSessionFileName = "MsytTextFile.msyt";
         public string InSessionFile = "MsytTextFile.msyt";
         public string ExportFormat = "wiiu";
-
-        List<CheckBox> tabs = new();
 
         #region Fix Window Sixe in fullscreen.
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
@@ -200,44 +163,35 @@ namespace SW_SimpleMsytEditor
             btnFullScreen.Click += (s, e) => WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             btnExitApplication.Click += (s, e) => Environment.Exit(1);
 
-            buttons.Add(btnShowEditor);
-            buttons.Add(btnTranslate);
-            buttons.Add(btnImport);
-            buttons.Add(btnExport);
-            buttons.Add(btnSettings);
-
-            windowButtons.Add(btnMinimize);
-            windowButtons.Add(btnFullScreen);
-            windowButtons.Add(btnExitApplication);
-
-            marks.Add(mk1_1);
-            marks.Add(mk1_2);
-            marks.Add(mk1_3);
-            marks.Add(mk1_4);
-
-            marks.Add(mk2_1);
-            marks.Add(mk2_2);
-            marks.Add(mk2_3);
-            marks.Add(mk2_4);
-
-            tabs.Add(btnSettings_General);
-            tabs.Add(btnSettings_ShowEditor);
-            tabs.Add(btnSettings_ShowMsyt);
-            tabs.Add(btnSettings_ShowHelp);
-
-            if (File.Exists("Theme.ini"))
-            {
-                string[] file = File.ReadAllLines("Theme.ini");
-
-                SetTheme(file[0], file[1], file[2], file[3], file[4], file[5]);
-            }
-
-            using (var stream = File.OpenRead("Highlighting\\MSYT.xshd"))
+            using (var stream = File.OpenRead("x64\\msyt.xml"))
             {
                 using (var reader = new XmlTextReader(stream))
                 {
                     rtbMain.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
                 }
+            }
+
+            using (var stream = File.OpenRead("x64\\dtext.xml"))
+            {
+                using (var reader = new XmlTextReader(stream))
+                {
+                    rtbDeserializedText.SyntaxHighlighting = HighlightingLoader.Load(reader, HighlightingManager.Instance);
+                }
+            }
+
+            tbEditor_Speech_Text.Text = "I'm sorry, usually we have a stock of\nfresh Pumpkins but recently my sister\nhas been having some pest issues.";
+            tbEditor_Speech_Option_1.Text = "Hmm, OK.";
+            tbEditor_Speech_Option_2.Text = "Alright then.";
+            tbEditor_Speech_Option_3.Text = "Oh, I see.";
+            tbEditor_Speech_Option_4.Text = "Bye. This looks bad, but is more accurate to BotW";
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.LeftCtrl | Key.S:
+                    break;
             }
         }
 
@@ -289,25 +243,28 @@ namespace SW_SimpleMsytEditor
         {
             if (Keyboard.IsKeyDown(Key.LeftShift))
             {
-                File.Move("out\\" + InSessionFileName.Replace(".msyt", ".msbt"), "out\\" + InSessionFileName.Replace(".msyt", ".msbt.bck"), true);
-                File.WriteAllText("out\\" + InSessionFileName.Replace(".msbt", ".msyt"), rtbMain.Text);
+                File.WriteAllText("x64\\.app\\" + InSessionFileName.Replace(".msbt", ".msyt"), rtbMain.Text);
 
                 Process proc = new();
                 proc.StartInfo.FileName = "x64\\msyt.exe";
-                proc.StartInfo.Arguments = "create \"out\\" + InSessionFileName.Replace(".msbt", ".msyt") + "\" --output \"out\\" + InSessionFileName.Replace(".msyt", ".msbt") + "\" --platform " + ExportFormat;
+                proc.StartInfo.Arguments = "create \"x64\\.app\\" + InSessionFileName.Replace(".msbt", ".msyt") + "\" --output \"x64\\.app\\" + InSessionFileName.Replace(".msyt", ".msbt") + "\" --platform " + ExportFormat;
                 proc.StartInfo.CreateNoWindow = true;
 
                 proc.Start();
                 await proc.WaitForExitAsync();
 
-                Directory.Delete("out\\" + InSessionFileName.Replace(".msyt", ".msbt") + ".bak");
-                File.Delete("out\\" + InSessionFileName.Replace(".msbt", ".msyt"));
+                string defaultOut = File.ReadAllLines("x64\\settings.ini")[0];
+
+                Directory.Delete("x64\\.app\\" + InSessionFileName.Replace(".msyt", ".msbt") + ".bak");
+                File.Delete("x64\\.app\\" + InSessionFileName.Replace(".msbt", ".msyt"));
+                File.Move("x64\\.app\\" + InSessionFileName.Replace(".msyt", ".msbt"), defaultOut + "\\" + InSessionFileName.Replace(".msyt", ".msbt"), true);
             }
             else
             {
                 SaveFileDialog export = new();
                 export.Filter = "MSYT|*.msyt|MSBT|*.msbt";
-                export.FileName = InSessionFileName;
+                export.FileName = InSessionFileName.Replace("msyt", "msbt");
+                export.FilterIndex = 2;
 
                 if (export.ShowDialog() == true)
                 {
@@ -317,26 +274,22 @@ namespace SW_SimpleMsytEditor
                     }
                     else if (export.FileName.EndsWith(".msbt"))
                     {
-                        File.WriteAllText(export.FileName.Replace(".msbt", ".msyt"), rtbMain.Text);
+                        File.WriteAllText("x64\\.app\\" + export.SafeFileName + ".msyt", rtbMain.Text);
 
                         Process proc = new();
                         proc.StartInfo.FileName = "x64\\msyt.exe";
-                        proc.StartInfo.Arguments = "create \"" + export.FileName.Replace(".msbt", ".msyt") + "\" --output \"" + export.FileName + "\" --platform " + ExportFormat;
+                        proc.StartInfo.Arguments = "create \"x64\\.app\\" + export.SafeFileName + ".msyt\" --output \"x64\\.app\\" + export.SafeFileName + "\" --platform " + ExportFormat;
                         proc.StartInfo.CreateNoWindow = true;
 
                         proc.Start();
                         await proc.WaitForExitAsync();
 
-                        Directory.Delete(export.FileName + ".bak");
-                        File.Delete(export.FileName.Replace(".msbt", ".msyt"));
+                        Directory.Delete("x64\\.app\\" + export.SafeFileName + ".bak");
+                        File.Delete("x64\\.app\\" + export.SafeFileName + ".msyt");
+                        File.Move("x64\\.app\\" + export.SafeFileName, export.FileName, true);
                     }
                 }
             }
-        }
-
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
-        {
-            panelSettings.Visibility = Visibility.Visible;
         }
 
         private async void rtbMain_Drop(object sender, DragEventArgs e)
@@ -363,117 +316,6 @@ namespace SW_SimpleMsytEditor
                     rtbMain.Text = File.ReadAllText(fileNames[0].Replace(".msbt", ".msyt"));
                     File.Delete(fileNames[0].Replace(".msbt", ".msyt"));
                 }
-            }
-        }
-
-        #endregion
-
-        #region Settings.Tabs
-
-        private void btnSettings_General_Click(object sender, RoutedEventArgs e)
-        {
-            TabPrep(sender, e);
-
-            
-        }
-
-        private void btnSettings_ShowMsyt_Click(object sender, RoutedEventArgs e)
-        {
-            TabPrep(sender, e);
-        }
-
-        private void btnSettings_ShowEditor_Click(object sender, RoutedEventArgs e)
-        {
-            TabPrep(sender, e);
-
-        }
-
-        private void btnSettings_ShowHelp_Click(object sender, RoutedEventArgs e)
-        {
-            TabPrep(sender, e);
-        }
-
-        private void btnSettings_SaveAndClose_Click(object sender, RoutedEventArgs e)
-        {
-            //Close settings and save Theme file(s).
-
-            panelSettings.Visibility = Visibility.Hidden;
-            btnSettings_General.IsChecked = true;
-            btnSettings_SaveAndClose.IsChecked = false;
-        }
-
-        private void TabPrep(object sender, RoutedEventArgs e)
-        {
-            CheckBox thisChkBox = (CheckBox)sender;
-
-            if (thisChkBox.IsChecked == true)
-            {
-                foreach (CheckBox check in tabs)
-                {
-                    if (check.Name != thisChkBox.Name)
-                    {
-                        check.IsChecked = false;
-                    }
-                }
-            } else { thisChkBox.IsChecked = true; }
-        }
-
-        private void TabVisiblility(Grid visible)
-        {
-            List<Grid> _tabs = new();
-
-            _tabs.Add(tabGeneral);
-
-        }
-        #endregion
-
-        #region Settings.General.UI Events
-
-        private void btnSettings_General_UI_PrimaryDisplay_Color_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void btnSettings_General_UI_LeftMenu_Color_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSettings_General_UI_WindowChrome_Color_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSettings_General_UI_UIText_Color_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnSettings_General_UI_Glyph_Color_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        #endregion
-
-        #region Settings.General.Paths Events
-
-        private void tbSettings_OutPath_TextBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            Settings_General_Paths_Browse_Method();
-        }
-
-        private void btnSettings_General_Paths_OutPath_Browse_Click(object sender, RoutedEventArgs e)
-        {
-            Settings_General_Paths_Browse_Method();
-        }
-
-        private void Settings_General_Paths_Browse_Method()
-        {
-            System.Windows.Forms.FolderBrowserDialog browseOut = new();
-
-            if (browseOut.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                tbSettings_OutPath_TextBox.Text = browseOut.SelectedPath;
             }
         }
 

@@ -7,7 +7,8 @@
         xmlns:local="clr-namespace:SW_SimpleMsytEditor"
         mc:Ignorable="d"
         Title="Msyt Editor [BETA]" Height="860" Width="1400"
-        Background="#25313B" WindowStyle="None">
+        Background="#1A1A1A" WindowStyle="None"
+        Foreground="White">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30"/>
@@ -65,12 +66,14 @@
                     <Button x:Name="btnShowEditor"
                             Content="Show Editor"
                             FontSize="28"
-                            Click="btnShowEditor_Click"/>
+                            Click="btnShowEditor_Click"
+                            Style="{StaticResource btnPanel}"/>
 
                     <Button x:Name="btnTranslate"
                             Content="Translate"
                             FontSize="28"
-                            Click="btnTranslate_Click"/>
+                            Click="btnTranslate_Click"
+                            Style="{StaticResource btnPanel}"/>
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
@@ -104,12 +107,14 @@
                     <Button x:Name="btnImport"
                             Content="Import"
                             FontSize="28"
-                            Click="btnImport_Click"/>
+                            Click="btnImport_Click"
+                            Style="{StaticResource btnPanel}"/>
                     
                     <Button x:Name="btnExport"
                             Content="Export"
                             FontSize="28"
-                            Click="btnExport_Click"/>
+                            Click="btnExport_Click"
+                            Style="{StaticResource btnPanel}"/>
 
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
@@ -143,7 +148,8 @@
                     <Button x:Name="btnSettings"
                             Content="Settings"
                             FontSize="28"
-                            Click="btnSettings_Click"/>
+                            Click="btnSettings_Click"
+                            Style="{StaticResource btnPanel}"/>
                         
                 </StackPanel>
 
@@ -154,7 +160,7 @@
         </Border> <!--Side panel-->
 
         <Grid x:Name="panelMsytView" Grid.Column="1" Grid.Row="1">
-
+            
             <avalonEdit:TextEditor x:Name="rtbMain"
                                    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
                                    BorderThickness="0" Background="#1A1A1A"
@@ -182,12 +188,339 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+
+            <CheckBox x:Name="btnSettings_General" IsChecked="True"
+                    Content="General" Grid.Column="0" Grid.Row="0"
+                    Background="#2A2A2A" FontSize="25"
+                      Click="btnSettings_General_Click"/>
+
+            <CheckBox x:Name="btnSettings_ShowMsyt"
+                    Content="Msyt" Grid.Column="1" Grid.Row="0"
+                    Background="#2A2A2A" FontSize="25"
+                      Click="btnSettings_ShowMsyt_Click"/>
+
+            <CheckBox x:Name="btnSettings_ShowEditor"
+                    Content="Editor" Grid.Column="2" Grid.Row="0"
+                    Background="#2A2A2A" FontSize="25"
+                      Click="btnSettings_ShowEditor_Click"/>
+
+            <CheckBox x:Name="btnSettings_ShowHelp"
+                    Content="Help" Grid.Column="3" Grid.Row="0"
+                    Background="#2A2A2A" FontSize="25"
+                      Click="btnSettings_ShowHelp_Click"/>
             
+            <CheckBox x:Name="btnSettings_SaveAndClose"
+                      Content="Save" Grid.Column="4" Grid.Row="0"
+                      Background="#2A2A2A" FontSize="25"
+                      Click="btnSettings_SaveAndClose_Click"/>
             
+            <Grid x:Name="tabGeneral" Background="#1A1A1A" Visibility="Hidden"
+                    Grid.Column="0" Grid.Row="1"
+                    Grid.ColumnSpan="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0, 160, 5, 0">
+                        
+                        <Border x:Name="mkGlyph_Settings_UI_1"
+                                Background="White" Height="5"
+                                Width="50"
+                                Margin="5, 0, 0, 0">
+                            <Border.Effect>
+                                <BlurEffect Radius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <TextBlock x:Name="uitSettings_General_UI_Text"
+                                   Text="UI" FontSize="37"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="8, 0, 8, 0"
+                                   FontFamily="Calibri"/>
+
+                        <Border x:Name="mkGlyph_Settings_UI_2"
+                                Background="White" Height="5"
+                                Width="340">
+                            <Border.Effect>
+                                <BlurEffect Radius="10"/>
+                            </Border.Effect>
+                        </Border>
+                    </StackPanel>
+                </Grid> <!--UI Header - Theme-->
+
+                <Grid Grid.Column="3" Grid.ColumnSpan="2">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0, 160, 5, 0">
+
+                        <Border x:Name="mkGlyph_Settings_UI_3"
+                                Background="White" Height="5"
+                                Width="50"
+                                Margin="5, 0, 0, 0">
+                            <Border.Effect>
+                                <BlurEffect Radius="10"/>
+                            </Border.Effect>
+                        </Border>
+
+                        <TextBlock x:Name="uitSettings_General_Paths_Text"
+                                   Text="Paths" FontSize="37"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Margin="8, 0, 8, 0"
+                                   FontFamily="Calibri"/>
+
+                        <Border x:Name="mkGlyph_Settings_UI_4"
+                                Background="White" Height="5"
+                                Width="340">
+                            <Border.Effect>
+                                <BlurEffect Radius="10"/>
+                            </Border.Effect>
+                        </Border>
+                    </StackPanel>
+                </Grid> <!--UI Header Paths-->
+
+                <StackPanel Grid.Row="1" Grid.Column="0">
+                    <TextBlock x:Name="uitSettings_PrimaryDisplayColor_Text"
+                               Text="Primary Display"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_General_UI_PrimaryDisplay_Color"
+                            Background="Transparent" Height="50"
+                            Margin="5"
+                            Style="{StaticResource BackgroundColorPreview}"
+                            Click="btnSettings_General_UI_PrimaryDisplay_Color_Click"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Primary Display - 1 Over, 1 down-->
+
+                <StackPanel Grid.Row="2" Grid.Column="0">
+                    <TextBlock Text="Left Menu"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_General_UI_LeftMenu_Color"
+                            Background="#3B3B3B" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"
+                            Click="btnSettings_General_UI_LeftMenu_Color_Click"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Left Menu - 1 Over, 2 down-->
+
+                <StackPanel Grid.Row="3" Grid.Column="0">
+                    <TextBlock x:Name="uitSettings_WindowBar_Text"
+                               Text="Window Bar"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_General_UI_WindowChrome_Color"
+                            Background="#636363" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"
+                            Click="btnSettings_General_UI_WindowChrome_Color_Click"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Window Bar Stack - 1 Over, 3 down-->
+
+                <StackPanel Grid.Row="1" Grid.Column="1">
+                    <TextBlock x:Name="uitSettings_UIText_Text"
+                               Text="UI Text"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_General_UI_UIText_Color"
+                            Background="Black" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"
+                            Click="btnSettings_General_UI_UIText_Color_Click"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--UI Text - 2 Over, 1 Down-->
+
+                <StackPanel Grid.Row="2" Grid.Column="1">
+                    <TextBlock x:Name="uitSettings_Glyph_Text"
+                               Text="Glyph"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_General_UI_Glyph_Color"
+                            Background="White" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"
+                            Click="btnSettings_General_UI_Glyph_Color_Click"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel>  <!--Glyph - 2 Over, 2 Down-->
+                
+                <!--PATHS-->
+
+                <StackPanel Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3">
+                    <TextBlock x:Name="uitSettings_OutPath_Text"
+                               Text="Default Output"
+                               FontSize="25"
+                               Margin="5, 10, 0, 0"/>
+
+                    <TextBox x:Name="tbSettings_OutPath_TextBox"
+                             Text="Output"
+                             FontSize="25"
+                             Margin="5, 10, 50, 0"
+                             VerticalContentAlignment="Center"
+                             Height="40"
+                             BorderThickness="1"
+                             BorderBrush="#2A2A2A"
+                             Background="#2f2f2f"
+                             MouseDoubleClick="tbSettings_OutPath_TextBox_MouseDoubleClick"/>
+
+                    <Button x:Name="btnSettings_General_Paths_OutPath_Browse"
+                            Content="Browse" FontSize="30" Margin="5, 30, 50, 0"
+                            Background="#2f2f2f"
+                            Click="btnSettings_General_Paths_OutPath_Browse_Click"/>
+                </StackPanel>
+                
+            </Grid> <!--General Tab-->
+
+            <Grid x:Name="tabMsyt" Background="#1A1A1A"
+                    Grid.Column="0" Grid.Row="1"
+                    Grid.ColumnSpan="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.ColumnSpan="2" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border x:Name="mkSettings_Msyt_Syntax_Left"
+                            Background="White" Margin="10, 20">
+                        <Border.Effect>
+                            <BlurEffect Radius="10"/>
+                        </Border.Effect>
+                    </Border>
+
+                    <TextBlock Text="Syntax Highlighting"
+                               FontFamily="Calibri" FontSize="35"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Grid.Column="1"/>
+
+                    <Border x:Name="mkSettings_Msyt_Syntax_Right"
+                            Background="White" Margin="10, 20"
+                            Grid.Column="2">
+                        <Border.Effect>
+                            <BlurEffect Radius="10"/>
+                        </Border.Effect>
+                    </Border>
+                </Grid> <!--UI Header - Theme-->
+
+                <StackPanel Grid.Row="2" Grid.Column="0">
+                    <TextBlock Text="Property"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_Msyt_Syntax_Property_Color"
+                            Background="#1C57C9" Height="50"
+                            Margin="5"
+                            Style="{StaticResource BackgroundColorPreview}"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Primary Display - 1 Over, 1 down-->
+
+                <StackPanel Grid.Row="3" Grid.Column="0">
+                    <TextBlock Text="String"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_Msyt_Syntax_String_Color"
+                            Background="#C3602C" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Left Menu - 1 Over, 2 down-->
+
+                <StackPanel Grid.Row="4" Grid.Column="0">
+                    <TextBlock Text="Return Character"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_Msyt_Syntax_ReturnChar_Color"
+                            Background="#D6A512" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Window Bar Stack - 1 Over, 3 down-->
+
+                <StackPanel Grid.Row="2" Grid.Column="1">
+                    <TextBlock Text="Integer"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_Msyt_Syntax_Numarics_Color"
+                            Background="#548C38" Height="50"
+                            Margin="5"
+                            BorderThickness="0"
+                            Style="{StaticResource BackgroundColorPreview}"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--UI Text - 2 Over, 1 Down-->
+
+                <StackPanel Grid.Row="3" Grid.Column="1">
+                    <TextBlock Text="Header"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_Msyt_Syntax_Header_Color"
+                            Background="#0D2469" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Glyph - 2 Over, 2 Down-->
+
+                <StackPanel Grid.Row="4" Grid.Column="1">
+                    <TextBlock Text="Names (Misc)"
+                               FontSize="20" Margin="7"/>
+
+                    <Button x:Name="btnSettings_Msyt_Syntax_Name_Color"
+                            Background="White" Height="50"
+                            Margin="5"
+                            BorderThickness="0" BorderBrush="White"
+                            Style="{StaticResource BackgroundColorPreview}"/>
+
+                    <Border Height="2" Margin="5" Background="White"/>
+                </StackPanel> <!--Glyph - 2 Over, 3 Down-->
+
+            </Grid>
+            <!--General Tab-->
+
         </Grid>
 
     </Grid>

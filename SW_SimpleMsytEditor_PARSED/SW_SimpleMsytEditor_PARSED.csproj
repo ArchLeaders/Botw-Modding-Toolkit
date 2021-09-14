@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Highlighting\**" />
-    <EmbeddedResource Remove="Highlighting\**" />
-    <None Remove="Highlighting\**" />
-    <Page Remove="Highlighting\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Fonts\WindowsBasic.ttf" />
     <None Remove="SP.png" />
     <None Remove="SW.png" />
