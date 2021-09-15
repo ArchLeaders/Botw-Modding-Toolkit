@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Botw.Modules;
+using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;

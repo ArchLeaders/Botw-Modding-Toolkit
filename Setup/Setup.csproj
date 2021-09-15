@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="SOURCE\executable.exe" />
+    <None Remove="SOURCE\font.otf" />
+    <None Remove="SOURCE\x64.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SOURCE\executable.exe" />
+    <EmbeddedResource Include="SOURCE\font.otf" />
+    <EmbeddedResource Include="SOURCE\x64.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>

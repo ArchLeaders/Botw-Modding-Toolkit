@@ -21,12 +21,12 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 
-namespace SW_SimpleMsytEditor
+namespace SW_Msyt_Editor
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Editor : Window
     {
         public string InSessionFileName = "MsytTextFile.msyt";
         public string InSessionFile = "MsytTextFile.msyt";
@@ -149,7 +149,7 @@ namespace SW_SimpleMsytEditor
 
         #endregion
 
-        public MainWindow()
+        public Editor()
         {
             InitializeComponent();
 
@@ -183,14 +183,33 @@ namespace SW_SimpleMsytEditor
             tbEditor_Speech_Option_1.Text = "Hmm, OK.";
             tbEditor_Speech_Option_2.Text = "Alright then.";
             tbEditor_Speech_Option_3.Text = "Oh, I see.";
-            tbEditor_Speech_Option_4.Text = "Bye. This looks bad, but is more accurate to BotW";
+            tbEditor_Speech_Option_4.Text = "Byė.";
+            tbEditor_Speech_Near.Text = "Are ye kidd'n me?";
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+            {
+                btnFullScreen.Content = "'";
+            }
+            else
+            {
+                btnFullScreen.Content = "\"";
+            }
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
             {
-                case Key.LeftCtrl | Key.S:
+                case Key.F12:
+                    System.Windows.Forms.FolderBrowserDialog defaultOut = new();
+                    defaultOut.SelectedPath = "Output";
+                    if (defaultOut.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        File.WriteAllText("x64\\settings.ini", defaultOut.SelectedPath);
+                    }
                     break;
             }
         }
@@ -199,12 +218,23 @@ namespace SW_SimpleMsytEditor
 
         private void btnShowEditor_Click(object sender, RoutedEventArgs e)
         {
-
+            if (winEditorView.Visibility == Visibility.Visible)
+            {
+                winEditorView.Visibility = Visibility.Hidden;
+                winMsytView.Visibility = Visibility.Visible;
+                btnShowEditor.Content = "Show Editor";
+            }
+            else
+            {
+                winEditorView.Visibility = Visibility.Visible;
+                winMsytView.Visibility = Visibility.Hidden;
+                btnShowEditor.Content = "Show Msyt";
+            }
         }
 
         private void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-
+            MSTT.GetText();
         }
 
         private async void btnImport_Click(object sender, RoutedEventArgs e)

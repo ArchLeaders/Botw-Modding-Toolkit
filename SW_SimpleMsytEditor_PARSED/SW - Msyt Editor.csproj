@@ -4,6 +4,8 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>ICON.ico</ApplicationIcon>
+    <RootNamespace>SW_Msyt_Editor</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="AvalonEdit" Version="6.1.2.30" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 
   <ItemGroup>

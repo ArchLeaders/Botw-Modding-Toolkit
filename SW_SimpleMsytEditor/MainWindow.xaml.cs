@@ -21,7 +21,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 
-namespace SW_SimpleMsytEditor
+namespace SW_Msyt_Editor
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

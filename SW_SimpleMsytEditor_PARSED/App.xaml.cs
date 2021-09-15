@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace SW_SimpleMsytEditor
+namespace SW_Msyt_Editor
 {
     /// <summary>
     /// Interaction logic for App.xaml
