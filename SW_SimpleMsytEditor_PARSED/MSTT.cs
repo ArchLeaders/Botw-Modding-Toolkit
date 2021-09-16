@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace SW_Msyt_Editor
 {
@@ -47,48 +48,14 @@ namespace SW_Msyt_Editor
             }
 
             return entries;
-        }
 
-        private static string ToMsttString(string[] list)
-        {
-            string result = null;
-
-            foreach (var item in list)
-            {
-                result = result + item + "\n";
-            }
-
-            return result;
+            //MSTT File format is: A compressed ZIP with yml, meta and txt snippets inside it.
+            //MSYT to MSTT: Get each text sequence and convert it to a single yml file. Various other things.
+            //How do we read it: Foreach snippet create a list of string[] where the string[] is the snippet and the List is each snippet.
+            //What is the txt file: The text file is each snippets pure in-game text combined. (Each yml snippet contains a corresponding text file. Yes? No?)
+            //Meta file: Sequence count for ease of reading.
         }
 
         #endregion
-
-        public static void GetText()
-        {
-            var entry = new MSYT
-            {
-                group_count = 11,
-                atr1_unknown = 4,
-                entries = new Dictionary<string, EntriesClass>
-                {
-                    { "\"0001\"", new EntriesClass() {
-                        attributes = "\"\"",
-                        contents = new Dictionary<string, ControlClass>
-                        {
-                            {"- control", new ControlClass() {
-                                kind = "\"pause\"",
-                                frames = 456
-                            }},
-                        }
-                    }}
-                }
-            };
-
-            var serializer = new SerializerBuilder()
-            .Build();
-
-            var yaml = serializer.Serialize(entry);
-            File.AppendAllText("wow.yml", yaml);
-        }
     }
 }

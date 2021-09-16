@@ -179,12 +179,47 @@ namespace SW_Msyt_Editor
                 }
             }
 
-            tbEditor_Speech_Text.Text = "I'm sorry, usually we have a stock of\nfresh Pumpkins but recently my sister\nhas been having some pest issues.";
-            tbEditor_Speech_Option_1.Text = "Hmm, OK.";
-            tbEditor_Speech_Option_2.Text = "Alright then.";
-            tbEditor_Speech_Option_3.Text = "Oh, I see.";
-            tbEditor_Speech_Option_4.Text = "Byė.";
-            tbEditor_Speech_Near.Text = "Are ye kidd'n me?";
+            //tbEditor_Speech_Text.Text = "I'm sorry, usually we have a stock of\nfresh Pumpkins but recently my sister\nhas been having some pest issues.";
+            //tbEditor_Speech_Option_1.Text = "Hmm, OK.";
+            //tbEditor_Speech_Option_2.Text = "Alright then.";
+            //tbEditor_Speech_Option_3.Text = "Oh, I see.";
+            //tbEditor_Speech_Option_4.Text = "Byė.";
+            //tbEditor_Speech_Near.Text = "Are ye kidd'n me?";
+
+            string[] cmdLine = Environment.GetCommandLineArgs();
+            foreach (var line in cmdLine)
+            {
+                File.AppendAllText("file.txt", line);
+            }
+            if (cmdLine.Length != 1)
+            {
+                if (cmdLine[1].EndsWith(".mstt"))
+                {
+
+                }
+                else if (cmdLine[1].EndsWith(".msyt"))
+                {
+                    rtbMain.Text = File.ReadAllText(cmdLine[1]);
+                }
+                else if (cmdLine[1].EndsWith(".msbt"))
+                {
+                    bool del = true;
+                    if (File.Exists(cmdLine[1].Replace(".msbt", ".msyt")))
+                    {
+                        del = false;
+                    }
+                    Process proc = new();
+                    proc.StartInfo.FileName = "x64\\msyt.exe";
+                    proc.StartInfo.Arguments = "export \"" + cmdLine[1] + "\"";
+                    proc.StartInfo.CreateNoWindow = true;
+
+                    proc.Start();
+                    proc.WaitForExit();
+                    rtbMain.Text = File.ReadAllText(cmdLine[1].Replace(".msbt", ".msyt"));
+                    if (del == true)
+                        File.Delete(cmdLine[1].Replace(".msbt", ".msyt"));
+                }
+            }
         }
 
         private void Window_StateChanged(object sender, EventArgs e)
@@ -234,7 +269,7 @@ namespace SW_Msyt_Editor
 
         private void btnTranslate_Click(object sender, RoutedEventArgs e)
         {
-            MSTT.GetText();
+
         }
 
         private async void btnImport_Click(object sender, RoutedEventArgs e)
@@ -261,7 +296,8 @@ namespace SW_Msyt_Editor
                     proc.Start();
                     await proc.WaitForExitAsync();
                     rtbMain.Text = File.ReadAllText(openMsyt.FileName.Replace(".msbt", ".msyt"));
-                    File.Delete(openMsyt.FileName.Replace(".msbt", ".msyt"));
+                    if (File.Exists(openMsyt.FileName.Replace(".msbt", ".msyt")))
+                        File.Delete(openMsyt.FileName.Replace(".msbt", ".msyt"));
                 }
 
                 InSessionFileName = openMsyt.SafeFileName;
@@ -344,7 +380,8 @@ namespace SW_Msyt_Editor
                     proc.Start();
                     await proc.WaitForExitAsync();
                     rtbMain.Text = File.ReadAllText(fileNames[0].Replace(".msbt", ".msyt"));
-                    File.Delete(fileNames[0].Replace(".msbt", ".msyt"));
+                    if (File.Exists(fileNames[0].Replace(".msbt", ".msyt")))
+                        File.Delete(fileNames[0].Replace(".msbt", ".msyt"));
                 }
             }
         }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "SW - Msyt Editor": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\HP USER\\Games\\BotW - Modding\\Tools\\Archive\\MSYT\\TEST\\TipsItem.msbt\""
+    }
+  }
+}
