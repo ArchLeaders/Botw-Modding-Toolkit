@@ -9,12 +9,16 @@
                 <ResourceDictionary Source="Themes/TextboxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/RichtextboxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/HomePageButtons.xaml"/>
-                <ResourceDictionary Source="Themes/HomePageButtons_Grey.xaml"/>
+                <ResourceDictionary Source="Themes/HomePageButtons_Gray.xaml"/>
                 <ResourceDictionary Source="Themes/HomePageButtons_Blue.xaml"/>
                 <ResourceDictionary Source="Themes/MainRichtextboxTheme.xaml"/>
                 <ResourceDictionary Source="Themes/TextButton.xaml"/>
                 <ResourceDictionary Source="Themes/CloseButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/Defaults.xaml"/>
+
+                <ResourceDictionary Source="Theme/Button_HomePage_NewMod.xaml"/>
+                <ResourceDictionary Source="Theme/Button_HomePage_Accent-1.xaml"/>
+                <ResourceDictionary Source="Theme/Button_HomePage_Accent-2.xaml"/>
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper"/>
                 </ResourceDictionary>

@@ -5,28 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="Mod Manager" Height="800" Width="1080"
+        Title="Mod Manager" Height="800" Width="1200"
         WindowStyle="None" Background="#2f2f2f"
         StateChanged="Window_StateChanged"
         AllowsTransparency="True"
-        Foreground="#f1f1f1" ResizeMode="NoResize"
+        Foreground="#f1f1f1"
         x:Name="Background"
-        >
+        MinHeight="530" MinWidth="800">
+
+    <Window.Effect>
+        <DropShadowEffect BlurRadius="15" ShadowDepth="5" Color="#39474F"
+                          RenderingBias="Quality"/>
+    </Window.Effect>
     
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30"/>
     </WindowChrome.WindowChrome>
 
     <Grid>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="60"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition MinHeight="30" Height="30"/>
+            <RowDefinition MinHeight="500" Height="*"/>
         </Grid.RowDefinitions>
 
         <Border Height="30" Grid.Row="0" 
@@ -34,17 +33,17 @@
                 Background="#1f1f1f"
                 IsHitTestVisible="False"/>
 
-        <StackPanel Orientation="Horizontal"
+        <StackPanel Orientation="Horizontal" Height="30"
                     Grid.Row="0">
 
             <Image Source="/Images and Fonts/Icon.png" Height="20"
                    Margin="5, 0, 5, 0"/>
 
-        </StackPanel> <!--Logo-->
+        </StackPanel> <!--Icon-->
 
-        <StackPanel Grid.Column="1" WindowChrome.IsHitTestVisibleInChrome="True">
+        <StackPanel Grid.Column="1" WindowChrome.IsHitTestVisibleInChrome="True" Height="30">
             <Menu Height="30">
-                <MenuItem Header="File">
+                <MenuItem Header="File" Margin="50, 0, 0, 0">
                     <MenuItem Header="New"/>
                     <MenuItem Header="New Mod"/>
                     <Separator Style="{StaticResource SeperatorStyle}"/>
@@ -96,200 +95,6 @@
             </Menu>
         </StackPanel>
 
-        <StackPanel x:Name="MenuPaneMain"
-                    Width="60" Grid.Row="1" Grid.RowSpan="3" 
-                    Grid.Column="0" Background="#801f1f1f">
-            
-            <Button x:Name="btnExpandMenu"
-                    Click="btnExpandMenu_Click"
-                    Content="Home"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-            <Button x:Name="btnFileMenu"
-                    Click="btnFileMenu_Click"
-                    Content="File"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-            <StackPanel x:Name="FilePane" Background="#3f3f3f"
-                        Visibility="Collapsed">
-                
-                <Button x:Name="btnFile_New"
-                        Content="New"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnFile_Open"
-                        Content="Open"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Border Height=".5" Margin="5, 0, 5, 0"
-                        Background="#1f1f1f"/>
-
-                <Button x:Name="btnFile_Save"
-                        Content="Save"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnFile_SaveAs"
-                        Content="Save As"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                </StackPanel>
-
-            <Button x:Name="btnEditMenu"
-                    Click="btnEditMenu_Click"
-                    Content="Edit"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-            <StackPanel x:Name="EditPane" Background="#3f3f3f"
-                        Visibility="Collapsed">
-
-                <Button x:Name="btnEdit_Undo"
-                        Content="Undo"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnEdit_Redo"
-                        Content="Redo"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Border Height=".5" Margin="5, 0, 5, 0"
-                        Background="#1f1f1f"/>
-
-                <Button x:Name="btnEdit_Copy"
-                        Content="Copy"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnEdit_Cut"
-                        Content="Cut"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Border Height=".5" Margin="5, 0, 5, 0"
-                        Background="#1f1f1f"/>
-                
-                <Button x:Name="btnEdit_Paste"
-                        Content="Paste"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-            </StackPanel>
-            
-            <Button x:Name="btnToolMenu"
-                    Click="btnToolMenu_Click"
-                    Content="Tools"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-            <StackPanel x:Name="ToolPane" Background="#3f3f3f"
-                        Visibility="Collapsed">
-
-                <Button x:Name="btnTool_Collision"
-                        Content="Collision"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnTool_DEAtoFBX"
-                        Content="Converter"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-
-                <Button x:Name="btnTool_Actor"
-                        Content="Build Actor"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnTool_All"
-                        Content="-->"
-                        FontWeight="Bold"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-                
-            </StackPanel>
-            
-            <Button x:Name="btnInstallMenu"
-                    Click="btnInstallMenu_Click"
-                    Content="Install"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-            <StackPanel x:Name="InstallPane" Background="#3f3f3f"
-                        Visibility="Collapsed">
-
-                <Button x:Name="btnInstall_IceSpear"
-                        Content="Ice-Spear"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnInstall_BAT"
-                        Content="BotW-Actor-Tool"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnInstall_Cemu"
-                        Content="Cemu"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-                <Button x:Name="btnInstall_All"
-                        Content="-->"
-                        FontWeight="UltraLight"
-                        Height="60"
-                        Style="{StaticResource ToolBarButtons}"/>
-
-            </StackPanel>
-
-        </StackPanel> <!--Left Menu Panel-->
-
-        <StackPanel x:Name="MenuPaneLower"
-                    Grid.Row="3" Grid.Column="0"
-                    VerticalAlignment="Bottom">
-
-            <Button x:Name="btnUpdate"
-                    Content="Update"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-            <Border Background="#1f1f1f" Height="1"
-                    Margin="5, 0, 5, 0"/>
-
-            <Button x:Name="btnExit"
-                    Content="Exit"
-                    FontWeight="UltraLight"
-                    Height="60"
-                    Style="{StaticResource ToolBarButtons}"/>
-
-        </StackPanel> <!---Lower Left Menu Panel-->
-        
         <StackPanel Orientation="Horizontal"
                     WindowChrome.IsHitTestVisibleInChrome="True"
                     HorizontalAlignment="Right"
@@ -327,220 +132,7 @@
                     FontSize="15"
                     Foreground="#f7f7f7"
                     Style="{StaticResource CloseButtonTheme}"/>
-        </StackPanel> <!--Right corner menu bar-->
-
-        <Grid Grid.Row="1" Grid.Column="1" Background="Transparent"
-              Visibility="Visible">
-            <Grid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="New Mod"/>
-                    <Separator Style="{StaticResource SeperatorStyle}"/>
-                    <MenuItem Header="Tutorials"/>
-                    <MenuItem Header="Applications"/>
-                    <MenuItem Header="Getting Started"/>
-                    <Separator Style="{StaticResource SeperatorStyle}"/>
-                    <MenuItem Header="Settings"/>
-                    <MenuItem Header="Help"/>
-                </ContextMenu>
-            </Grid.ContextMenu>
-            
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-
-            <Button Grid.Column="1" Grid.Row="1"
-                    Height="220"
-                    Width="400"
-                    Content="New Mod"
-                    Style="{StaticResource HomePageButtons}"
-                    FontFamily="Gadugi" Margin="0, -10"
-                    x:Name="btnHomePage_NewMod" Click="btnHomePage_NewMod_Click">
-
-
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#0F0919" Offset="0.0"/>
-                        <GradientStop Color="#3F0919" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
-
-            <Grid Grid.Row="1" Grid.Column="1" x:Name="pnHomePage_NewMod"
-                  Visibility="Visible">
-
-                <Border CornerRadius="15">
-
-                    <Border.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="#0F0919" Offset="0.0"/>
-                            <GradientStop Color="#3F0919" Offset="1"/>
-                        </LinearGradientBrush>
-                    </Border.Background>
-                </Border>
-
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Name:"
-                                       FontSize="16" Margin="10, 25, 17.52, 5"/>
-                        <TextBox x:Name="tbHomePage_NewMod_ModName"
-                                 Style="{StaticResource ModernTextbox}"
-                                 FontSize="16" Margin="0, 25, 0, 5"
-                                     Width="304" Foreground="White"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Priority:"
-                                       FontSize="16" Margin="10, 25, 10, 5"
-                                       Foreground="White"/>
-                        <TextBox x:Name="tbHomePage_NewMod_Priority"
-                                 Style="{StaticResource ModernTextbox}"
-                                 FontSize="16" Margin="0, 25, 0, 5"
-                                     Width="40"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Image:"
-                                       FontSize="16" Margin="10, 25, 10, 5"
-                                       Foreground="White"/>
-                        <TextBox x:Name="tbHomePage_NewMod_ImagePath"
-                                 Style="{StaticResource ModernTextbox}"
-                                 FontSize="16" Margin="6.8, 25, 0, 5"
-                                     Width="220"/>
-                        <Button x:Name="btnHomePage_NewMod_BrowseImage"
-                                    Content="Browse"
-                                    Style="{StaticResource TextButton}"
-                                    FontSize="16" Margin="0, 25, 0, 5"
-                                    Width="80" Foreground="White"
-                                Click="btnHomePage_NewMod_BrowseImage_Click"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <Button Content="Create" Background="Transparent"
-                        Margin="0, 165, 0, 0" BorderThickness="0"
-                        Style="{StaticResource TextButtonFontSize}"
-                        FontSize="25" HorizontalContentAlignment="Right"
-                        Foreground="White" x:Name="btnHomePage_NewMod_Create"
-                        Click="btnHomePage_NewMod_Create_Click"/>
-            </Grid>
-
-            <StackPanel Grid.Row="2" Grid.Column="1">
-
-                <Button Grid.Column="1" Grid.Row="2"
-                        Height="100"
-                        Width="400"
-                        Content="Tutorials"
-                        Style="{StaticResource HomePageButtons_Grey}"
-                        FontFamily="Gadugi"
-                        Margin="0, 20, 0, 0">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="#2f2f2f" Offset="0.0"/>
-                            <GradientStop Color="#0F0919" Offset=".6"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-
-                <Button Grid.Column="1" Grid.Row="2"
-                        Height="100"
-                        Width="400"
-                        Content="Applications"
-                        Style="{StaticResource HomePageButtons_Grey}"
-                        FontFamily="Gadugi"
-                        Margin="0, 20, 0, 0">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="#2f2f2f" Offset="0.0"/>
-                            <GradientStop Color="#0F0919" Offset=".6"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-
-                <Button Grid.Column="1" Grid.Row="2"
-                        Height="100"
-                        Width="400"
-                        Content="Getting Started"
-                        Style="{StaticResource HomePageButtons_Grey}"
-                        FontFamily="Gadugi"
-                        Margin="0, 20, 0, 0">
-                    <Button.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                            <GradientStop Color="#2f2f2f" Offset="0.0"/>
-                            <GradientStop Color="#0F0919" Offset=".6"/>
-                        </LinearGradientBrush>
-                    </Button.Background>
-                </Button>
-
-                <StackPanel Orientation="Horizontal">
-
-                    <Button Grid.Column="1" Grid.Row="2"
-                            Height="100"
-                            Width="100"
-                            Content=""
-                            Style="{StaticResource HomePageButtons_Blue}"
-                            FontFamily="Gadugi"
-                            Margin="0, 20, 0, 0">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Color="#1f2f2f" Offset="0.0"/>
-                                <GradientStop Color="#0F0919" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
-
-                    <Button Grid.Column="1" Grid.Row="2"
-                            Height="100"
-                            Width="100"
-                            Content=""
-                            Style="{StaticResource HomePageButtons_Blue}"
-                            FontFamily="Gadugi"
-                            Margin="20, 20, 0, 0">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Color="#1f2f2f" Offset="0.0"/>
-                                <GradientStop Color="#0F0919" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
-
-                    <Button Grid.Column="1" Grid.Row="2"
-                            Height="100"
-                            Width="160"
-                            Content="Help"
-                            Style="{StaticResource HomePageButtons_Blue}"
-                            FontFamily="Gadugi"
-                            Margin="20, 20, 0, 0">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                <GradientStop Color="#1f2f2f" Offset="0.0"/>
-                                <GradientStop Color="#0F0919" Offset="1"/>
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
-
-                </StackPanel>
-            </StackPanel>
-
-            <ListBox x:Name="lbRecentMods"
-                     Background="Transparent" BorderThickness="0"
-                     Grid.Row="1" Grid.Column="3" Grid.RowSpan="2">
-
-                <ListBoxItem Content="ModName_1"/>
-                <ListBoxItem Content="ModName_2"/>
-                <ListBoxItem Content="ModName_3"/>
-                <ListBoxItem Content="ModName_4"/>
-                <ListBoxItem Content="ModName_5"/>
-                <ListBoxItem Content="ModName_6"/>
-            </ListBox>
-        </Grid> <!--Home Page-->
+        </StackPanel> <!--Right corner window controls-->
         
         <Grid Grid.Row="1" Grid.Column="1"
               Visibility="Collapsed">
@@ -724,6 +316,53 @@
             </Border>
             <!--Basic dialog text box-->
         </Grid> <!--Msyt Editor-->
+
+        <Grid Grid.Row="1" Background="Transparent">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="176.666667" Width="*"/>
+                <ColumnDefinition MinWidth="353.333334" Width="2*"/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.8*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" x:Name="rs_000a_lockHeight"/>
+                </Grid.RowDefinitions>
+
+                <Button Style="{DynamicResource Button_HomePage_NewMod}"
+                        Content="New Mod" Margin="20, 10, 20, 10"/>
+
+                <Button Content="Tutorials" Grid.Row="1"
+                        Margin="20, 10, 20, 10"
+                        Style="{StaticResource Button_HomePage_Accent-1}"/>
+                
+                <Button Content="Get Started" Grid.Row="2"
+                        Margin="20, 10, 20, 10"
+                        Style="{StaticResource Button_HomePage_Accent-1}"/>
+                
+                <Button Content="Tools" Grid.Row="3"
+                        Margin="20, 10, 20, 10"
+                        Style="{StaticResource Button_HomePage_Accent-1}"/>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="Settings"
+                            Margin="20, 10, 10, 20"
+                            Style="{StaticResource Button_HomePage_Accent-2}"/>
+
+                    <Button Content="?" Grid.Column="1"
+                            Margin="10, 10, 20, 20"
+                            Style="{StaticResource Button_HomePage_Accent-2}"/>
+                </Grid>
+            </Grid>
+        </Grid>
         
     </Grid>
 </Window>

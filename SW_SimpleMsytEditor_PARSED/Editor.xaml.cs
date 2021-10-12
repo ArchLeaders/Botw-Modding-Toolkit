@@ -203,11 +203,6 @@ namespace SW_Msyt_Editor
                 }
                 else if (cmdLine[1].EndsWith(".msbt"))
                 {
-                    bool del = true;
-                    if (File.Exists(cmdLine[1].Replace(".msbt", ".msyt")))
-                    {
-                        del = false;
-                    }
                     Process proc = new();
                     proc.StartInfo.FileName = "x64\\msyt.exe";
                     proc.StartInfo.Arguments = "export \"" + cmdLine[1] + "\"";
@@ -216,7 +211,7 @@ namespace SW_Msyt_Editor
                     proc.Start();
                     proc.WaitForExit();
                     rtbMain.Text = File.ReadAllText(cmdLine[1].Replace(".msbt", ".msyt"));
-                    if (del == true)
+                    if (File.Exists(cmdLine[1].Replace(".msbt", ".msyt")))
                         File.Delete(cmdLine[1].Replace(".msbt", ".msyt"));
                 }
             }
@@ -285,6 +280,8 @@ namespace SW_Msyt_Editor
                 if (extension == "msyt")
                 {
                     rtbMain.Text = File.ReadAllText(openMsyt.FileName);
+                    await MSTT.Parse(File.ReadAllLines(openMsyt.FileName));
+                    rtbDeserializedText.Text = MSTT.publicReturn;
                 }
                 else if (extension == "msbt")
                 {
@@ -298,6 +295,9 @@ namespace SW_Msyt_Editor
                     rtbMain.Text = File.ReadAllText(openMsyt.FileName.Replace(".msbt", ".msyt"));
                     if (File.Exists(openMsyt.FileName.Replace(".msbt", ".msyt")))
                         File.Delete(openMsyt.FileName.Replace(".msbt", ".msyt"));
+
+                    await MSTT.Parse(rtbMain.Text.Split('\n'));
+                    rtbDeserializedText.Text = MSTT.publicReturn;
                 }
 
                 InSessionFileName = openMsyt.SafeFileName;

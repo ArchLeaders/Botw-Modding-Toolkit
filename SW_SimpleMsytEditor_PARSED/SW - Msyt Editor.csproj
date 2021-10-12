@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>ICON.ico</ApplicationIcon>
     <RootNamespace>SW_Msyt_Editor</RootNamespace>
+	  
   </PropertyGroup>
 
   <ItemGroup>

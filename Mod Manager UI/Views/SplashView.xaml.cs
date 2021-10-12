@@ -23,14 +23,13 @@ namespace UI.Views
     /// <summary>
     /// Interaction logic for ShellView.xaml
     /// </summary>
-    public partial class ShellView : Window
+    public partial class SplashView : Window
     {
         public Color background { get; set; }
 
         public bool back = false;
 
         #region Fix Window Sixe in fullscreen.
-
         private static IntPtr WindowProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
             switch (msg)
@@ -58,8 +57,6 @@ namespace UI.Views
                 mmi.ptMaxPosition.y = Math.Abs(rcWorkArea.top - rcMonitorArea.top);
                 mmi.ptMaxSize.x = Math.Abs(rcWorkArea.right - rcWorkArea.left);
                 mmi.ptMaxSize.y = Math.Abs(rcWorkArea.bottom - rcWorkArea.top);
-                mmi.ptMinTrackSize.x = 800;
-                mmi.ptMinTrackSize.y = 530;
             }
             Marshal.StructureToPtr(mmi, lParam, true);
         }
@@ -149,54 +146,25 @@ namespace UI.Views
 
         #endregion
 
-        public ShellView()
+        public SplashView()
         {
             InitializeComponent();
 
             SourceInitialized += (s, e) =>
             {
-                IntPtr handle = new WindowInteropHelper(this).Handle;
+                IntPtr handle = (new WindowInteropHelper(this)).Handle;
                 HwndSource.FromHwnd(handle).AddHook(new HwndSourceHook(WindowProc));
             };
 
             btnMinimize.Click += (s, e) => WindowState = WindowState.Minimized;
-            btnFullScreen.Click += (s, e) => WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+            //btnFullScreen.Click += (s, e) => WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
             btnExitApplication.Click += (s, e) => Environment.Exit(1);
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (WindowState == WindowState.Normal)
-            {
-                btnFullScreen.Content = "'";
-            }
-            else
-            {
-                btnFullScreen.Content = "\"";
-            }
-        }
-
-        #region Msyt Editor
-
-        private void ShowHidePreview_Click(object sender, RoutedEventArgs e)
-        {
-            if (Preview.Width == 240)
-            {
-                DataStack.Visibility = Visibility.Visible;
-                Preview.Width = 610;
-            }
-            else if (Preview.Width == 610)
-            {
-                Preview.Width = 240;
-                DataStack.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        #endregion
-
-        private void btnHomePage_NewMod_BrowseImage_Click(object sender, RoutedEventArgs e)
-        {
-
+            ShellView main_ShellView = new();
+            main_ShellView.Show();
         }
     }
 }

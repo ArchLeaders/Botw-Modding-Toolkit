@@ -26,4 +26,15 @@
     </Resource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Theme\Button_HomePage_Accent-1.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SplashView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

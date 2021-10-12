@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style BasedOn="{StaticResource {x:Type Button}}"
         TargetType="{x:Type Button}"
-        x:Key="HomePageButtons_Blue">
+        x:Key="HomePageButtons_Gray">
 
         <Style.Setters>
             <Setter Property="Template">
@@ -12,16 +12,17 @@
 
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                    <GradientStop Color="#FF021D27" Offset="0.0"/>
-                                    <GradientStop Color="#2f2f2f" Offset="1.0"/>
+                                    <GradientStop Color="#2f2f2f" Offset="0.0"/>
+                                    <GradientStop Color="#FF4D2C04" Offset="1.0"/>
                                 </LinearGradientBrush>
                             </Border.Background>
 
                             <TextBlock Text="{TemplateBinding Property=Content}"
                                        FontSize="38" Grid.Column="1" Grid.Row="1"
                                        Foreground="White"
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
+                                       Margin="0, 0, 25, 0"
                                        FontFamily="Gadugi"/>
                         </Border>
                     </ControlTemplate>
@@ -37,20 +38,14 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="15">
-
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                        <GradientStop Color="#041F29" Offset="0.0"/>
-                                        <GradientStop Color="#193445" Offset="0.6"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
+                            <Border CornerRadius="15" Background="#060F1C">
 
                                 <TextBlock Text="{TemplateBinding Property=Content}"
                                        FontSize="42" Grid.Column="1" Grid.Row="1"
                                        Foreground="White"
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="Right"
                                        VerticalAlignment="Center"
+                                       Margin="0, 0, 23, 0"
                                        FontFamily="Gadugi"/>
                             </Border>
                         </ControlTemplate>
@@ -59,7 +54,7 @@
             </Trigger>
 
         </Style.Triggers>
-
+        
     </Style>
 
 </ResourceDictionary>

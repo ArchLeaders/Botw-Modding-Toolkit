@@ -88,25 +88,6 @@ namespace Botw
     }
     public class BCML
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>A four digit number representing the amount of mods being loaded. <code>Source from bcml_data/mods</code></returns>
-        public static string ModCount()
-        {
-            string result = "0100";
-            double count = Math.Floor(Math.Log10(Directory.GetDirectories(Data.bcmlPath + "\\mods").Length) + 1);
-            int mods = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length - 1;
-            string modCount = mods.ToString();
-            if (count == 1) { result = "010" + modCount; }
-            else if (count == 2) { result = "01" + modCount; }
-            else if (count == 3) { result = "0" + modCount; }
-            else if (count == 4) { result = modCount; }
-            else { Console.WriteLine("Error: BCML mod limit reached."); }
-
-            return result;
-        }
-
         public static int ModPriority = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length + 100 - 2;
 
         /// <summary>
@@ -116,7 +97,7 @@ namespace Botw
         /// <param name="platform"></param>
         /// <param name="priority"></param>
         /// <returns></returns>
-        public static string Info(string name, string platform, string priority)
+        public static string Info(string name, string platform)
         {
             return "{" +
             "\n    \"name\": \"" + name + "\"," +
@@ -129,7 +110,6 @@ namespace Botw
             "\n    \"showCompare\": false," +
             "\n    \"showConvert\": false," +
             "\n    \"platform\": \"" + platform + "\"," +
-            "\n    \"priority\": \"" + priority + "\"," +
             "\n    \"id\": \"\"" +
             "\n}";
         }

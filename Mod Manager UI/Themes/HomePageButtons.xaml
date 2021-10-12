@@ -8,55 +8,40 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border CornerRadius="15"
-                                Background="{TemplateBinding Background}">
+                        <Border CornerRadius="15" x:Name="border">
 
-                            <StackPanel HorizontalAlignment="Right">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                    <GradientStop Color="#0F0918" Offset="0.0"/>
+                                    <GradientStop Color="#2f2f2f" Offset="0.8"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
 
-                                <TextBlock Text="{TemplateBinding Property=Content}"
-                                               FontSize="38"
-                                               Foreground="White"
-                                               Margin="0, 25, 25, 0"/>
-                            </StackPanel>
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       FontSize="38" Grid.Column="1" Grid.Row="1"
+                                       Foreground="White"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"
+                                       Margin="0, 25, 25, 0"
+                                       FontFamily="Gadugi"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation To="#3f3f23" Duration="0:0:0:3" Storyboard.TargetName="border"
+                                                        Storyboard.TargetProperty="Background"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontFamily" Value="Windowcharacters"/>
         </Style.Setters>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="15">
-
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                                        <GradientStop Color="#0F0919" Offset="0.0"/>
-                                        <GradientStop Color="#3F0919" Offset="1.6"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-
-                                <StackPanel HorizontalAlignment="Right">
-
-                                    <TextBlock Text="{TemplateBinding Property=Content}"
-                                               FontSize="42"
-                                               Foreground="White"
-                                               Margin="0, 24, 25, 0"/>
-                                </StackPanel>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Trigger>
-
-        </Style.Triggers>
-        
     </Style>
 
 </ResourceDictionary>

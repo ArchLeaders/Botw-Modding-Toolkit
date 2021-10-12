@@ -1,0 +1,87 @@
+﻿<Window x:Class="UI.Views.SplashView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI"
+        mc:Ignorable="d"
+        Title="Mod Manager" Height="800" Width="1200"
+        WindowStyle="None" Background="Transparent"
+        AllowsTransparency="True"
+        Foreground="#f1f1f1"
+        x:Name="Background" ResizeMode="NoResize">
+    
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="65"/>
+    </WindowChrome.WindowChrome>
+
+    
+    <Border Background="#90272727" CornerRadius="25" Margin="20">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="5" BlurRadius="15" Color="#1A2024"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
+                        Grid.ColumnSpan="2" WindowChrome.IsHitTestVisibleInChrome="True">
+                <Button x:Name="btnMinimize" Content="!"
+                        Width="65" Style="{StaticResource ToolBarButtons}"
+                        FontSize="40"/>
+                <Button x:Name="btnExitApplication" Content=","
+                        Width="65" Style="{StaticResource CloseButtonTheme}"
+                        FontSize="40" Foreground="#f7f7f7"/>
+            </StackPanel>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1.8*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Style="{DynamicResource Button_HomePage_NewMod}"
+                        Content="New Mod" Margin="20, 10, 20, 10"
+                        Click="Button_Click">
+                </Button>
+
+                <Button Content="Tutorials" Grid.Row="1"
+                        Margin="20, 10, 20, 10"
+                        Style="{StaticResource Button_HomePage_Accent-1}"/>
+
+                <Button Content="Get Started" Grid.Row="2"
+                        Margin="20, 10, 20, 10"
+                        Style="{StaticResource Button_HomePage_Accent-1}"/>
+
+                <Button Content="Tools" Grid.Row="3"
+                        Margin="20, 10, 20, 10"
+                        Style="{StaticResource Button_HomePage_Accent-1}"/>
+
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="Settings"
+                            Margin="20, 10, 10, 20"
+                            Style="{StaticResource Button_HomePage_Accent-2}"/>
+
+                    <Button Content="?" Grid.Column="1"
+                            Margin="10, 10, 20, 20"
+                            Style="{StaticResource Button_HomePage_Accent-2}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
+
