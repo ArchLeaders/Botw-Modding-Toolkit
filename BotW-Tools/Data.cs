@@ -9,21 +9,20 @@ namespace Botw
     public class Data
     {
         #region General Paths and Strings/Data
-        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC";
-        public static string dataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\data";
-        public static string tempPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BMC\\.temp";
-        public static string appPath = File.ReadAllLines(dataPath + "\\paths.txt")[7];
+        public static string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\BotW-MM";
+        public static string tempPath = $"{path}\\.temp";
+        public static string appPath = File.ReadAllLines($"{path}\\paths.txt")[7];
 
         //Paths
-        public static string basePath = File.ReadAllLines(dataPath + "\\paths.txt")[0];
-        public static string updatePath = File.ReadAllLines(dataPath + "\\paths.txt")[1];
-        public static string dlcPath = File.ReadAllLines(dataPath + "\\paths.txt")[2];
-        public static string bcmlPath = File.ReadAllLines(dataPath + "\\paths.txt")[3];
-        public static string pyPath = File.ReadAllLines(dataPath + "\\paths.txt")[6];
+        public static string basePath = File.ReadAllLines($"{path}\\paths.txt")[0];
+        public static string updatePath = File.ReadAllLines($"{path}\\paths.txt")[1];
+        public static string dlcPath = File.ReadAllLines($"{path}\\paths.txt")[2];
+        public static string bcmlPath = File.ReadAllLines($"{path}\\paths.txt")[3];
+        public static string pyPath = File.ReadAllLines($"{path}\\paths.txt")[6];
 
         //Paths
-        public static string edition = File.ReadAllLines(dataPath + "\\paths.txt")[4];
-        public static string pyVersion = File.ReadAllLines(dataPath + "\\paths.txt")[5];
+        public static string edition = File.ReadAllLines($"{path}\\paths.txt")[4];
+        public static string pyVersion = File.ReadAllLines($"{path}\\paths.txt")[5];
 
         #endregion
 

@@ -88,7 +88,19 @@ namespace Botw
     }
     public class BCML
     {
-        public static int ModPriority = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length + 100 - 2;
+        public static string ModCount()
+        {
+            string result = "0000";
+            double count = Math.Floor(Math.Log10(Directory.GetDirectories(Data.bcmlPath + "\\mods").Length) + 1);
+            string modCount = Directory.GetDirectories(Data.bcmlPath + "\\mods").Length.ToString();
+            if (count == 1) { result = "000" + modCount; }
+            else if (count == 2) { result = "00" + modCount; }
+            else if (count == 3) { result = "0" + modCount; }
+            else if (count == 4) { result = modCount; }
+            else { Console.WriteLine("Error: BCML mod limit reached."); }
+
+            return result;
+        }
 
         /// <summary>
         /// 

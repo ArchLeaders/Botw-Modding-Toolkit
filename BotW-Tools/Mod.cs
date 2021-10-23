@@ -17,7 +17,7 @@ namespace Botw
             {
                 await Task.Run(() => Directory.CreateDirectory(path + "01007EF00011E000\\romfs"));
             }
-            await Task.Run(() => File.WriteAllText(path + "Info.json", BCML.Info(name, Data.edition, BCML.ModPriority.ToString())));
+            await Task.Run(() => File.WriteAllText(path + "Info.json", BCML.Info(name, Data.edition)));
 
             if (files != null)
             {
