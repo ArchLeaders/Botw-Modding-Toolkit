@@ -4,12 +4,11 @@ using System.IO;
 
 namespace Botw
 {
+    /// <summary>
+    /// <para>A class to store paths and data used by Botw Mod Manager.</para>
+    /// </summary>
     public class Data
     {
-        //
-        // The Data class stores all of the paths used by BMM
-        //
-
         /// <summary>
         /// <list type="bullet">
         /// <item><description><para><c>%localappdata%\Botw-MM</c></para></description></item>
@@ -38,7 +37,7 @@ namespace Botw
         /// <param name="dlcG_NX">Path to dlc files for switch. Must end in \check</param>
         public static void WriteSettings(string cemu, string baseG, string updateG, string dlcG = null, string gameG_NX = null, string dlcG_NX = null)
         {
-            Json.Settings settings = new();
+            Formats.Json.Settings settings = new();
             JsonSerializer serializer = new();
 
             settings.cemu_dir = cemu;
