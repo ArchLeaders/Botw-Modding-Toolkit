@@ -193,7 +193,7 @@ public static string Bxml(string ModelUser = "Dummy", string PhysicsUser = "Dumm
 }
 ```
 
-## Bxml(string ModelUser
+## string ModelUser
 
 ```
 Bxml ModelUser parameter
