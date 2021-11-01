@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Botw.Formats
 {
-    class Byml
+    public class Byml
     {
         private static string activeDistance = "500.0";
 
@@ -85,22 +85,32 @@ namespace Botw.Formats
                 "          lists: {}\n";
         }
 
+
         /// <summary>
-        /// 
+        /// <c>Botw.Formats.Byml.Bxml</c> Returns a Botw BXML file. Write with <c>Botw.Formats.Writer.Byml.Bxml</c>.
+        /// <para><see cref="Bxml(string, string, string, string, string[], string[])"/></para>
+        /// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/edit/master/Docs/Botw/Formats/Byml/Bxml.md">GitHub Documentation</see>
+        /// <list type="bullet">
+        /// <item><description><para>Bxml ModelUser parameter</para></description></item>
+        /// <item><description><para>Bxml PhysicsUser parameter</para></description></item>
+        /// <item><description><para>Bxml GParamUser parameter</para></description></item>
+        /// <item><description><para>Bxml LifeConditionUser parameter</para></description></item>
+        /// <item><description><para>Bxml tags</para></description></item>
+        /// <item><description><para>Other bxml parameters. <para>Syntax: <c>PropertyName = PropertyValue</c></para></para></description></item>
+        /// </list>
         /// </summary>
         /// <param name="ModelUser">Bxml ModelUser parameter</param>
         /// <param name="PhysicsUser">Bxml PhysicsUser parameter</param>
         /// <param name="GParamUser">Bxml GParamUser parameter</param>
         /// <param name="LifeConditionUser">Bxml LifeConditionUser parameter</param>
         /// <param name="tags">Bxml tags</param>
-        /// <param name="param">Other bxml parameters. <para><c>Syntax: PropertyName = PropertyValue</c></para></param>
-        /// <returns></returns>
+        /// <param name="param">Other bxml parameters. <para>Syntax: <c>PropertyName = PropertyValue</c></para></param>
         public static string Bxml(string ModelUser = "Dummy", string PhysicsUser = "Dummy", string GParamUser = "Dummy", string LifeConditionUser = null, string[] tags = null, string[] param = null)
         {
             #region Strings & string arrays holding parameter data.
 
             string ProfileUser = "Dummy";
-            string ActorNameJpn = "俳優";
+            string ActorNameJpn = "ダミー";
             string Priority = "Default";
             string AIProgramUser = "Dummy";
             string AIScheduleUser = "Dummy";
@@ -126,10 +136,9 @@ namespace Botw.Formats
 
             #endregion
 
-            foreach (string item in param)
-            {
-                Loop(item.Split('=')[0].Trim(), item.Split('=')[1].Trim());
-            }
+            if (param != null)
+                foreach (string item in param)
+                    Loop(item.Split('=')[0].Trim(), item.Split('=')[1].Trim());
 
             // Format LifeConditionUser
             if (LifeConditionUser != null)
