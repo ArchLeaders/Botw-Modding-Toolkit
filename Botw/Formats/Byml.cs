@@ -10,7 +10,19 @@ namespace Botw.Formats
     {
         private static string activeDistance = "500.0";
 
-        public static string BModelList(string modelName, string unitName)
+        /// <summary>
+        /// <c>Botw.Formats.Byml.BModelList</c> Returns a Botw BModelList file. Write with <c>Botw.Formats.Writer.Byml.BModelList</c>
+        /// <para><see cref="BModelList(string, string)"/></para>
+        /// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/blob/master/Docs/Botw/Formats/Byml/BModelList.md">GitHub Documentation</see>
+        /// <list type="bullet">
+        /// <item><description><para>BModelList Model Name (SBFRES Name)</para></description></item>
+        /// <item><description><para>BModelList Unit Name (BFMODEL Model Name)</para></description></item>
+        /// </list>
+        /// </summary>
+        /// <param name=""></param>
+        /// <param name="ModelName">BModelList Model Name (SBFRES Name)</param>
+        /// <param name="UnitName">BModelList Unit Name (BFMODEL Model Name)</param>
+        public static string BModelList(string ModelName, string UnitName)
         {
             return
                 "!io\n" +
@@ -65,12 +77,12 @@ namespace Botw.Formats
                 "        ModelData_0: !list\n" +
                 "          objects:\n" +
                 "            Base: !obj\n" +
-                "              Folder: !str64 " + modelName + "\n" +
+                "              Folder: !str64 " + ModelName + "\n" +
                 "          lists:\n" +
                 "            Unit: !list\n" +
                 "              objects:\n" +
                 "                Unit_0: !obj\n" +
-                "                  UnitName: !str64 " + unitName + "\n" +
+                "                  UnitName: !str64 " + UnitName + "\n" +
                 "                  BindBone: !str64 ''\n" +
                 "              lists: {}\n" +
                 "    AnmTarget: !list\n" +
@@ -85,11 +97,10 @@ namespace Botw.Formats
                 "          lists: {}\n";
         }
 
-
         /// <summary>
         /// <c>Botw.Formats.Byml.Bxml</c> Returns a Botw BXML file. Write with <c>Botw.Formats.Writer.Byml.Bxml</c>.
         /// <para><see cref="Bxml(string, string, string, string, string[], string[])"/></para>
-        /// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/edit/master/Docs/Botw/Formats/Byml/Bxml.md">GitHub Documentation</see>
+        /// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/blob/master/Docs/Botw/Formats/Byml/Bxml.md">GitHub Documentation</see>
         /// <list type="bullet">
         /// <item><description><para>Bxml ModelUser parameter</para></description></item>
         /// <item><description><para>Bxml PhysicsUser parameter</para></description></item>
@@ -272,6 +283,5 @@ namespace Botw.Formats
                     ActorScale = value;
             }
         }
-
     }
 }

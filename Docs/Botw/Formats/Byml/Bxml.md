@@ -8,7 +8,7 @@ Returns a Botw BXML file. Write with <c>Botw.Formats.Writer.Byml.Bxml<c/>.
 /// <summary>
 /// <c>Botw.Formats.Byml.Bxml</c> Returns a Botw BXML file. Write with <c>Botw.Formats.Writer.Byml.Bxml</c>.
 /// <para><see cref="Bxml(string, string, string, string, string[], string[])"/></para>
-/// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/edit/master/Docs/Botw/Formats/Byml/Bxml.md">GitHub Documentation</see>
+/// <see href="https://github.com/ArchLeaders/Breath-of-the-Wild-Basic-Mod-Creator/blob/master/Docs/Botw/Formats/Byml/Bxml.md">GitHub Documentation</see>
 /// <list type="bullet">
 /// <item><description><para>Bxml ModelUser parameter</para></description></item>
 /// <item><description><para>Bxml PhysicsUser parameter</para></description></item>

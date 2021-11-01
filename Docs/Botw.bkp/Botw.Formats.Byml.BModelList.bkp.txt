@@ -1,0 +1,77 @@
+%Botw.Formats.Byml.BModelList;Returns a Botw BModelList file. Write with <c>Botw.Formats.Writer.Byml.BModelList</c>;BModelList(string, string)
+%%ModelName;BModelList Model Name (SBFRES Name)
+%%UnitName;BModelList Unit Name (BFMODEL Model Name)
+public static string BModelList(string modelName, string unitName)
+{
+    return
+        "!io\n" +
+        "version: 0\n" +
+        "type: xml\n" +
+        "param_root: !list\n" +
+        "  objects:\n" +
+        "    ControllerInfo: !obj\n" +
+        "      452881839: true\n" +
+        "      MulColor: !color [1.0, 1.0, 1.0, 1.0]\n" +
+        "      AddColor: !color [0.0, 0.0, 0.0, 0.0]\n" +
+        "      2335622703: !str64 ''\n" +
+        "      468054209: !str64 Fill\n" +
+        "      3089169744: !str64 MapUnitShape\n" +
+        "      2592531187: !str64 ''\n" +
+        "      3331358099: !str64 ''\n" +
+        "      3142504426: !str64 ''\n" +
+        "      BaseScale: !vec3 [1.0, 1.0, 1.0]\n" +
+        "      VariationMatAnim: !str64 ''\n" +
+        "      VariationMatAnimFrame: 0\n" +
+        "      VariationShaderAnim: !str64 ''\n" +
+        "      VariationShaderAnimFrame: 0\n" +
+        "      1528658372: !str32 Auto\n" +
+        "      FarModelCullingCenter: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      FarModelCullingRadius: 0.0\n" +
+        "      FarModelCullingHeight: 0.0\n" +
+        "      CalcAABBASKey: !str64 Wait\n" +
+        "    Attention: !obj\n" +
+        "      IsEnableAttention: true\n" +
+        "      LookAtBone: !str32 ''\n" +
+        "      LookAtOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      CursorOffsetY: 0.0\n" +
+        "      AIInfoOffsetY: 0.0\n" +
+        "      CutTargetBone: !str32 ''\n" +
+        "      CutTargetOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      GameCameraBone: !str32 ''\n" +
+        "      GameCameraOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      BowCameraBone: !str32 ''\n" +
+        "      BowCameraOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      AttackTargetBone: !str32 ''\n" +
+        "      AttackTargetOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      AttackTargetOffsetBack: 0.0\n" +
+        "      AtObstacleChkOffsetBone: !str32 ''\n" +
+        "      AtObstacleChkOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "      AtObstacleChkUseLookAtPos: true\n" +
+        "      CursorAIInfoBaseBone: !str32 ''\n" +
+        "      CursorAIInfoBaseOffset: !vec3 [0.0, 0.0, 0.0]\n" +
+        "  lists:\n" +
+        "    ModelData: !list\n" +
+        "      objects: {}\n" +
+        "      lists:\n" +
+        "        ModelData_0: !list\n" +
+        "          objects:\n" +
+        "            Base: !obj\n" +
+        "              Folder: !str64 " + modelName + "\n" +
+        "          lists:\n" +
+        "            Unit: !list\n" +
+        "              objects:\n" +
+        "                Unit_0: !obj\n" +
+        "                  UnitName: !str64 " + unitName + "\n" +
+        "                  BindBone: !str64 ''\n" +
+        "              lists: {}\n" +
+        "    AnmTarget: !list\n" +
+        "      objects: {}\n" +
+        "      lists:\n" +
+        "        AnmTarget_0: !list\n" +
+        "          objects:\n" +
+        "            Base: !obj\n" +
+        "              NumASSlot: 1\n" +
+        "              IsParticalEnable: true\n" +
+        "              TargetType: 0\n" +
+        "          lists: {}\n";
+}
