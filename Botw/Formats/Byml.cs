@@ -8,6 +8,9 @@ namespace Botw.Formats
 {
     public class Byml
     {
+        /// <summary>
+        /// Holds the active distance parameter for Bxml
+        /// </summary>
         private static string activeDistance = "500.0";
 
         /// <summary>
@@ -282,6 +285,12 @@ namespace Botw.Formats
                 if (prm == "ActorScale")
                     ActorScale = value;
             }
+        }
+
+        public static string MapSMubin(string section)
+        {
+            string result = null;
+            return result;
         }
     }
 }

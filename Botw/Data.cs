@@ -1,11 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using Botw.Installers;
+using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Botw
 {
     /// <summary>
-    /// <para>A class to store paths and data used by Botw Mod Manager.</para>
+    /// <para>A class used to store paths and data used by Botw Mod Manager.</para>
     /// </summary>
     public class Data
     {
@@ -35,8 +37,11 @@ namespace Botw
         /// <param name="dlcG">Path to dlc files. Must end in \content</param>
         /// <param name="gameG_NX">Path to base game files for switch. Must end in \check</param>
         /// <param name="dlcG_NX">Path to dlc files for switch. Must end in \check</param>
-        public static void WriteSettings(string cemu, string baseG, string updateG, string dlcG = null, string gameG_NX = null, string dlcG_NX = null)
+        public static async Task WriteSettings(string cemu, string baseG, string updateG, string dlcG = null, string gameG_NX = null, string dlcG_NX = null, string python = null)
         {
+            if (python == null)
+                await Install.Python();
+
             Formats.Json.Settings settings = new();
             JsonSerializer serializer = new();
 
