@@ -12,5 +12,10 @@ namespace Botw.Installers
         {
             throw new NotImplementedException();
         }
+
+        public static async Task Msyt()
+        {
+
+        }
     }
 }

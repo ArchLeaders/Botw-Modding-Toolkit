@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -287,10 +288,17 @@ namespace Botw.Formats
             }
         }
 
-        public static string MapSMubin(string section)
+        public static string MapSMubin(string section, string field = "MainField", string type = "Static")
         {
-            string result = null;
-            return result;
+            try
+            {
+                if (Data.isNx) return File.ReadAllText($"{Data.settings.game_dir_nx}\\Map\\{field}\\{section}\\{section}_{type}.smubin");
+                else return File.ReadAllText($"{Data.settings.game_dir}\\Map\\{field}\\{section}\\{section}_{type}.smubin");
+            }
+            catch (Exception)
+            {
+                throw; // Replace with UI error method.
+            }
         }
     }
 }

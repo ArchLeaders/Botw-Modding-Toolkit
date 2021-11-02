@@ -1,6 +1,8 @@
-﻿using Botw.Installers;
+﻿using Botw.Formats.Json;
+using Botw.Installers;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -17,6 +19,8 @@ namespace Botw
         /// </list>
         /// </summary>
         public static readonly string root = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Botw-MM";
+
+        public static bool isNx = false;
 
         /// <summary>
         /// <c>Botw.Data.WriteSettings</c> writes the BMM settings file to %localappdata%\Botw-MM\settings.json
@@ -57,5 +61,6 @@ namespace Botw
                     serializer.Serialize(jsonWriter, settings);
         }
 
+        public static Settings settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText($"{root}\\settings.json"));
     }
 }
