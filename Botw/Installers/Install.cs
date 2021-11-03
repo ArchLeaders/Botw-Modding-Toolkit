@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Botw.System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,9 @@ namespace Botw.Installers
             throw new NotImplementedException();
         }
 
-        public static async Task Msyt()
+        public static async Task AscclemensMsyt()
         {
-
+            await Web.DownloadGitLatest("https://api.github.com/repos/ascclemens/msyt/releases/latest", $"{Data.root}\\Formats\\Msyt\\msyt.zip", 3);
         }
     }
 }

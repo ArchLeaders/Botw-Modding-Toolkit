@@ -1,12 +1,7 @@
 ﻿using Botw.Formats.Json;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Botw.System
@@ -25,14 +20,14 @@ namespace Botw.System
                 client.DownloadFile(link, outFile);
         }
 
-        public static async Task DownloadGitLatestAsync(string apiLink, string outFile)
+        public static async Task DownloadGitLatest(string apiLink, string outFile, int asset = 1)
         {
             HttpClient client = new();
 
             client.DefaultRequestHeaders.Add("user-agent", "test");
             var json = await client.GetStringAsync(apiLink);
-            var gitinfo = JsonConvert.DeserializeObject<GitHub>(File.ReadAllText(json));
-            var link = gitinfo.assets[0].browser_download_url;
+            var gitinfo = JsonConvert.DeserializeObject<GitHub>(json); // Fails during this for no apparent reason.
+            var link = gitinfo.assets[asset - 1].browser_download_url;
 
             await DownloadAsync(link, outFile);
         }
