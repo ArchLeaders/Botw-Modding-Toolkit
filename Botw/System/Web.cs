@@ -1,10 +1,10 @@
-﻿using Botw.Formats.Json;
-using Newtonsoft.Json;
+﻿using BotwLib.Formats.Json;
+using System.Text.Json;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Botw.System
+namespace BotwLib.System
 {
     public class Web
     {
@@ -26,7 +26,8 @@ namespace Botw.System
 
             client.DefaultRequestHeaders.Add("user-agent", "test");
             var json = await client.GetStringAsync(apiLink);
-            var gitinfo = JsonConvert.DeserializeObject<GitHub>(json); // Fails during this for no apparent reason.
+
+            GitHub gitinfo = JsonSerializer.Deserialize<GitHub>(json); // Fails during this for no apparent reason.
             var link = gitinfo.assets[asset - 1].browser_download_url;
 
             await DownloadAsync(link, outFile);

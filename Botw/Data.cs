@@ -1,12 +1,12 @@
-﻿using Botw.Formats.Json;
-using Botw.Installers;
+﻿using BotwLib.Formats.Json;
+using BotwLib.Installers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Botw
+namespace BotwLib
 {
     /// <summary>
     /// <para>A class used to store paths and data used by Botw Mod Manager.</para>

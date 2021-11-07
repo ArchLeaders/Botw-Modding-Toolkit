@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Botw.System
+namespace BotwLib.System
 {
     public class Proc
     {

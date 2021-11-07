@@ -1,0 +1,21 @@
+﻿<Application x:Class="BotwUI.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BotwUI"
+             StartupUri="Home.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <FontFamily x:Key="WindowsBasic">pack://application:,,,/Fonts/#Windowcharacters</FontFamily>
+            <FontFamily x:Key="HylianSymbols">pack://application:,,,/Fonts/#Hylian Symbols</FontFamily>
+            <FontFamily x:Key="Triforce">pack://application:,,,/Fonts/#Triforce</FontFamily>
+            <FontFamily x:Key="HyliaSerifBeta">pack://application:,,,/Fonts/#Hylia Serif Beta</FontFamily>
+            <FontFamily x:Key="Botw">pack://application:,,,/Fonts/#The Wild Breath of Zelda</FontFamily>
+            <FontFamily x:Key="Tajawal">pack://application:,,,/Fonts/#Tajawal</FontFamily>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/Home/btnWindowChromeItem.xaml"/>
+                <ResourceDictionary Source="Styles/Default/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

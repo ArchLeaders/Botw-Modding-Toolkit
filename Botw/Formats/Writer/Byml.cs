@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Botw.Formats.Writer
+namespace BotwLib.Formats.Writer
 {
     class Byml
     {

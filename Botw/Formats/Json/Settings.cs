@@ -1,4 +1,4 @@
-﻿namespace Botw.Formats.Json
+﻿namespace BotwLib.Formats.Json
 {
     public class Settings
     {

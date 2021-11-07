@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Botw.Installers.Python
+namespace BotwLib.Installers.Python
 {
     public class Pip
     {

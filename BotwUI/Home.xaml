@@ -1,0 +1,65 @@
+﻿<Window x:Class="BotwUI.Home"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BotwUI"
+        mc:Ignorable="d"
+        Title="Mod Manager" Height="700" Width="1000"
+        WindowStyle="None" Background="Transparent"
+        AllowsTransparency="True" x:Name="homeWindow"
+        MinHeight="400" MinWidth="600">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="40" GlassFrameThickness="7"/>
+    </WindowChrome.WindowChrome>
+    
+    <Grid>
+        <Grid.Effect>
+            <DropShadowEffect ShadowDepth="2" BlurRadius="10"
+                              Opacity=".3" x:Name="homeWindowDropShadow"/>
+        </Grid.Effect>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="47"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="7"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Row="1" Grid.Column="1" Background="#0F1112"
+                x:Name="homeBorderWindowChrome">
+            <Grid>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button Style="{StaticResource BtnWindowChromeItem}"
+                            Content="!" Width="45" x:Name="homeBtnWindowMin"/>
+                    <Button Style="{StaticResource BtnWindowChromeItem}"
+                            Content="'" Width="45" x:Name="homeBtnWindowSize"/>
+                    <Button Style="{StaticResource BtnWindowChromeItem_Exit}"
+                            Content="," Width="45" x:Name="homeBtnWindowExit"/>
+                </StackPanel>
+                <Image Source="Images/Icon/Icon.png" Margin="3"
+                       HorizontalAlignment="Left"/>
+                <TextBlock Text="Home"
+                               FontFamily="poppins"
+                               FontSize="22"
+                               Foreground="#7f7f7f"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="0, 0, 111, 0"
+                               FontWeight="Bold"/>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Grid.Column="1" Background="#1f1f1f">
+            <Frame x:Name="mainPanel"/>
+        </Border>
+    </Grid>
+</Window>
