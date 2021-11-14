@@ -8,5 +8,6 @@ namespace BotwLib.Formats.Writer
 {
     class Byml
     {
+
     }
 }

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This file is NOT compatible with Silverlight-->
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
+  <Canvas Name="svg5" Width="1920" Height="1080">
+    <Canvas.RenderTransform>
+      <TranslateTransform X="0" Y="0"/>
+    </Canvas.RenderTransform>
+    <Canvas.Resources>
+      <!--Unknown tag: inkscape:path-effect-->
+    </Canvas.Resources>
+    <!--Unknown tag: sodipodi:namedview-->
+    <Canvas Name="layer1">
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4722" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter7806}">
+        <Path.Data>
+          <PathGeometry Figures="M 1920 909.9048 1573.8523 770.37543 1326.0162 1079.9482" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5366" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter7794}">
+        <Path.Data>
+          <PathGeometry Figures="M 1662.7257 806.1996 C 1662.7257 806.1996 1684 528 1692 536 c 8 8 228 86 228 86" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5368" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter7782}">
+        <Path.Data>
+          <PathGeometry Figures="M 1673.6423 675.96745 C 1675.516 655.72335 1406 552 1406 552 l 43.9343 373.16182" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5483" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Effect="{StaticResource filter7770}">
+        <Path.Data>
+          <PathGeometry Figures="M 1418.6783 659.68467 1124 694 l 108 386" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5485" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter7758}">
+        <Path.Data>
+          <PathGeometry Figures="M 1839.1008 592.96387 C 1769.0556 567.24903 1622 350 1614 356 c -8 6 -64.411 254.25122 -64.411 254.25122" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5487" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter7746}">
+        <Path.Data>
+          <PathGeometry Figures="M 1683.6286 438.31112 1790 250 l 130 96" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5489" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter7734}">
+        <Path.Data>
+          <PathGeometry Figures="M 1588.4758 445.64298 C 1587.8993 447.97513 1328 340 1328 340 l -56.6608 336.84234" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5491" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Effect="{StaticResource filter7722}">
+        <Path.Data>
+          <PathGeometry Figures="m 1178 887 c 0 0 -228 -93 -224 -83 4 10 12 276 12 276" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5606" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Effect="{StaticResource filter7710}">
+        <Path.Data>
+          <PathGeometry Figures="M 1299.6696 508.42117 1092 464 1034.5042 830.18402" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10796" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter12024}">
+        <Path.Data>
+          <PathGeometry Figures="M 1920 186.67619 C 1920 158.39192 1626.3456 0 1626.3456 0" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10798" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter12012}">
+        <Path.Data>
+          <PathGeometry Figures="m 1773.1728 93.338095 c 0 0 -98.7439 132.936075 -115.7145 118.793935 C 1640.4877 197.9899 1383.1009 0 1383.1009 0" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10800" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter12048}">
+        <Path.Data>
+          <PathGeometry Figures="M 1446.3967 48.72523 1269.9638 240.41631 1170.9688 0" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10802" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter12060}">
+        <Path.Data>
+          <PathGeometry Figures="M 1220.4663 120.20816 987.12107 203.64675 834.386 0" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+      <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10804" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Effect="{StaticResource filter12036}">
+        <Path.Data>
+          <PathGeometry Figures="M 1582.6752 153.85682 1527.3506 322.44069 1358.1802 144.57077" FillRule="NonZero"/>
+        </Path.Data>
+      </Path>
+    </Canvas>
+  </Canvas>
+</Viewbox>

@@ -20,6 +20,13 @@ namespace BotwLib
         /// </summary>
         public static readonly string root = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Botw-MM";
 
+        /// <summary>
+        /// <list type="bullet">
+        /// <item><description><para><c>%localappdata%\Botw-MM\Temp</c></para></description></item>
+        /// </list>
+        /// </summary>
+        public static readonly string temp = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Botw-MM\\Temp";
+
         public static bool isNx = false;
 
         /// <summary>

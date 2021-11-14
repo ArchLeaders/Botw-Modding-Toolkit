@@ -20,6 +20,7 @@
     <None Remove="Fonts\The Wild Breath of Zelda.otf" />
     <None Remove="Fonts\Triforce.ttf" />
     <None Remove="Fonts\WindowsBasic.ttf" />
+    <None Remove="Images\HomePage_Img.png" />
     <None Remove="Images\Icon\Icon.png" />
     <None Remove="Images\Icon\Icon.svg" />
   </ItemGroup>
@@ -64,6 +65,10 @@
     <Resource Include="Fonts\HyliaSerifBeta-Regular.otf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Content Include="Images\HomePage_Img.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <Resource Include="Images\Icon\Icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>

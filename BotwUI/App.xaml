@@ -14,7 +14,9 @@
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles/Home/btnWindowChromeItem.xaml"/>
+                <ResourceDictionary Source="Styles/Home/ListBoxHome_RecentItems.xaml"/>
                 <ResourceDictionary Source="Styles/Default/Button.xaml"/>
+                <ResourceDictionary Source="Styles/Default/ComboBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

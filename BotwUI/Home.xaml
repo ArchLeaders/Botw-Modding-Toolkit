@@ -9,30 +9,30 @@
         WindowStyle="None" Background="Transparent"
         AllowsTransparency="True" x:Name="homeWindow"
         MinHeight="400" MinWidth="600">
-
+    
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="40" GlassFrameThickness="7"/>
     </WindowChrome.WindowChrome>
     
     <Grid>
         <Grid.Effect>
-            <DropShadowEffect ShadowDepth="2" BlurRadius="10"
-                              Opacity=".3" x:Name="homeWindowDropShadow"/>
+            <DropShadowEffect ShadowDepth="1" BlurRadius="10"
+                              Opacity="1" x:Name="homeWindowDropShadow"/>
         </Grid.Effect>
         <Grid.RowDefinitions>
-            <RowDefinition Height="7"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="47"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="7"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="1" Grid.Column="1" Background="#0F1112"
+        <Border Grid.Row="1" Background="#1f1f1f">
+            <Frame x:Name="mainPanel"/>
+        </Border>
+
+        <Border Grid.Row="0" Background="#0F1112"
                 x:Name="homeBorderWindowChrome">
             <Grid>
                 <StackPanel Orientation="Horizontal"
@@ -48,18 +48,14 @@
                 <Image Source="Images/Icon/Icon.png" Margin="3"
                        HorizontalAlignment="Left"/>
                 <TextBlock Text="Home"
-                               FontFamily="poppins"
-                               FontSize="22"
-                               Foreground="#7f7f7f"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Margin="0, 0, 111, 0"
-                               FontWeight="Bold"/>
+                           FontFamily="poppins"
+                           FontSize="22"
+                           Foreground="#7f7f7f"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           Margin="0, 0, 111, 0"
+                           FontWeight="Bold"/>
             </Grid>
-        </Border>
-
-        <Border Grid.Row="2" Grid.Column="1" Background="#1f1f1f">
-            <Frame x:Name="mainPanel"/>
         </Border>
     </Grid>
 </Window>

@@ -5,51 +5,172 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BotwUI.Panels"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="1000"
       Title="HomePage">
-    
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
-        
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.5*"/>
-            <ColumnDefinition Width="*" MaxWidth="300"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Border Grid.Row="1" Grid.ColumnSpan="3" Background="#0F1112"/>
-
-        <Border Grid.Column="1" Background="Transparent"
-                Grid.ColumnSpan="2"/>
-
-        <Border Background="#2f2f2f">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="2"
-                                  Opacity="0.3" Direction="0"/>
-            </Border.Effect>
+        <Viewbox VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                 MaxWidth="1200">
+            <Viewbox.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Color="Orange"
+                                  ShadowDepth="0"/>
+            </Viewbox.Effect>
             <Grid>
-                <Viewbox Margin="30, 30, 150, 30" VerticalAlignment="Top"
-                         HorizontalAlignment="Left"
-                         MaxWidth="600">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="2*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="White"
-                                   FontSize="50"
-                                   Text="Breath of the Wild:&#x0a;Mod Manager"
-                                   FontFamily="{StaticResource Tajawal}"
-                                   FontWeight="Bold"/>
-
-                        <Button Grid.Row="1" Content="New Mod"/>
-                    </Grid>
-                </Viewbox>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path4722" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1920 909.9048 1573.8523 770.37543 1326.0162 1079.9482" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5366" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1662.7257 806.1996 C 1662.7257 806.1996 1684 528 1692 536 c 8 8 228 86 228 86" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5368" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1673.6423 675.96745 C 1675.516 655.72335 1406 552 1406 552 l 43.9343 373.16182" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5483" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Miter" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1418.6783 659.68467 1124 694 l 108 386" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5485" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1839.1008 592.96387 C 1769.0556 567.24903 1622 350 1614 356 c -8 6 -64.411 254.25122 -64.411 254.25122" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5487" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1683.6286 438.31112 1790 250 l 130 96" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5489" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1588.4758 445.64298 C 1587.8993 447.97513 1328 340 1328 340 l -56.6608 336.84234" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5491" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="m 1178 887 c 0 0 -228 -93 -224 -83 4 10 12 276 12 276" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path5606" StrokeThickness="10" Stroke="#FFFF7F00" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1299.6696 508.42117 1092 464 1034.5042 830.18402" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
             </Grid>
-        </Border>
-        
+        </Viewbox>
+        <Viewbox VerticalAlignment="Top" HorizontalAlignment="Right"
+                 MaxWidth="1200">
+            <Viewbox.Effect>
+                <DropShadowEffect BlurRadius="20"
+                                  Color="#6cd6ff"
+                                  ShadowDepth="0"/>
+            </Viewbox.Effect>
+            <Grid>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10796" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1920 186.67619 C 1920 158.39192 1626.3456 0 1626.3456 0" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10798" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="m 1773.1728 93.338095 c 0 0 -98.7439 132.936075 -115.7145 118.793935 C 1640.4877 197.9899 1383.1009 0 1383.1009 0" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10800" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1446.3967 48.72523 1269.9638 240.41631 1170.9688 0" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10802" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1220.4663 120.20816 987.12107 203.64675 834.386 0" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+                <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path10804" StrokeThickness="10" Stroke="#FF006CD6" StrokeMiterLimit="4" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round">
+                    <Path.Data>
+                        <PathGeometry Figures="M 1582.6752 153.85682 1527.3506 322.44069 1358.1802 144.57077" FillRule="NonZero"/>
+                    </Path.Data>
+                </Path>
+            </Grid>    
+        </Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="1200"/>
+                <ColumnDefinition MinWidth="400" MaxWidth="400"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Background="Transparent">
+                <StackPanel Margin="15" VerticalAlignment="Stretch">
+                    <TextBlock Text="Botw Mod Manager"
+                            FontSize="55" Foreground="White"
+                            FontFamily="{StaticResource Tajawal}"
+                            FontWeight="Medium" Cursor="Arrow"/>
+                    <TextBlock Text="Recent Mods:" FontSize="25"
+                            FontFamily="{StaticResource Tajawal}"
+                            FontWeight="Light" Foreground="#7f7f7f"
+                            Margin="15, 10" Cursor="Arrow"/>
+                </StackPanel>
+                <ListBox Margin="20, 160, 15, 20" FontSize="20"
+                        FontFamily="{StaticResource Tajawal}"
+                        FontWeight="Bold"
+                        Foreground="White" BorderThickness="0"
+                        Background="Transparent" VerticalAlignment="Top"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                        ScrollViewer.CanContentScroll="False">
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}">
+                        <Grid>
+                            <TextBlock Text="Arc Ruins"/>
+                            <TextBlock Text="11/11/2021" HorizontalAlignment="Right"
+                                       Margin="315, 0, 0, 0" FontWeight="Thin"
+                                       FontSize="16" Foreground="#afafaf"/>
+                        </Grid>
+                    </ListBoxItem>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Some Mod Title"/>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Another Mod"/>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Should I add a char limit?"/>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Or just a trail out?"/>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Like this rather long name.../"/>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Yet another mod."/>
+                    <ListBoxItem Style="{DynamicResource ListBoxHome_RecentItems}" Content="Link just chillin down here."
+                                Margin="5, 5, 5, 30"/>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Column="1" Background="Transparent">
+                <StackPanel Margin="0. 180, 40, 50">
+                    <Button HorizontalContentAlignment="Left" VerticalContentAlignment="Top">
+                        <Grid>
+                            <Image Source="../Images/Icon/Icon.png" Width="40"
+                                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                                   Margin="5, 7, 5, 0"/>
+                            <TextBlock Text="New Mod" Foreground="White"
+                                       HorizontalAlignment="Left"
+                                       FontFamily="{StaticResource Tajawal}"
+                                       FontSize="30"
+                                       Margin="55, 3, 0, 0"
+                                       FontWeight="Bold"/>
+                            <TextBlock Text="Creates a new mod with no attributes."
+                                       Foreground="White"
+                                       HorizontalAlignment="Left"
+                                       FontFamily="{StaticResource Tajawal}"
+                                       FontSize="16"
+                                       Margin="60, 40, 0, 30"
+                                       FontWeight="Thin"/>
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
