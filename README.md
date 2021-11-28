@@ -1,4 +1,4 @@
-# Breath of the Wild - Mod Manager
+# Breath of the Wild - Modding Toolkit
 
 ## Overview
 
