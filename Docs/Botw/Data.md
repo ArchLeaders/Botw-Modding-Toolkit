@@ -16,6 +16,4 @@ public class Data
         /// </list>
         /// </summary>
         public static readonly string root = $"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\\Botw-MM";
-
-        // https://github.com/ArchLeaders/Breath-of-the-Wild-Mod-Manager/blob/master/Docs/Botw/Data/WriteSettings.md
 )
