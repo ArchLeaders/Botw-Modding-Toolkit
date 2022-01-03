@@ -5,11 +5,15 @@
 
 ## Albedo (Color texture.) | Alb
 
+Sampler: `_a`
+
 Supported Format(s):
 - `BC1_UNorm` | Good for textures with no Alpha (Transparent) channel.
 - `BC1_SRGB` | Same compression as `BC1_UNorm` but it includes the Alpha channel.
 
 ## Normal (Bump mapping.) | Nrm
+
+Sampler: `_n`
 
 Supported Format(s):
 - `BC5_UNorm`
@@ -18,6 +22,8 @@ Supported Format(s):
 _Any UNorm or SNorm should work._
 
 ## Specular (Shine mapping.) | Spm
+
+Sampler: `_s`
 
 Supported Format(s):
 - `BC5_SNorm`
@@ -28,6 +34,8 @@ _Any UNorm or SNorm should work._
 
 ## Emmision (Emmision mapping.) | Emm
 
+Sampler: `_e`
+
 Supported Format(s):
 - `BC5_SNorm`
 - `BC4_SNorm`
@@ -36,6 +44,19 @@ Supported Format(s):
 _Any UNorm or SNorm should work._
 
 ## Abient Occlusion (AO Mapping) | Ao
+
+Sampler: `_ao`
+
+Supported Format(s):
+- `BC5_SNorm`
+- `BC4_SNorm`
+- `BC1_SNorm`
+
+_Any UNorm or SNorm should work._
+
+## Metalness (Metalic Mapping) | Mtl
+
+Sampler: `_mtl`
 
 Supported Format(s):
 - `BC5_SNorm`
