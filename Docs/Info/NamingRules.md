@@ -1,5 +1,5 @@
 # MTK - Actor Namimg Rules
-> [Prefix]()\_**Name**\_[Type]()\_[Index]()
+> [Prefix](https://github.com/ArchLeaders/Botw-Modding-Toolkit/blob/master/Docs/Info/NamingRules.md#prefixes)\_**Name**\_[Type](https://github.com/ArchLeaders/Botw-Modding-Toolkit/blob/master/Docs/Info/NamingRules.md#types)\_[Index](https://github.com/ArchLeaders/Botw-Modding-Toolkit/blob/master/Docs/Info/NamingRules.md#indexes)
 
 When using MTK to generate an actor, the name is collected from the `.hkrb` file name.
 
