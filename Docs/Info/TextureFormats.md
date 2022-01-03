@@ -3,7 +3,7 @@
 > 
 > _PS: I don't know much about texture compression._
 
-## Albedo (Color texture.) | Alb
+## Albedo (Color Texture) | Alb
 
 Sampler: `_a`
 
@@ -11,7 +11,7 @@ Supported Format(s):
 - `BC1_UNorm` | Good for textures with no Alpha (Transparent) channel.
 - `BC1_SRGB` | Same compression as `BC1_UNorm` but it includes the Alpha channel.
 
-## Normal (Bump mapping.) | Nrm
+## Normal (Bump Mapping) | Nrm
 
 Sampler: `_n`
 
@@ -21,7 +21,7 @@ Supported Format(s):
 
 _Any UNorm or SNorm should work._
 
-## Specular (Shine mapping.) | Spm
+## Specular (Shine Mapping) | Spm
 
 Sampler: `_s`
 
@@ -32,7 +32,7 @@ Supported Format(s):
 
 _Any UNorm or SNorm should work._
 
-## Emmision (Emmision mapping.) | Emm
+## Emmision (Emmision Mapping) | Emm
 
 Sampler: `_e`
 
