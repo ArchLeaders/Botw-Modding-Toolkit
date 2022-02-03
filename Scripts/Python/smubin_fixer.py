@@ -28,14 +28,17 @@ def main():
             diff.append(item)
     
     for item in diff:
-        print(f"Found: {item['UnitConfigName']}")
+        try:
+            print(f"Found: {item['UnitConfigName']}")
 
-        settings = Path(os.environ['LOCALAPPDATA'] + '\\BotwData\\cactors.txt')
-        if Path(f"{args[2]}\\Actor\\Pack\\{item['UnitConfigName']}C.sbactorpack").is_file() and not str(item['UnitConfigName']).endswith('C'):
-            for obj in mod_byml['Objs']:
-                if obj['HashId'] is item['HashId']:
-                    print(f"Updated: {item['UnitConfigName']}C")
-                    obj['UnitConfigName'] = f"{item['UnitConfigName']}C"
+            settings = Path(os.environ['LOCALAPPDATA'] + '\\BotwData\\cactors.txt')
+            if Path(f"{args[2]}\\Actor\\Pack\\{item['UnitConfigName']}C.sbactorpack").is_file() and not str(item['UnitConfigName']).endswith('C'):
+                for obj in mod_byml['Objs']:
+                    if obj['HashId'] is item['HashId']:
+                        print(f"Updated: {item['UnitConfigName']}C")
+                        obj['UnitConfigName'] = f"{item['UnitConfigName']}C"
+        except:
+            print('Unknown error. Skipping...')
 
     data = oead.byml.to_binary(mod_byml, big_endian=True)
     data = oead.yaz0.compress(data)
