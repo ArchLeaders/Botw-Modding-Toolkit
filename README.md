@@ -8,7 +8,7 @@ Currently, it's just me working with some concepts. Here are some of the more de
 - First mod walkthrough to get started faster.
 - In-App tutorials. (Might be restricted due to creator license.)
 - Automating repetitive tasks.
-- Installers for all external tools. (Silent Princess (When released), Switch-ToolBox, BotW-Actor-Tool, Wildbits, etc.)
+- Installers for all external tools. (Silent Princess (Canceled), Switch-ToolBox, BotW-Actor-Tool, Wildbits, etc.)
 - Easy actor creation.
 - Shrine Builder (Might be part of SP already)
 
